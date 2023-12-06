@@ -58,11 +58,11 @@ class Profile_Screen extends StatelessWidget {
                   ),),
                   Container(
                    margin: EdgeInsets.only(top: 30,
-                   left: 20,
-                   right: 20,
+                   left: 10,
+                   right: 22,
                    bottom: 20),
                     height: 110,
-                    width: 380,
+                    width: 390,
                     padding:const EdgeInsets.only(
                       top: 20,
                       left: 15,
@@ -92,7 +92,7 @@ class Profile_Screen extends StatelessWidget {
 
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Image.asset('assets/car 1.png'),
                         )
                       ],
