@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/map/view/widgets/cutemfield.dart';
-import 'package:mute_motion/feature/resgisterscreen/view/widget/custemfield.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 
 class map extends StatelessWidget{

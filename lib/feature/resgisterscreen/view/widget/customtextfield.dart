@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
-
 import 'package:mute_motion/core/utils/constant.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField ({super.key,this.onChanged, this.hintText, this.icon,this.cont,this.onTap});
+  CustomTextField(
+      {super.key,
+      this.onChanged,
+      this.hintText,
+      this.icon,
+      this.cont,
+      this.onTap});
   String? hintText;
-  final IconData ?icon;
+  final IconData? icon;
   //final IconData ?sufficon;
   Function(String)? onChanged;
   Function()? onTap;
-  TextEditingController? cont ;
+  TextEditingController? cont;
 
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
-
+    return TextFormField(
         controller: cont,
-        validator:
-            (value) {
+        validator: (value) {
           if (value!.isEmpty) {
             return " must not be empty";
           }
           return null;
         },
-        onChanged:onChanged ,
-        decoration:
-        InputDecoration(
+        onChanged: onChanged,
+        decoration: InputDecoration(
             hintText: hintText,
             labelText: hintText,
             hintStyle: TextStyle(
-
               color: borderColor,
             ),
             enabledBorder: OutlineInputBorder(
@@ -42,28 +43,15 @@ class CustomTextField extends StatelessWidget {
                 color: borderColor,
               ),
             ),
-
-            //icon: GestureDetector(
-            //  child: Icon(
-            // icon,
-            //size: 22,
-            //),
-            //),
+            suffixIconColor: borderColor,
+            labelStyle: TextStyle(color: borderColor),
             suffixIcon: IconButton(
               onPressed: () {
-                   onTap;
+                onTap;
               },
               icon: Icon(
                 icon,
               ),
-
-            )
-        ) );
-
-
+            )));
   }
-
-
-
-
 }

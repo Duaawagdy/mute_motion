@@ -17,7 +17,6 @@ class CustomField extends StatelessWidget {
             hintText: hintText,
             labelText: hintText,
             hintStyle: TextStyle(
-
               color: borderColor,
             ),
             enabledBorder: OutlineInputBorder(
@@ -30,13 +29,8 @@ class CustomField extends StatelessWidget {
                 color: borderColor,
               ),
             ),
-
-            //icon: GestureDetector(
-            //  child: Icon(
-            // icon,
-            //size: 22,
-            //),
-            //),
+            suffixIconColor: borderColor,
+            labelStyle: TextStyle(color: borderColor),
             suffixIcon:  GestureDetector(
               onTap: onTap,
               child: Icon(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mute_motion/feature/profile/view/profile_screen.dart';
+import 'package:mute_motion/feature/login/presentation/views/loginview.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Profile_Screen(),
+      debugShowCheckedModeBanner: false,
+      home: login_screen(),
     );
     // .router(
     //   debugShowCheckedModeBanner: false,
