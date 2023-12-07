@@ -13,7 +13,6 @@ import 'package:mute_motion/feature/presentation/SplashView.dart';
 import 'package:mute_motion/feature/profile/view/profile_screen.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/resgisterscreen.dart';
 import 'package:mute_motion/feature/searsh/lastestsearchwidget.dart';
-import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 import 'package:mute_motion/feature/signs/view/signs.dart';
 import 'package:mute_motion/feature/traslator/view/translator_screen.dart';
 
