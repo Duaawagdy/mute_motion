@@ -9,7 +9,7 @@ class About_As extends StatelessWidget {
       drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
-        title: Text('About us',style: TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),),
+        title: Text('About Us',style: TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),),
         //leading: Icon(Icons.menu,color: Colors.white,),
         elevation: 0,
         centerTitle: true,
