@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
-import 'package:mute_motion/models/api_provider.dart';
 
 class login_screen extends StatefulWidget {
   login_screen({super.key});
@@ -86,8 +85,6 @@ class _login_screenState extends State<login_screen> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Password must not be empty";
-                  }else if(value.length < 6){
-                    return "Password is too short";
                   }
                   return null;
                 },
@@ -128,9 +125,8 @@ class _login_screenState extends State<login_screen> {
                     color: const Color(0xff003248),
                     borderRadius: BorderRadius.circular(20)),
                 child: MaterialButton(
-                    onPressed: () async{
+                    onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      await ApiProvide().UserLogin(email: emailCont.text, password: passCont.text);
                         GoRouter.of(context).push('/navbar');
                       }
                     },

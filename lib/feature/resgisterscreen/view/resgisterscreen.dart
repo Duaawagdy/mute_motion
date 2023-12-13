@@ -141,7 +141,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: MaterialButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        
                         GoRouter.of(context).push('/OTP');
                       }
                     },
