@@ -130,8 +130,8 @@ class _login_screenState extends State<login_screen> {
                 child: MaterialButton(
                     onPressed: () async{
                     if (formKey.currentState!.validate()) {
-                      await ApiProvide().UserLogin(email: emailCont.text, password: passCont.text);
-                        GoRouter.of(context).push('/navbar');
+                      await ApiProvide().UserLogin(context:context, emailCont: emailCont, passCont: passCont);
+                        //GoRouter.of(context).push('/navbar');
                       }
                     },
                     child: const Text(
