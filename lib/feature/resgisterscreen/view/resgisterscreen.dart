@@ -141,15 +141,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: MaterialButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        nameCont.text;
-                        emailCont.text;
-                        phoneCont.text;
-                        ageCont.text;
-                        creditCont.text;
-                        carCont.text;
+                        GoRouter.of(context).push('/OTP');
                       }
-
-                      GoRouter.of(context).push('/OTP');
                     },
                     child: const Text(
                       "Register",
@@ -166,18 +159,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'already have an account',
+                    'already have an account?',
                     style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                        fontSize: 15,
+                        fontFamily: 'Comfortaa',
+                      )),
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },
                     child: Text(
                       '  Login',
-                      style: TextStyle(color: Color(0xffc7EDE6)),
+                      style: TextStyle(color: borderColor,fontSize: 16,fontFamily: 'Comfortaa',),
                     ),
                   ),
                 ],

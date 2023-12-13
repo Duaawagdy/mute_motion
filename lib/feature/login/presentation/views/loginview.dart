@@ -51,8 +51,12 @@ class _login_screenState extends State<login_screen> {
               TextFormField(
                 controller: emailCont,
                 validator: (value) {
+                  final bool isEmailValid =
+                    RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value!);
                   if (value!.isEmpty) {
                     return "Email must not be empty";
+                  }else if (!isEmailValid) {
+                    return "Invalid email address";
                   }
                   return null;
                 },
@@ -123,12 +127,8 @@ class _login_screenState extends State<login_screen> {
                 child: MaterialButton(
                     onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                        emailCont.text;
-                        passCont.text;
-                      }else{
                         GoRouter.of(context).push('/navbar');
                       }
-                      
                     },
                     child: const Text(
                       "Login",
