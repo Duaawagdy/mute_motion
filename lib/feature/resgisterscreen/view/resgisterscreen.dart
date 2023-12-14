@@ -2,11 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/carddetials/view/card_details.dart';
-import 'package:mute_motion/feature/resgisterscreen/view/widget/custemfield.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/widget/customtextfield.dart';
+import 'package:mute_motion/models/api_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  TextEditingController? creditnum,
+      cvv,
+      ex,
+      model,
+      color,
+      carnum,
+      cardescribe,
+      cartype;
+  RegisterScreen(
+      {this.carnum,
+      this.model,
+      this.color,
+      this.cartype,
+      this.ex,
+      this.cardescribe,
+      this.creditnum,
+      this.cvv});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -17,10 +33,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailCont = TextEditingController();
   TextEditingController phoneCont = TextEditingController();
   TextEditingController ageCont = TextEditingController();
-  TextEditingController creditCont = TextEditingController();
-  TextEditingController carCont = TextEditingController();
+  TextEditingController confirm = TextEditingController();
+  // TextEditingController carCont = TextEditingController();
+  TextEditingController passCont = TextEditingController();
+  bool Show_Pass = true;
 
-  String? name, email, age ,phone, details;
+  String? name, age, email, phone, details;
   int? credit;
 
   bool isloading = false;
@@ -88,13 +106,127 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(
                 height: 18,
               ),
-              CustomTextField(
-                cont: emailCont,
-                onChanged: (data) {
-                  email = data;
+              TextFormField(
+                controller: emailCont,
+                validator: (value) {
+                  final bool isEmailValid = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(value!);
+                  if (value!.isEmpty) {
+                    return "Email must not be empty";
+                  } else if (!isEmailValid) {
+                    return "Invalid email address";
+                  }
+                  return null;
                 },
-                hintText: 'Email',
-                icon: Icons.email_outlined,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  label: Text(
+                    "Email",
+                    style: TextStyle(color: borderColor),
+                  ),
+                  suffixIcon: Icon(
+                    Icons.mail,
+                    color: borderColor,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: borderColor,
+                    ),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: borderColor,
+                    ),
+                  ),
+                  prefixIconColor: borderColor,
+                ),
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              TextFormField(
+                controller: passCont,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Password must not be empty";
+                  } else if (value.length < 6) {
+                    return "Password is too short";
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: Show_Pass,
+                decoration: InputDecoration(
+                  label: Text(
+                    "Password",
+                    style: TextStyle(color: borderColor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: borderColor,
+                    ),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: borderColor,
+                    ),
+                  ),
+                  prefixIconColor: borderColor,
+                  suffixIconColor: borderColor,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        Show_Pass = !Show_Pass;
+                      });
+                    },
+                    icon: Icon(
+                        Show_Pass ? Icons.visibility_off : Icons.visibility),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              TextFormField(
+                controller: confirm,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Password must not be empty";
+                  } else if (value.length < 6) {
+                    return "Password is too short";
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: Show_Pass,
+                decoration: InputDecoration(
+                  label: Text(
+                    "Confirm Password",
+                    style: TextStyle(color: borderColor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: borderColor,
+                    ),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: borderColor,
+                    ),
+                  ),
+                  prefixIconColor: borderColor,
+                  suffixIconColor: borderColor,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        Show_Pass = !Show_Pass;
+                      });
+                    },
+                    icon: Icon(
+                        Show_Pass ? Icons.visibility_off : Icons.visibility),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 18,
@@ -111,25 +243,87 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 18,
               ),
 
-              CustomField(
-                onTap: () {
-                  buildShowModalBottomSheet(context);
-                },
-                hintText: 'Add credit card',
-                icon: Icons.chevron_right,
-              ),
+              Container(
+                  margin: EdgeInsets.only(),
+                  height: 58,
+                  width: 250,
+                  padding: const EdgeInsets.only(
+                    top: 2,
+                    left: 1,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: borderColor,
+                    ),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5),
+                        bottomRight: Radius.circular(5),
+                        bottomLeft: Radius.circular(5)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            buildShowModalBottomSheet(context);
+                          },
+                          child: Text("Credit Details")),
+                      SizedBox(
+                        width: 200,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          buildShowModalBottomSheet(context);
+                        },
+                        icon: Icon(Icons.chevron_right),
+                      )
+                    ],
+                  )),
               SizedBox(
                 height: 18,
               ),
-              CustomField(
-                onTap: () {
-                  GoRouter.of(context).push('/cardetails');
-                  print('done');
-                },
-                //cont: carCont,
-                hintText: 'Add Car Details',
-                icon: Icons.chevron_right,
-              ),
+              Container(
+                  margin: EdgeInsets.only(),
+                  height: 58,
+                  width: 250,
+                  padding: const EdgeInsets.only(
+                    top: 2,
+                    left: 1,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: borderColor,
+                    ),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5),
+                        bottomRight: Radius.circular(5),
+                        bottomLeft: Radius.circular(5)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            GoRouter.of(context).push('/cardetails');
+                            print('done');
+                          },
+                          child: Text("Car Details")),
+                      SizedBox(
+                        width: 215,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          GoRouter.of(context).push('/cardetails');
+                          print('done');
+                        },
+                        icon: Icon(Icons.chevron_right),
+                      )
+                    ],
+                  )),
               SizedBox(
                 height: 30,
               ),
@@ -141,7 +335,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: MaterialButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        
+                        await ApiProvide().UserRegisteration(
+                            fullname: nameCont.text,
+                            age: ageCont.text,
+                            email: emailCont.text,
+                            password: passCont.text,
+                            passwordConfirm: confirm.text,
+                            phone: phoneCont.text,
+                            carnum: this.widget.carnum!.text,
+                            cvv: this.widget.cvv!.text,
+                            color: this.widget.color!.text,
+                            cardnum: this.widget.creditnum!.text,
+                            cardescription: this.widget.cardescribe!.text,
+                            cartype: this.widget.cartype!.text,
+                            model: this.widget.model!.text,
+                            exdate: this.widget.ex!.text);
                         GoRouter.of(context).push('/OTP');
                       }
                     },
@@ -159,9 +367,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'already have an account?',
-                    style: TextStyle(
+                  Text('already have an account?',
+                      style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Comfortaa',
                       )),
@@ -171,7 +378,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     child: Text(
                       '  Login',
-                      style: TextStyle(color: borderColor,fontSize: 16,fontFamily: 'Comfortaa',),
+                      style: TextStyle(
+                        color: borderColor,
+                        fontSize: 16,
+                        fontFamily: 'Comfortaa',
+                      ),
                     ),
                   ),
                 ],
