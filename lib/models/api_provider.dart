@@ -87,23 +87,41 @@ class ApiProvide {
     );
   }
 
-  UserRegisteration({
-    required String fullname,
-    required String age,
-    required String email,
-    required String password,
-    required String passwordConfirm,
-    required String phone,
-  }) async {
+  UserRegisteration(
+      {required String fullname,
+      required String age,
+      required String email,
+      required String password,
+      required String passwordConfirm,
+      required String phone,
+required String cartype,
+        required String color,
+        required String model,
+        required String carnum,
+        required String cardescription,
+        required String cardnum,
+        required String exdate,
+        required String cvv,
+      }) async {
     try {
       Map<String, dynamic> requestBody = {
         "fullname": fullname,
         "email": email,
         "password": password,
         "passwordConfirm": passwordConfirm,
+        "phone":phone,
+        "cartype": cartype,
+        "color": color,
+        "model": model,
+        "carnum": carnum,
+        "cardescription":cardescription,
+        "CardNumber": cardnum,
+        "ExpiryDate": exdate,
+        "CVV": cvv,
+
       };
       Response response =
-          await Dio().post("$baseUrl//drivers", data: requestBody);
+          await Dio().post("$baseUrl/drivers", data: requestBody);
       print(response.data);
     } catch (e) {
       if (e is DioException) {
@@ -111,4 +129,52 @@ class ApiProvide {
       }
     }
   }
+  CarDetails(
+      {required String cartype,
+        required String color,
+        required String model,
+        required String carnum,
+        required String cardescription,
+
+      }) async {
+    try {
+      Map<String, dynamic> requestBody = {
+        "cartype": cartype,
+        "color": color,
+        "model": model,
+        "carnum": carnum,
+        "cardescription":cardescription,
+      };
+      Response response =
+      await Dio().post("$baseUrl/drivers", data: requestBody);
+      print(response.data);
+    } catch (e) {
+      if (e is DioException) {
+        print(e.response?.data);
+      }
+    }
+  }
+
+CreditDetails(
+    {required String cardnum,
+      required String exdate,
+      required String cvv,
+
+
+    }) async {
+  try {
+    Map<String, dynamic> requestBody = {
+      "CardNumber": cardnum,
+      "ExpiryDate": exdate,
+      "CVV": cvv,
+    };
+    Response response =
+    await Dio().post("$baseUrl/drivers", data: requestBody);
+    print(response.data);
+  } catch (e) {
+    if (e is DioException) {
+      print(e.response?.data);
+    }
+  }
+}
 }
