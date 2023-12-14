@@ -20,8 +20,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController creditCont = TextEditingController();
   TextEditingController carCont = TextEditingController();
 
-  String? name, email, phone, details;
-  int? age, credit;
+  String? name, email, age ,phone, details;
+  int? credit;
 
   bool isloading = false;
 
@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               CustomTextField(
                 cont: ageCont,
                 onChanged: (data) {
-                  age = data as int?;
+                  age = data;
                 },
                 icon: Icons.calendar_month,
                 hintText: 'Age',
