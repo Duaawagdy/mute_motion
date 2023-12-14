@@ -89,12 +89,12 @@ class ApiProvide {
 
   UserRegisteration(
       {required String fullname,
-      required String age,
-      required String email,
-      required String password,
-      required String passwordConfirm,
-      required String phone,
-required String cartype,
+        required String age,
+        required String email,
+        required String password,
+        required String passwordConfirm,
+        required String phone,
+        required String cartype,
         required String color,
         required String model,
         required String carnum,

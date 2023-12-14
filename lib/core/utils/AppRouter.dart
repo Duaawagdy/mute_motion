@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
 import 'package:mute_motion/feature/about_us/view/about_as_screen.dart';
-import 'package:mute_motion/feature/cardetaials/view/cardetailsscreen%20.dart';
+import 'package:mute_motion/feature/cardetaials/view/car_detailsscreen%20.dart';
 import 'package:mute_motion/feature/chat/view/chat_screen.dart';
 import 'package:mute_motion/feature/login/presentation/views/loginview.dart';
 import 'package:mute_motion/feature/map/view/map.dart';
