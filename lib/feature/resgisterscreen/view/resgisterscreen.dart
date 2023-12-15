@@ -338,8 +338,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 cartype:provider.typeCont.text,
                                 model: provider.modelCont.text,
                                 exdate:provider.expiryDateController.text,
-                              update: phoneCont.text,
-                              createdat: phoneCont.text
+
                             );
 
                             GoRouter.of(context).push('/OTP');
