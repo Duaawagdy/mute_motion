@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/feature/resgisterscreen/model/regesterationcontant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvide {
+  //List<regcontant>reglist=[];
   static const String baseUrl =
       "https://gradution2024-production.up.railway.app/api/v1";
   UserLogin(
@@ -87,22 +89,22 @@ class ApiProvide {
     );
   }
 
-  UserRegisteration(
-      {required String fullname,
-      required String age,
-      required String email,
-      required String password,
-      required String passwordConfirm,
-      required String phone,
-required String cartype,
-        required String color,
-        required String model,
-        required String carnum,
-        required String cardescription,
-        required String cardnum,
-        required String exdate,
-        required String cvv,
-      }) async {
+  Future<void> UserRegisteration(
+      {String? fullname,
+        String? age,
+        String? email,
+        String? password,
+        String? passwordConfirm,
+        String? phone,
+        String? cartype,
+        String? color,
+        String? model,
+        String? carnum,
+        String? cardescription,
+        String? cardnum,
+        String? exdate,
+        String? cvv,}
+      ) async {
     try {
       Map<String, dynamic> requestBody = {
         "fullname": fullname,

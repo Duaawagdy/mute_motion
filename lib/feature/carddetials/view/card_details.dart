@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mute_motion/models/api_provider.dart';
 
 import '../../resgisterscreen/view/resgisterscreen.dart';
 
@@ -15,6 +16,8 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
   TextEditingController expiryDateController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -144,11 +147,11 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                 child: MaterialButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                       // await ApiProvide().CreditDetails(cardnum: cardNumberController.text,cvv: cvvController.text,exdate: expiryDateController.text);
+                        await ApiProvide().UserRegisteration(cardnum: cardNumberController.text,cvv: cvvController.text,exdate: expiryDateController.text);
 
-                        GoRouter.of(context).pop(RegisterScreen(ex: expiryDateController,cvv: cvvController,creditnum: cardNumberController,),);
+                        GoRouter.of(context).pop();
                       }
-
+                         // await ApiProvide().UserRegisteration(cardnum:cardNumberController.text ,exdate: expiryDateController.text,cvv: cvvController.text);
                     },
                     child: const Text(
                       "Add Card",

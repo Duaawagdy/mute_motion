@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/resgisterscreen.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/widget/customtextfield.dart';
+import 'package:mute_motion/models/api_provider.dart';
 //import 'package:mutuemotion/home/presentation/view/widgets/custombutton.dart';
 
 class CarDetailsScreen extends StatefulWidget {
@@ -133,30 +134,18 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               child: MaterialButton(
                                   onPressed: () async {
                                     if (formKey.currentState!.validate()) {
-                                      //  await ApiProvide().CarDetails(cartype: typeCont.text,color: colorCont.text,model: modelCont.text,carnum: numCont.text,cardescription: describeCont.text);
-                                      typeCont.text;
-                                      colorCont.text;
-                                      modelCont.text;
-                                      numCont.text;
-                                      describeCont.text;
+                                      await ApiProvide().UserRegisteration(cartype: typeCont.text,color: colorCont.text,model: modelCont.text,carnum: numCont.text,cardescription: describeCont.text);
+                                      GoRouter.of(context).pop(
+
+                                      );
                                     }
                                     print(typeCont.text);
                                     print(colorCont.text);
                                     print(modelCont.text);
                                     print(numCont.text);
                                     print(describeCont.text);
-                                    GoRouter.of(context).pop(
-                                      RegisterScreen(
-                                        cartype: typeCont,
-                                        color: colorCont,
-                                        carnum: numCont,
-                                        cardescribe: describeCont,
-                                      ),
-                                    );
-                                    String typee = typeCont.text;
-                                    String color = colorCont.text;
-                                    String carnum = numCont.text;
-                                    String decribetion = describeCont.text;
+                                    //GoRouter.of(context).pop();
+
                                   },
                                   child: const Text(
                                     "Save",

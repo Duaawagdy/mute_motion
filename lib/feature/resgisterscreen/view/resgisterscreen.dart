@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
 import 'package:mute_motion/feature/carddetials/view/card_details.dart';
+import 'package:mute_motion/feature/resgisterscreen/model/regesterationcontant.dart';
+import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/widget/customtextfield.dart';
+import 'package:mute_motion/models/OTP_provider.dart';
 import 'package:mute_motion/models/api_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -23,6 +27,8 @@ class RegisterScreen extends StatefulWidget {
       this.cardescribe,
       this.creditnum,
       this.cvv});
+
+  //ApiProvide ap=ApiProvide();
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -88,6 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 cont: nameCont,
                 onChanged: (data) {
                   name = data;
+                  print(name);
                 },
                 hintText: 'Full Name',
                 icon: Icons.person,
@@ -335,22 +342,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: MaterialButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        await ApiProvide().UserRegisteration(
+                        /*await ApiProvide().UserRegisteration(
                             fullname: nameCont.text,
                             age: ageCont.text,
                             email: emailCont.text,
                             password: passCont.text,
                             passwordConfirm: confirm.text,
                             phone: phoneCont.text,
-                            carnum: this.widget.carnum!.text,
+                            /*carnum: this.widget.carnum!.text,
                             cvv: this.widget.cvv!.text,
                             color: this.widget.color!.text,
                             cardnum: this.widget.creditnum!.text,
                             cardescription: this.widget.cardescribe!.text,
                             cartype: this.widget.cartype!.text,
                             model: this.widget.model!.text,
-                            exdate: this.widget.ex!.text);
-                        GoRouter.of(context).push('/OTP');
+                            exdate: this.widget.ex!.text  */
+                            );
+
+                         */
+                        await ApiProvide().UserRegisteration(
+                          fullname: nameCont.text,
+                          age: ageCont.text,
+                          email: emailCont.text,
+                          password: passCont.text,
+                          passwordConfirm: confirm.text,
+                          phone: phoneCont.text,
+                            );
+                        Navigator.of(context).push(MaterialPageRoute (
+                          builder: (BuildContext context) => OTP(rg: regmodel(emailCont.text)),
+                        ),);
+
+                        await OTPprovider().sendcode(email: emailCont.text);
                       }
                     },
                     child: const Text(
