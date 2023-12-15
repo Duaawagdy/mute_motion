@@ -110,6 +110,7 @@ required String cartype,
         "password": password,
         "passwordConfirm": passwordConfirm,
         "phone":phone,
+         "age":age,
         "cartype": cartype,
         "color": color,
         "model": model,
@@ -123,6 +124,7 @@ required String cartype,
       Response response =
           await Dio().post("$baseUrl/drivers", data: requestBody);
       print(response.data);
+      print('data send');
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
