@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemOTPbar.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custembutten.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemcodefield.dart';
+import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
 import 'package:mute_motion/models/OTP_provider.dart';
 
 class OTP extends StatelessWidget {
-  OTP({super.key});
-  String email = "yaraafifi106@gmail.com";
+  OTP({super.key,required this.rg, });
+   final regmodel rg;
+  //String email = "yaraafifi106@gmail.com";
+  //String email=rg.email;
   TextEditingController code1 = TextEditingController();
   TextEditingController code2 = TextEditingController();
   TextEditingController code3 = TextEditingController();
@@ -31,7 +34,7 @@ class OTP extends StatelessWidget {
                   height: 56,
                 ),
                 Text(
-                  "Please enter the 4-digit code sent via SMS on\n $email",
+                  "Please enter the 4-digit code sent via Email on\n ${rg.email}",
                   style: TextStyle(
                       color: Color(0xff003248),
                       fontFamily: 'Comfortaa',
@@ -81,6 +84,7 @@ class OTP extends StatelessWidget {
                 ),
                 custembutten(
                   onPressed: () async {
+
                     if (formKey.currentState!.validate()) {
                       var list = [
                       code1.text,
@@ -95,9 +99,10 @@ class OTP extends StatelessWidget {
                     });
         
                     print(concatenate);
+
                     await OTPprovider().code(
                         context: context,
-                        email: email,
+                        email: '${rg?.email}',
                         code: concatenate.toString(),
                         code1: code1,
                         code2: code2,
@@ -121,7 +126,8 @@ class OTP extends StatelessWidget {
                         )),
                     TextButton(
                         onPressed: () async {
-                          await OTPprovider().sendcode(email: email);
+                          print(rg?.email);
+                          await OTPprovider().sendcode(email: '${rg?.email}');
                         },
                         child: const Text(
                           "Resend OTP",

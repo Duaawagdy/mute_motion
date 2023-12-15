@@ -42,7 +42,7 @@ class OTPprovider{
     } catch (e) {
       if (e is DioException) {
         print('Responsesss:${e.response?.data}');
-        _showErrorDialog(context, 'Request failed! ',code1,code2,code3,code4 );
+        _showErrorDialog(context, 'verification code is\'t right! ',code1,code2,code3,code4 );
       }
     }
   }

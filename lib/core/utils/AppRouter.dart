@@ -35,12 +35,15 @@ abstract class approuter{
           builder: ( context,  state) {
             return  RegisterScreen();
           },
-        ), GoRoute(
+        ),
+        /*GoRoute(
           path: '/OTP',
           builder: ( context,  state) {
             return  OTP();
           },
         ),
+
+         */
         GoRoute(
           path: '/orders',
           builder: ( context,  state) {

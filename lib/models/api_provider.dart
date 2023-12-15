@@ -94,7 +94,7 @@ class ApiProvide {
       required String password,
       required String passwordConfirm,
       required String phone,
-      required String cartype,
+required String cartype,
         required String color,
         required String model,
         required String carnum,
@@ -102,9 +102,6 @@ class ApiProvide {
         required String cardnum,
         required String exdate,
         required String cvv,
-        required String update,
-        required String createdat,
-
       }) async {
     try {
       Map<String, dynamic> requestBody = {
@@ -121,10 +118,6 @@ class ApiProvide {
         "CardNumber": cardnum,
         "ExpiryDate": exdate,
         "CVV": cvv,
-        "createdAt": createdat,
-        "updatedAt":update ,
-
-        "age":age,
 
       };
       Response response =
