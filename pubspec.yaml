@@ -41,6 +41,7 @@ dependencies:
   dio: ^5.4.0
   loading_animation_widget: ^1.2.0+4
   shared_preferences: ^2.2.2
+  provider: any
 
 dev_dependencies:
   flutter_test:
