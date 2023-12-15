@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
+import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
+import 'package:mute_motion/models/OTP_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvide {
@@ -28,17 +31,17 @@ class ApiProvide {
       String? token = prefs.getString("token");
       print("Token is : $token");
       } else {
-        _showErrorDialog(context, 'Request failed! ', emailCont, passCont);
+        _showErrorDialogLogin(context, 'Request failed! ', emailCont, passCont);
       }
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-        _showErrorDialog(context, 'Request failed! ', emailCont, passCont);
+        _showErrorDialogLogin(context, 'Request failed! ', emailCont, passCont);
       }
     }
   }
 
-  void _showErrorDialog(
+  void _showErrorDialogLogin(
     BuildContext context,
     String message,
     TextEditingController emailCont,
@@ -88,13 +91,14 @@ class ApiProvide {
   }
 
   UserRegisteration(
-      {required String fullname,
-      required String age,
-      required String email,
-      required String password,
-      required String passwordConfirm,
-      required String phone,
-required String cartype,
+      { required BuildContext context,
+        required String fullname,
+        required String age,
+        required String email,
+        required String password,
+        required String passwordConfirm,
+        required String phone,
+        required String cartype,
         required String color,
         required String model,
         required String carnum,
@@ -104,79 +108,107 @@ required String cartype,
         required String cvv,
       }) async {
     try {
-      Map<String, dynamic> requestBody = {
-        "fullname": fullname,
-        "email": email,
-        "password": password,
-        "passwordConfirm": passwordConfirm,
-        "phone":phone,
-         "age":age,
-        "cartype": cartype,
-        "color": color,
-        "model": model,
-        "carnum": carnum,
-        "cardescription":cardescription,
-        "CardNumber": cardnum,
-        "ExpiryDate": exdate,
-        "CVV": cvv,
 
-      };
+      FormData formData = FormData.fromMap(
+        {
+          "fullname": fullname,
+          "email": email,
+          "password": password,
+          "passwordConfirm": passwordConfirm,
+          "phone":phone,
+          "age": age,
+          "cartype": cartype,
+          "color": color,
+          "model": model,
+          "carnum": carnum,
+          "cardescription":cardescription,
+          "CardNumber": cardnum,
+          "ExpiryDate": exdate,
+          "CVV": cvv,
+        }
+      );
+      // Map<String, dynamic> requestBody = {
+      //   "fullname": fullname,
+      //   "email": email,
+      //   "password": password,
+      //   "passwordConfirm": passwordConfirm,
+      //   "phone":phone,
+      //   "age": age,
+      //   "cartype": cartype,
+      //   "color": color,
+      //   "model": model,
+      //   "carnum": carnum,
+      //   "cardescription":cardescription,
+      //   "CardNumber": cardnum,
+      //   "ExpiryDate": exdate,
+      //   "CVV": cvv,
+      // };
       Response response =
-          await Dio().post("$baseUrl/drivers", data: requestBody);
-      print(response.data);
-      print('data send');
+          await Dio().post("$baseUrl/drivers", data: formData);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await OTPprovider().sendcode(email: email);
+        Navigator.of(context).push(MaterialPageRoute (
+                              builder: (BuildContext context) =>  OTP(rg: regmodel(email)),
+        ),);
+        print('Request successful');
+        print('Response: ${response.data}');
+      }else if(response.statusCode == 400){
+        _showErrorDialogReg(context, 'this mail already taken',);
+      }else{
+        _showErrorDialogReg(context, 'Request failed!',);
+
+      }
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-      }
-    }
-  }
-  CarDetails(
-      {required String cartype,
-        required String color,
-        required String model,
-        required String carnum,
-        required String cardescription,
-
-      }) async {
-    try {
-      Map<String, dynamic> requestBody = {
-        "cartype": cartype,
-        "color": color,
-        "model": model,
-        "carnum": carnum,
-        "cardescription":cardescription,
-      };
-      Response response =
-      await Dio().post("$baseUrl/drivers", data: requestBody);
-      print(response.data);
-    } catch (e) {
-      if (e is DioException) {
-        print(e.response?.data);
+        _showErrorDialogReg(context, 'Request failed!',);
       }
     }
   }
 
-CreditDetails(
-    {required String cardnum,
-      required String exdate,
-      required String cvv,
-
-
-    }) async {
-  try {
-    Map<String, dynamic> requestBody = {
-      "CardNumber": cardnum,
-      "ExpiryDate": exdate,
-      "CVV": cvv,
-    };
-    Response response =
-    await Dio().post("$baseUrl/drivers", data: requestBody);
-    print(response.data);
-  } catch (e) {
-    if (e is DioException) {
-      print(e.response?.data);
-    }
+void _showErrorDialogReg(
+    BuildContext context,
+    String message,
+    
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          backgroundColor: borderColor,
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 25, fontFamily: 'Comfortaa', color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        20.0), // Adjust the border radius as needed
+                  ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();// Close the dialog
+              },
+              child: Text(
+                'Try again',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: borderColor),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
-}
 }

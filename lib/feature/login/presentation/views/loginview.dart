@@ -131,7 +131,6 @@ class _login_screenState extends State<login_screen> {
                     onPressed: () async{
                     if (formKey.currentState!.validate()) {
                       await ApiProvide().UserLogin(context:context, emailCont: emailCont, passCont: passCont);
-                        //GoRouter.of(context).push('/navbar');
                       }
                     },
                     child: const Text(
