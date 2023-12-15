@@ -108,6 +108,7 @@ class ApiProvide {
         required String cvv,
       }) async {
     try {
+
       FormData formData = FormData.fromMap(
         {
           "fullname": fullname,
@@ -155,6 +156,7 @@ class ApiProvide {
         _showErrorDialogReg(context, 'this mail already taken',);
       }else{
         _showErrorDialogReg(context, 'Request failed!',);
+
       }
     } catch (e) {
       if (e is DioException) {
