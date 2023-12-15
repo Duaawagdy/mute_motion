@@ -324,6 +324,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             await ApiProvide().UserRegisteration(
+                                context: context,
                                 fullname: nameCont.text,
                                 age: ageCont.text,
                                 email: emailCont.text,
@@ -338,10 +339,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 cartype:provider.typeCont.text,
                                 model: provider.modelCont.text,
                                 exdate:provider.expiryDateController.text,
-
                             );
-
-                            GoRouter.of(context).push('/OTP');
+                      // await OTPprovider().sendcode(email: emailCont.text);
+                            // Navigator.of(context).push(MaterialPageRoute (
+                            //   builder: (BuildContext context) =>  OTP(rg: regmodel(emailCont.text)),
+                            // ),);
                           }
                         },
                         child: const Text(
