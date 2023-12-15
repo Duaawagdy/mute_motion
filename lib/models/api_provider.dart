@@ -161,7 +161,7 @@ class ApiProvide {
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-        _showErrorDialogReg(context, 'Request failed!',);
+        _showErrorDialogReg(context, 'this mail already taken',);
       }
     }
   }
@@ -176,37 +176,52 @@ void _showErrorDialogReg(
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(22.0),
           ),
-          backgroundColor: borderColor,
-          content: Text(
-            message,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25, fontFamily: 'Comfortaa', color: Colors.white),
-          ),
-          actions: [
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the border radius as needed
+          backgroundColor: Colors.white,
+          content: Container(
+            height: 130,
+           // width: 30,
+            child: Column(
+              children: [
+                Text('Atention!',style: TextStyle(
+                    fontSize: 23, fontFamily: 'Comfortaa', color:borderColor,fontWeight: FontWeight.bold)),
+                Expanded(
+                  child: Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 17, fontFamily: 'Comfortaa', color: borderColor),
                   ),
                 ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();// Close the dialog
-              },
-              child: Text(
-                'Try again',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: borderColor),
-              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 148.0,bottom: 0),
+              child: TextButton(
+
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>( borderColor),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.0), // Adjust the border radius as needed
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();// Close the dialog
+                },
+                child: Text(
+                  'Try again',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: Colors.white),
+                )),
             ),
-          ],
+
+              ],
+            ),
+          ),
+
         );
       },
     );
