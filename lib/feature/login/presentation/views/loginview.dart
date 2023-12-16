@@ -64,6 +64,7 @@ class _login_screenState extends State<login_screen> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   label: Text("Email",style: TextStyle(color: borderColor),),
+                  hintText: 'Email',
                   prefixIcon: Icon(Icons.mail),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -95,6 +96,7 @@ class _login_screenState extends State<login_screen> {
                 obscureText: Show_Pass,
                 decoration: InputDecoration(
                   label: Text("Password",style: TextStyle(color: borderColor),),
+                  hintText: 'Password',
                   prefixIcon: const Icon(Icons.lock),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(

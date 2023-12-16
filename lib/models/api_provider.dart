@@ -21,7 +21,6 @@ class ApiProvide {
       };
       Response response =
           await Dio().post("$baseUrl/driverauth/login", data: requestBody);
-      if (response.statusCode == 200 || response.statusCode == 201) {
         GoRouter.of(context).push('/navbar');
         print('Request successful');
         print('Response: ${response.data}');
@@ -30,9 +29,6 @@ class ApiProvide {
       await prefs.setString("token", response.data["token"]);
       String? token = prefs.getString("token");
       print("Token is : $token");
-      } else {
-        _showErrorDialogLogin(context, 'Request failed! ', emailCont, passCont);
-      }
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
@@ -51,24 +47,26 @@ class ApiProvide {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          buttonPadding: EdgeInsets.only(right: 20,bottom: 10),
+          elevation: 20,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          backgroundColor: borderColor,
+          backgroundColor: Colors.white,
           content: Text(
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 25, fontFamily: 'Comfortaa', color: Colors.white),
+                fontSize: 25, fontFamily: 'Comfortaa', color: borderColor),
           ),
           actions: [
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: MaterialStateProperty.all<Color>(borderColor),
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the border radius as needed
+                        12.0), // Adjust the border radius as needed
                   ),
                 ),
               ),
@@ -81,7 +79,7 @@ class ApiProvide {
                 'Try again',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: borderColor),
+                    fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ),
           ],
@@ -144,53 +142,58 @@ class ApiProvide {
       // };
       Response response =
           await Dio().post("$baseUrl/drivers", data: formData);
-      if (response.statusCode == 200 || response.statusCode == 201) {
+
         await OTPprovider().sendcode(email: email);
         Navigator.of(context).push(MaterialPageRoute (
-                              builder: (BuildContext context) =>  OTP(rg: regmodel(email)),
+                  builder: (BuildContext context) =>  OTP(rg: regmodel(email)),
         ),);
         print('Request successful');
         print('Response: ${response.data}');
-      }else if(response.statusCode == 400){
-        _showErrorDialogReg(context, 'this mail already taken',);
-      }else{
-        _showErrorDialogReg(context, 'Request failed!',);
-      }
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-        _showErrorDialogReg(context, 'Request failed!',);
+        _showErrorDialogReg(context, 'Attention!','this mail already taken');
       }
     }
   }
 
 void _showErrorDialogReg(
     BuildContext context,
+    String title,
     String message,
-    
   ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          buttonPadding: EdgeInsets.only(right: 20,bottom: 10),
+          
+          elevation: 20,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(15.0),
           ),
-          backgroundColor: borderColor,
+          backgroundColor: Colors.white,
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 25, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold,color: borderColor),
+          ),
           content: Text(
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 25, fontFamily: 'Comfortaa', color: Colors.white),
+                fontSize: 20, fontFamily: 'Comfortaa',color: borderColor),
           ),
           actions: [
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                elevation:MaterialStatePropertyAll(20.0),
+                backgroundColor: MaterialStateProperty.all<Color>(borderColor),
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the border radius as needed
+                        12.0), // Adjust the border radius as needed
                   ),
                 ),
               ),
@@ -201,7 +204,7 @@ void _showErrorDialogReg(
                 'Try again',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: borderColor),
+                    fontSize: 15, fontFamily: 'Comfortaa',fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ),
           ],

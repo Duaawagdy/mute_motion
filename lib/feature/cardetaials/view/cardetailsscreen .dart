@@ -47,7 +47,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.only(
                   top: 30,
-                  left: 15,
+                  left: 22,
                 ),
                 decoration: const BoxDecoration(
                     color: Colors.white,
@@ -67,21 +67,21 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               fontSize: 16, fontFamily: 'Lato', color: borderColor),
                         ),
                         SizedBox(
-                          height: 6,
+                          height: 10,
                         ),
                         GestureDetector(
                             onTap: () {},
                             child: Image.asset('assets/Group 542.png')),
                         SizedBox(
-                          height: 22,
+                          height: 25,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 25),
+                          padding: const EdgeInsets.only(right: 20),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomTextField(
-
+                    
                                   onChanged: (data) {
                                     type = data;
                                   },
@@ -129,7 +129,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                   cont: provider.describeCont,
                                 ),
                                 SizedBox(
-                                  height: 15,
+                                  height: 40,
                                 ),
                                 Container(
                                   width: double.infinity,
@@ -139,7 +139,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                   child: MaterialButton(
                                       onPressed: () async {
                                         if (formKey.currentState!.validate()) {
-
+                    
                                           provider.typeCont.text;
                                           provider.colorCont.text;
                                           provider.modelCont.text;

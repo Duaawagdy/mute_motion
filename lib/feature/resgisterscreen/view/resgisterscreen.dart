@@ -101,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value!);
                       if (value!.isEmpty) {
-                        return "Email must not be empty";
+                        return "must not be empty";
                       } else if (!isEmailValid) {
                         return "Invalid email address";
                       }
@@ -113,6 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         "Email",
                         style: TextStyle(color: borderColor),
                       ),
+                      hintText: 'Email',
                       suffixIcon: Icon(
                         Icons.mail,
                         color: borderColor,
@@ -137,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: passCont,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Password must not be empty";
+                        return "must not be empty";
                       } else if (value.length < 6) {
                         return "Password is too short";
                       }
@@ -150,6 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         "Password",
                         style: TextStyle(color: borderColor),
                       ),
+                      hintText: 'Password',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: borderColor,
@@ -180,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: confirm,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Password must not be empty";
+                        return "must not be empty";
                       } else if (value.length < 6) {
                         return "Password is too short";
                       }
@@ -193,6 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         "Confirm Password",
                         style: TextStyle(color: borderColor),
                       ),
+                      hintText: 'Confirm Password',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: borderColor,
