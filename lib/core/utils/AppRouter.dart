@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
 import 'package:mute_motion/feature/about_us/view/about_as_screen.dart';
@@ -16,8 +17,9 @@ import 'package:mute_motion/feature/searsh/lastestsearchwidget.dart';
 import 'package:mute_motion/feature/signs/view/signs.dart';
 import 'package:mute_motion/feature/traslator/view/translator_screen.dart';
 
-abstract class approuter{
+ class approuter{
   static final GoRouter router = GoRouter(
+
       routes: <RouteBase>[
         GoRoute(
           path: '/',
@@ -36,14 +38,7 @@ abstract class approuter{
             return  RegisterScreen();
           },
         ),
-        /*GoRoute(
-          path: '/OTP',
-          builder: ( context,  state) {
-            return  OTP();
-          },
-        ),
 
-         */
         GoRoute(
           path: '/orders',
           builder: ( context,  state) {
@@ -118,4 +113,10 @@ abstract class approuter{
         )
       ]
   );
+  static void clearAndNavigate(BuildContext context, String path) {
+    while (context.canPop() == true) {
+      context.pop();
+    }
+    context.pushReplacement(path);
+  }
 }

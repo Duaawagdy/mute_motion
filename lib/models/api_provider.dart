@@ -12,19 +12,20 @@ class ApiProvide {
       "https://gradution2024-production.up.railway.app/api/v1";
   UserLogin(
       {required BuildContext context,
-      required TextEditingController emailCont,
-      required TextEditingController passCont}) async {
+        required TextEditingController emailCont,
+        required TextEditingController passCont}) async {
     try {
       Map<String, dynamic> requestBody = {
         "email": emailCont.text,
         "password": passCont.text,
       };
       Response response =
-          await Dio().post("$baseUrl/driverauth/login", data: requestBody);
-        GoRouter.of(context).push('/navbar');
-        print('Request successful');
-        print('Response: ${response.data}');
-        print(response.data["token"]);
+
+      await Dio().post("$baseUrl/driverauth/login", data: requestBody);
+      GoRouter.of(context).push('/navbar');
+      print('Request successful');
+      print('Response: ${response.data}');
+      print(response.data["token"]);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString("token", response.data["token"]);
       String? token = prefs.getString("token");
@@ -38,11 +39,11 @@ class ApiProvide {
   }
 
   void _showErrorDialogLogin(
-    BuildContext context,
-    String message,
-    TextEditingController emailCont,
-    TextEditingController passCont,
-  ) {
+      BuildContext context,
+      String message,
+      TextEditingController emailCont,
+      TextEditingController passCont,
+      ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -108,32 +109,33 @@ class ApiProvide {
       }) async {
     try {
       FormData formData = FormData.fromMap(
-        {
-          "fullname": fullname,
-          "email": email,
-          "password": password,
-          "passwordConfirm": passwordConfirm,
-          "phone":phone,
-          "age": age,
-          "cartype": cartype,
-          "color": color,
-          "model": model,
-          "carnum": carnum,
-          "cardescription":cardescription,
-          "CardNumber": cardnum,
-          "ExpiryDate": exdate,
-          "CVV": cvv,
-        }
+          {
+            "fullname": fullname,
+            "email": email,
+            "password": password,
+            "passwordConfirm": passwordConfirm,
+            "phone":phone,
+            "age": age,
+            "cartype": cartype,
+            "color": color,
+            "model": model,
+            "carnum": carnum,
+            "cardescription":cardescription,
+            "CardNumber": cardnum,
+            "ExpiryDate": exdate,
+            "CVV": cvv,
+          }
       );
       Response response =
-          await Dio().post("$baseUrl/drivers", data: formData);
 
-        await OTPprovider().sendcode(email: email);
-        Navigator.of(context).push(MaterialPageRoute (
-                  builder: (BuildContext context) =>  OTP(rg: regmodel(email)),
-        ),);
-        print('Request successful');
-        print('Response: ${response.data}');
+      await Dio().post("$baseUrl/drivers", data: formData);
+
+      await OTPprovider().sendcode(email: email);
+      Navigator.of(context).push(MaterialPageRoute (
+        builder: (BuildContext context) =>  OTP(rg: regmodel(email)),
+      ),);
+      print('Request successful');
+      print('Response: ${response.data}');
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
@@ -142,11 +144,12 @@ class ApiProvide {
     }
   }
 
-void _showErrorDialogReg(
-    BuildContext context,
-    String title,
-    String message,
-  ) {
+
+  void _showErrorDialogReg(
+      BuildContext context,
+      String title,
+      String message,
+      ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mute_motion/core/utils/AppRouter.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/menu.dart';
 
 class menubody extends StatelessWidget{
-  const menubody({super.key});
+   menubody({super.key});
+  approuter ap=approuter();
 
   @override
   Widget build(BuildContext context) {
     return Container(height: MediaQuery.of(context).size.height,
       width: double.infinity,
       padding:const EdgeInsets.only(
-        top: 20,
+        top: 15,
         left: 15,
       ),
       decoration:const BoxDecoration(
@@ -54,7 +56,15 @@ class menubody extends StatelessWidget{
       Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),
-      ),],),);
+      ),
+      menuitem(itemname: 'Log Out',icon: Icons.logout,onpressed: (){approuter.clearAndNavigate(context, '/loginview');}),
+      Padding(
+        padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
+        child: Divider(color: Colors.grey,thickness: 2,),
+      ),
+    ],
+    ),
+    );
   }
 
 }
