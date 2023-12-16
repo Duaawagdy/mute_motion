@@ -20,6 +20,7 @@ class ApiProvide {
         "password": passCont.text,
       };
       Response response =
+
       await Dio().post("$baseUrl/driverauth/login", data: requestBody);
       GoRouter.of(context).push('/navbar');
       print('Request successful');
@@ -126,6 +127,7 @@ class ApiProvide {
           }
       );
       Response response =
+
       await Dio().post("$baseUrl/drivers", data: formData);
 
       await OTPprovider().sendcode(email: email);
@@ -141,6 +143,7 @@ class ApiProvide {
       }
     }
   }
+
 
   void _showErrorDialogReg(
       BuildContext context,
