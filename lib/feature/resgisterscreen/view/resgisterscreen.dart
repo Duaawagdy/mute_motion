@@ -397,11 +397,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<dynamic> buildShowModalBottomSheet(BuildContext context) {
     return showModalBottomSheet(
+      isScrollControlled: true,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         context: context,
         builder: (BuildContext context) {
-          return Card_Details_Screen();
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Card_Details_Screen(),
+          );
         });
   }
 }

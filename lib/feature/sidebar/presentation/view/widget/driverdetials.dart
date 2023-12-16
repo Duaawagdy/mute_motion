@@ -5,27 +5,29 @@ import 'package:go_router/go_router.dart';
 class driverdetials extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Container(child: Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+    return Container(
+      height: 150,
+      width: 380,
+      child: Padding(
+      padding: const EdgeInsets.only(top: 16.0),
       child: Row(
-
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8.0),
+            padding: const EdgeInsets.only(left: 20.0),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: 35,
               backgroundImage: AssetImage('assets/man.png'),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 3.0),
-            child: Column(
+          Column(
 
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+           // mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 65, left: 8),
+                child: Text(
                   'Hassan Mohamed',
                   style: TextStyle(
                     color: Color(0xFFF8F8F8),
@@ -35,33 +37,33 @@ class driverdetials extends StatelessWidget{
                     height: 0.07,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Row(
-                    children: [
-                      Icon(FontAwesomeIcons.solidStar,color: Colors.yellow,size: 11,),
-                      Text(
-                        '  4.9 (123 Reviewers)',
-                        style: TextStyle(
-                          fontFamily: 'Comfortaa',
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:8,left: 8.0),
+                child: Row(
+                  children: [
+                    Icon(FontAwesomeIcons.solidStar,color: Colors.yellow,size: 11,),
+                    Text(
+                      '  4.9 (123 Reviewers)',
+                      style: TextStyle(
+                        fontFamily: 'Comfortaa',
+                        color: Colors.white,
+                        fontSize: 12,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 22.0),
+            padding: const EdgeInsets.only(top: 22.0),
             child: IconButton(
               onPressed:() {GoRouter.of(context).push('/profile');},
               icon: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.white,
-                size: 15,
+                size: 18,
               ),
             ),
           ),
