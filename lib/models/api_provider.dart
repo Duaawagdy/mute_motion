@@ -62,6 +62,7 @@ class ApiProvide {
           actions: [
             TextButton(
               style: ButtonStyle(
+                elevation:MaterialStatePropertyAll(30.0),
                 backgroundColor: MaterialStateProperty.all<Color>(borderColor),
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
@@ -124,22 +125,6 @@ class ApiProvide {
           "CVV": cvv,
         }
       );
-      // Map<String, dynamic> requestBody = {
-      //   "fullname": fullname,
-      //   "email": email,
-      //   "password": password,
-      //   "passwordConfirm": passwordConfirm,
-      //   "phone":phone,
-      //   "age": age,
-      //   "cartype": cartype,
-      //   "color": color,
-      //   "model": model,
-      //   "carnum": carnum,
-      //   "cardescription":cardescription,
-      //   "CardNumber": cardnum,
-      //   "ExpiryDate": exdate,
-      //   "CVV": cvv,
-      // };
       Response response =
           await Dio().post("$baseUrl/drivers", data: formData);
 
@@ -167,7 +152,6 @@ void _showErrorDialogReg(
       builder: (BuildContext context) {
         return AlertDialog(
           buttonPadding: EdgeInsets.only(right: 20,bottom: 10),
-          
           elevation: 20,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -188,7 +172,7 @@ void _showErrorDialogReg(
           actions: [
             TextButton(
               style: ButtonStyle(
-                elevation:MaterialStatePropertyAll(20.0),
+                elevation:MaterialStatePropertyAll(30.0),
                 backgroundColor: MaterialStateProperty.all<Color>(borderColor),
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
