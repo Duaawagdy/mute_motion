@@ -138,8 +138,8 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                       borderRadius: BorderRadius.circular(20)),
                                   child: MaterialButton(
                                       onPressed: () async {
-                                        if (formKey.currentState!.validate()) {
-                    
+                                        if (formKey.currentState!.validate()){
+                                          
                                           provider.typeCont.text;
                                           provider.colorCont.text;
                                           provider.modelCont.text;
