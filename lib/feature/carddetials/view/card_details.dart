@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -74,6 +75,10 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                         color: Color(0xff003248)),
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     controller: provider.cardNumberController,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -100,6 +105,10 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                           Container(
                             width: 150, // Set a finite width
                             child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
                               controller: provider.expiryDateController,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -127,6 +136,10 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                           Container(
                             width: 150, // Set a finite width
                             child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
                               controller: provider.cvvController,
                               validator: (value) {
                                 if (value!.isEmpty) {

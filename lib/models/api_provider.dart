@@ -33,7 +33,7 @@ class ApiProvide {
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-        _showErrorDialogLogin(context, 'Request failed! ', emailCont, passCont);
+        _showErrorDialogLogin(context, 'Request failed!\n ${e.response?.data["message"]} ', emailCont, passCont);
       }
     }
   }
@@ -139,7 +139,8 @@ class ApiProvide {
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-        _showErrorDialogReg(context, 'Attention!','this mail already taken');
+        //_showErrorDialogReg(context, 'Attention!','this mail already taken');
+        _showErrorDialogReg(context, 'Attention!','${e.response?.data["errors"][0]["msg"]}');
       }
     }
   }
