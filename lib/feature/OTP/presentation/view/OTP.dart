@@ -92,18 +92,18 @@ class OTP extends StatelessWidget {
                       code3.text,
                       code4.text
                     ];
-                    var concatenate = StringBuffer();
+                    var code = StringBuffer();
         
                     list.forEach((item) {
-                      concatenate.write(item);
+                      code.write(item);
                     });
         
-                    print(concatenate);
+                    print(code);
 
                     await OTPprovider().code(
                         context: context,
                         email: '${rg?.email}',
-                        code: concatenate.toString(),
+                        code: code.toString(),
                         code1: code1,
                         code2: code2,
                         code3: code3,
