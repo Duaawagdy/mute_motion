@@ -3,7 +3,7 @@ import 'package:mute_motion/core/utils/AppRouter.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+ void main() {
   runApp(const MyApp());
 }
 

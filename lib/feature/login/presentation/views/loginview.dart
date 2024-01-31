@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/models/api_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class login_screen extends StatefulWidget {
   login_screen({super.key});
@@ -132,6 +133,8 @@ class _login_screenState extends State<login_screen> {
                 child: MaterialButton(
                     onPressed: () async{
                     if (formKey.currentState!.validate()) {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString('email', emailCont.text);
                       await ApiProvide().UserLogin(context:context, emailCont: emailCont, passCont: passCont);
                       }
                     },

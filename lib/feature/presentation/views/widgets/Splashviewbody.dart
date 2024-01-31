@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/Assets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splashviewbody extends StatefulWidget{
   @override
@@ -39,9 +40,13 @@ class _SplashviewbodyState extends State<Splashviewbody> with SingleTickerProvid
     );
   }
   void tohome() {
-    Future.delayed(Duration(seconds: 5),(){
+    Future.delayed(Duration(seconds: 5),() async {
+      WidgetsFlutterBinding.ensureInitialized();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var email = prefs.getString('email');
+      print(email);
+      email == null ? GoRouter.of(context).push( '/loginview'): GoRouter.of(context).push('/navbar');
 
-      GoRouter.of(context).push( '/loginview');
     });
   }
 }
