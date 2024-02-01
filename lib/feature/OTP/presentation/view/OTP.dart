@@ -7,7 +7,7 @@ import 'package:mute_motion/models/OTP_provider.dart';
 
 class OTP extends StatelessWidget {
   OTP({super.key,required this.rg, });
-   final regmodel rg;
+    final regmodel rg;
   //String email = "yaraafifi106@gmail.com";
   //String email=rg.email;
   TextEditingController code1 = TextEditingController();
