@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mute_motion/core/utils/AppRouter.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
-
- void main() {
-  runApp(const MyApp());
+  void main() {
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight,
+      DeviceOrientation.portraitUp, DeviceOrientation.portraitDown
+    ]);
+    runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
-import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
 import 'package:mute_motion/feature/carddetials/view/card_details.dart';
-import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/widget/customtextfield.dart';
-import 'package:mute_motion/models/OTP_provider.dart';
 import 'package:mute_motion/models/api_provider.dart';
 import 'package:provider/provider.dart';
 
