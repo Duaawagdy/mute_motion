@@ -44,6 +44,7 @@ dependencies:
   provider: any
   switch_button: ^0.0.1
   lite_rolling_switch: ^1.0.1
+  modal_progress_hud_nsn: ^0.5.1
 
 dev_dependencies:
   flutter_test:

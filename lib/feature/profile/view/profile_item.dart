@@ -9,12 +9,7 @@ class Profile_item extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 30, bottom: 8),
       child: TextFormField(
-        validator: (data) {
-          if (data!.isEmpty) {
-            return "please enter your data";
-          }
-          return null;
-        },
+        
         decoration: InputDecoration(
           label: Text(
             text,

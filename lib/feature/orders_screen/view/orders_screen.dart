@@ -12,7 +12,7 @@ class Orders_Screen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<Orders_Screen> {
-  bool isOffline = false;
+  bool isOnline = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +46,12 @@ class _OrdersScreenState extends State<Orders_Screen> {
           child: Column(
             children: [
               LiteRollingSwitch(
-                value: isOffline,
+                value: isOnline,
                 width: 170,
                 textOn: 'Online',
                 textOff: 'Offline',
                 textOnColor: Colors.white,
-                colorOff: Color(0xffFE5C5D),
+                colorOff: Color(0xff99b111e),
                 colorOn: Color(0xff097607),
                 iconOff: Icons.wifi_off,
                 // iconOn: Icons.wifi,
@@ -59,11 +59,11 @@ class _OrdersScreenState extends State<Orders_Screen> {
                 animationDuration:Duration(milliseconds: 600),
                 onChanged: (value) {
                   setState(() {
-                    isOffline = value;
+                    isOnline = value;
                   });
                 }, onTap: (){}, onDoubleTap: (){}, onSwipe: (){},
               ),
-              isOffline ? Online() : Offline(),
+              isOnline ? Online() : Offline(),
             ],
           ),
         ),

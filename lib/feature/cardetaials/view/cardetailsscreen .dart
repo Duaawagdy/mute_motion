@@ -42,6 +42,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
               backgroundColor: Colors.transparent,
             ),
             body: Form(
+              key: formKey,
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
@@ -55,116 +56,112 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     )),
-                child: Form(
-                  key: formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Upload Car Image',
-                          style: TextStyle(
-                              fontSize: 16, fontFamily: 'Lato', color: borderColor),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        GestureDetector(
-                            onTap: () {},
-                            child: Image.asset('assets/Group 542.png')),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomTextField(
-                    
-                                  onChanged: (data) {
-                                    type = data;
-                                  },
-                                  hintText: 'Car Type',
-                                  cont: provider.typeCont,
-                                ),
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                CustomTextField(
-                                  onChanged: (data) {
-                                    color = data;
-                                  },
-                                  hintText: 'Color',
-                                  cont: provider.colorCont,
-                                ),
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                CustomTextField(
-                                  onChanged: (data) {
-                                    model = data;
-                                  },
-                                  hintText: 'model',
-                                  cont: provider.modelCont,
-                                ),
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                CustomTextField(
-                                  onChanged: (data) {
-                                    num = data;
-                                  },
-                                  hintText: 'Car Num',
-                                  cont: provider.numCont,
-                                ),
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                CustomTextField(
-                                  onChanged: (data) {
-                                    describe = data;
-                                  },
-                                  hintText: 'Descirde Your Car',
-                                  cont: provider.describeCont,
-                                ),
-                                SizedBox(
-                                  height: 40,
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xff003248),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: MaterialButton(
-                                      onPressed: () async {
-                                        if (formKey.currentState!.validate()){
-                                          
-                                          provider.typeCont.text;
-                                          provider.colorCont.text;
-                                          provider.modelCont.text;
-                                          provider.numCont.text;
-                                          provider.describeCont.text;
-                                        }
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Upload Car Image',
+                        style: TextStyle(
+                            fontSize: 16, fontFamily: 'Lato', color: borderColor),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                          onTap: () {},
+                          child: Image.asset('assets/Group 542.png')),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomTextField(
+                                onChanged: (data) {
+                                  type = data;
+                                },
+                                hintText: 'Car Type',
+                                cont: provider.typeCont,
+                              ),
+                              SizedBox(
+                                height: 18,
+                              ),
+                              CustomTextField(
+                                onChanged: (data) {
+                                  color = data;
+                                },
+                                hintText: 'Color',
+                                cont: provider.colorCont,
+                              ),
+                              SizedBox(
+                                height: 18,
+                              ),
+                              CustomTextField(
+                                onChanged: (data) {
+                                  model = data;
+                                },
+                                hintText: 'model',
+                                cont: provider.modelCont,
+                              ),
+                              SizedBox(
+                                height: 18,
+                              ),
+                              CustomTextField(
+                                onChanged: (data) {
+                                  num = data;
+                                },
+                                hintText: 'Car Num',
+                                cont: provider.numCont,
+                              ),
+                              SizedBox(
+                                height: 18,
+                              ),
+                              CustomTextField(
+                                onChanged: (data) {
+                                  describe = data;
+                                },
+                                hintText: 'Descirbe Your Car',
+                                cont: provider.describeCont,
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xff003248),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: MaterialButton(
+                                    onPressed: () async {
+                                      if (formKey.currentState!.validate()){
+                                        provider.typeCont.text;
+                                        provider.colorCont.text;
+                                        provider.modelCont.text;
+                                        provider.numCont.text;
+                                        provider.describeCont.text;
                                         GoRouter.of(context).pop(
-                                          RegisterScreen(),
-                                        );
-                                      },
-                                      child: const Text(
-                                        "Save",
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontFamily: 'Comfortaa',
-                                            color: Colors.white),
-                                      )),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                              ]),
-                        ),
-                      ],
-                    ),
+                                        RegisterScreen(),
+                                      );
+                                      }
+                                      
+                                    },
+                                    child: const Text(
+                                      "Save",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontFamily: 'Comfortaa',
+                                          color: Colors.white),
+                                    )),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                            ]),
+                      ),
+                    ],
                   ),
                 ),
               ),
