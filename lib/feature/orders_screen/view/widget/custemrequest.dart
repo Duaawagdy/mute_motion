@@ -3,8 +3,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mute_motion/feature/orders_screen/view/widget/message.dart';
 
 class trassportrequest extends StatelessWidget {
-  const trassportrequest({super.key});
-
+  trassportrequest(
+      {super.key,
+      this.requestNumber,
+      this.passengerName,
+      this.timeDate,
+      this.sourceLocation,
+      this.destinationLocation,
+      this.cost,
+      });
+  int? requestNumber;
+  String? passengerName;
+  String? timeDate;
+  String? sourceLocation;
+  String? destinationLocation;
+  String? cost;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +47,7 @@ class trassportrequest extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text('1',
+                    child: Text('${requestNumber}',
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'lato',
@@ -61,7 +74,7 @@ class trassportrequest extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text('Ahmed Magdy',
+              Text(passengerName!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
@@ -74,7 +87,7 @@ class trassportrequest extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text('10:20 - 26 April ',
+              Text(timeDate!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
@@ -87,7 +100,7 @@ class trassportrequest extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text('Elfath street -Nasr city - Cairo',
+              Text(sourceLocation!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
@@ -100,7 +113,7 @@ class trassportrequest extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text('Salah Elden street - Elzamalek - Cairo',
+              Text(destinationLocation!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
@@ -121,7 +134,7 @@ class trassportrequest extends StatelessWidget {
                     fontFamily: 'Comfortaa'),
               ),
               Text(
-                'EGP 120',
+                cost!,
                 style: TextStyle(
                     fontSize: 18,
                     color: Color(0xff087405),

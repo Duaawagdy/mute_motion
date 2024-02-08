@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mute_motion/feature/orders_screen/view/widget/custemrequest.dart';
 
 class Online extends StatelessWidget {
@@ -9,322 +8,50 @@ class Online extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(left: 5,right: 20,top: 15,bottom: 15),
+        padding: const EdgeInsets.only(left: 5, right: 20, top: 15, bottom: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            trassportrequest(),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                  color: Color(0xffF0EFEF),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                    )
-                  ]),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                child: Column(
-                  children: [
-                    Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            margin:
-                                EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                            padding: EdgeInsets.all(3),
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Color(0xff003248),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: Text('2',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'lato',
-                                    color: Colors.white,
-                                  )),
-                            ),
-                          ),
-                          Text(
-                            "Transport Request",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Comfortaa',
-                                color: Color(0xff003248)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.person),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Yara Afifi',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.calendar_month),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('9:20 - 25 April ',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.location_on),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Elfath street -Nasr city - Cairo',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Icon(FontAwesomeIcons.locationArrow),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Salah Elden street - Elzamalek - Cairo',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    Divider(
-                      thickness: 2,
-                      height: 30,
-                      indent: 10,
-                      endIndent: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Expected Cost: ',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Comfortaa'),
-                        ),
-                        Text(
-                          'EGP 120',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xff087405),
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Comfortaa'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color(0xff003248),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: MaterialButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Take It Now",
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: 'Comfortaa',
-                                color: Colors.white),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
+            trassportrequest(
+              requestNumber: 1,
+              passengerName: 'Yara Afifi',
+              timeDate: '10:03 - 26 April',
+              sourceLocation: 'Elftath street -Nasr city - Cairo',
+              destinationLocation: 'Salah Elden street - Elzamalek - Cairo',
+              cost: 'EGP 120',
             ),
             SizedBox(
               height: 20,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                  color: Color(0xffF0EFEF),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                    )
-                  ]),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                child: Column(
-                  children: [
-                    Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            margin:
-                                EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                            padding: EdgeInsets.all(3),
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Color(0xff003248),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: Text('3',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'lato',
-                                    color: Colors.white,
-                                  )),
-                            ),
-                          ),
-                          Text(
-                            "Transport Request",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Comfortaa',
-                                color: Color(0xff003248)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.person),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Ahmed Magdy',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.calendar_month),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('10:20 - 26 April ',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.location_on),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Elfath street -Nasr city - Cairo',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Icon(FontAwesomeIcons.locationArrow),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Salah Elden street - Elzamalek - Cairo',
-                            style: TextStyle(
-                                fontSize: 15, fontFamily: 'Comfortaa'))
-                      ],
-                    ),
-                    Divider(
-                      thickness: 2,
-                      height: 30,
-                      indent: 10,
-                      endIndent: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Expected Cost: ',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Comfortaa'),
-                        ),
-                        Text(
-                          'EGP 120',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xff087405),
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Comfortaa'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color(0xff003248),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: MaterialButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Take It Now",
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: 'Comfortaa',
-                                color: Colors.white),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
+            trassportrequest(
+              requestNumber: 2,
+              passengerName: 'Ahmed Magdy',
+              timeDate: '12:15 - 26 April',
+              sourceLocation: 'Elftath street -Nasr city - Cairo',
+              destinationLocation: 'Salah Elden street - Elzamalek - Cairo',
+              cost: 'EGP 70',
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            trassportrequest(
+              requestNumber: 3,
+              passengerName: 'Naira Ahmed',
+              timeDate: '01:30 - 27 April',
+              sourceLocation: 'Elftath street -Nasr city - Cairo',
+              destinationLocation: 'Salah Elden street - Elzamalek - Cairo',
+              cost: 'EGP 100',
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            trassportrequest(
+              requestNumber: 4,
+              passengerName: 'Duaa Wagdy',
+              timeDate: '11:30 - 29 April',
+              sourceLocation: 'Elftath street -Nasr city - Cairo',
+              destinationLocation: 'Salah Elden street - Elzamalek - Cairo',
+              cost: 'EGP 90',
             ),
           ],
         ),
