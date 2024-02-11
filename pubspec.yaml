@@ -45,6 +45,7 @@ dependencies:
   switch_button: ^0.0.1
   lite_rolling_switch: ^1.0.1
   modal_progress_hud_nsn: ^0.5.1
+  google_maps_flutter: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
   assets:
     - assets/
     - assets/pana.png
+    - lib/feature/map/assets/map_style/road_color_gray.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

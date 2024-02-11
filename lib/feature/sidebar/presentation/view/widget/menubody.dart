@@ -23,7 +23,8 @@ class menubody extends StatelessWidget{
             topRight: Radius.circular(20),
           )
       ),
-    child: ListView(children: [ menuitem(itemname: 'Orders',icon: Icons.receipt_outlined,onpressed: (){GoRouter.of(context).push('/orders');},),
+    child: ListView(children: [
+      /*menuitem(itemname: 'Orders',icon: Icons.receipt_outlined,onpressed: (){GoRouter.of(context).push('/orders');},),
       Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),
@@ -43,7 +44,9 @@ class menubody extends StatelessWidget{
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),
       ),
-      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){},),
+
+       */
+      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){GoRouter.of(context).push('/map');},),
       Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),
