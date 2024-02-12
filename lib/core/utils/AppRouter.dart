@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
 import 'package:mute_motion/feature/about_us/view/about_as_screen.dart';
 import 'package:mute_motion/feature/cardetaials/view/cardetailsscreen%20.dart';
 import 'package:mute_motion/feature/chat/view/chat_screen.dart';
@@ -13,7 +12,7 @@ import 'package:mute_motion/feature/orders_screen/view/orders_screen.dart';
 import 'package:mute_motion/feature/presentation/SplashView.dart';
 import 'package:mute_motion/feature/profile/view/profile_screen.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/resgisterscreen.dart';
-import 'package:mute_motion/feature/searsh/lastestsearchwidget.dart';
+import 'package:mute_motion/feature/searsh/search_screen.dart';
 import 'package:mute_motion/feature/signs/view/signs.dart';
 import 'package:mute_motion/feature/traslator/view/translator_screen.dart';
 
