@@ -97,7 +97,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         margin: EdgeInsets.only(
                             top: 30, left: 10, right: 22, bottom: 5),
                         height: 110,
-                        width: 340,
+                        width: 350,
                         padding: const EdgeInsets.only(
                           top: 20,
                           left: 15,
@@ -109,44 +109,47 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                 topRight: Radius.circular(20),
                                 bottomLeft: Radius.circular(20),
                                 bottomRight: Radius.circular(20))),
-                        child: Row(
-                          children: [
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Car Type:',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'Lato',
-                                        color: Colors.white),
-                                  ),
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-                                  Text(
-                                    'color:       Model:   ',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'Lato',
-                                        color: Colors.white),
-                                  ),
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-                                  Text(
-                                    '(automatic-comfort-4 seats)',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'Lato',
-                                        color: Colors.white),
-                                  ),
-                                ]),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
-                              child: Image.asset('assets/car 1.png'),
-                            )
-                          ],
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Car Type:',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Lato',
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      'color:       Model:   ',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Lato',
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      '(automatic-comfort-4 seats)',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Lato',
+                                          color: Colors.white),
+                                    ),
+                                  ]),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Image.asset('assets/car 1.png'),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
