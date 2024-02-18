@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/AppRouter.dart';
+import 'package:mute_motion/feature/map/view/map.dart';
+import 'package:mute_motion/feature/map/view/mapbody.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,7 +48,11 @@ class menubody extends StatelessWidget{
       ),
 
        */
-      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){GoRouter.of(context).push('/map');},),
+      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){//GoRouter.of(context).push('/map');
+Navigator.of(context).push( MaterialPageRoute (
+  builder: (BuildContext context) => const map(),
+),);
+        },),
       Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),

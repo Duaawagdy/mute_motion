@@ -53,7 +53,7 @@ import 'package:mute_motion/feature/traslator/view/translator_screen.dart';
         GoRoute(
           path: '/aboutus',
           builder: ( context,  state) {
-            return  About_As();
+            return About_As ();
           },
         ),
         GoRoute(
