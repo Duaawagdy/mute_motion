@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvide {
   static const String baseUrl =
-      "https://gradution2024-production.up.railway.app/api/v1";
+      "https://mutemotion.onrender.com/api/v1";
   UserLogin(
       {required BuildContext context,
         required TextEditingController emailCont,
@@ -21,7 +21,7 @@ class ApiProvide {
       };
       Response response =
 
-      await Dio().post("$baseUrl/driverauth/login", data: requestBody);
+      await Dio().post("$baseUrl/driver/login", data: requestBody);
       GoRouter.of(context).push('/navbar');
       print('Request successful');
       print('Response: ${response.data}');
@@ -128,7 +128,7 @@ class ApiProvide {
       );
       Response response =
 
-      await Dio().post("$baseUrl/drivers", data: formData);
+      await Dio().post("$baseUrl/driver/signup", data: formData);
 
       await OTPprovider().sendcode(email: email);
       Navigator.of(context).push(MaterialPageRoute (

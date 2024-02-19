@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 class OTPprovider{
-  static const String baseUrl = "https://verifications.onrender.com";
+  static const String baseUrl = "https://mutemotion.onrender.com/api/v1";
   sendcode({required String email})async{
     try{
       Map<String,dynamic>requestBody={
         "email":email
       };
       Response response =
-          await Dio().post("$baseUrl/sendVerificationCode",data: requestBody);
+          await Dio().post("$baseUrl/driver/verify",data: requestBody);
       print(response.data);
     }
     catch(ex){
@@ -28,10 +28,10 @@ class OTPprovider{
     try {
       Map<String, dynamic> requestBody = {
         "email": email,
-        "code": code,
+        "verificationCode": code,
       };
       Response response =
-      await Dio().post("$baseUrl/verifyCode", data: requestBody);
+      await Dio().post("$baseUrl/driver/verify", data: requestBody);
       if (response.statusCode == 200 || response.statusCode == 201 ) {
         GoRouter.of(context).push('/navbar');
         print('Response: ${response.data}');
