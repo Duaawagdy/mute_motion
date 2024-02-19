@@ -2,7 +2,6 @@
  import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mute_motion/feature/map/view/map.dart';
 
 class custembuttensearch extends StatelessWidget {
   const custembuttensearch({
@@ -13,7 +12,7 @@ class custembuttensearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 51,
-      width: 181,
+      width: 171,
       decoration:ShapeDecoration(
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 2.50, color: Color(0xFFF8F8F8)),
