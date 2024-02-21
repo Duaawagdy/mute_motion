@@ -12,7 +12,7 @@ class mymap extends StatefulWidget{
 }
 
 class _mymapState extends State<mymap> {
-  static GoogleMapController ?googleMapController;
+  late GoogleMapController ?googleMapController;
   final Completer<GoogleMapController> _mapcontroller=
   Completer<GoogleMapController>();
   Location _locationcontroller=new Location();
@@ -22,6 +22,7 @@ class _mymapState extends State<mymap> {
   static const LatLng _userlocation= LatLng(30.538064272855628, 31.662419559020925);
 @override
   void initState() {
+
     getLocationUpdated().then((_) => {
       getpolylinepoints().then((coordanites) => {
 generatepolyline(coordanites)      })
@@ -38,6 +39,7 @@ generatepolyline(coordanites)      })
      onMapCreated: (
              (GoogleMapController controller){
                  _mapcontroller.complete(controller);
+                 googleMapController=controller;
                  initMapStyle();
              }
      ),
@@ -62,6 +64,7 @@ generatepolyline(coordanites)      })
     var roadcolor=await DefaultAssetBundle.of(context).loadString('lib/feature/map/assets/map_style/road_color_gray.json');
     googleMapController?.setMapStyle(roadcolor);
   }
+  //move camerapostin on map while user moving
   Future<void> cameratopostion(LatLng pos)async{
 final GoogleMapController controller= await _mapcontroller.future;
 CameraPosition _newcamerapostion =new CameraPosition(target: pos,zoom: 16);
@@ -87,7 +90,7 @@ await controller.animateCamera(CameraUpdate.newCameraPosition(_newcamerapostion)
       if(currentLocation.latitude!=null&&currentLocation.longitude!=null){
         setState(() {
           _currentlocation=LatLng(currentLocation.latitude!,currentLocation.longitude!);
-          print(currentLocation);
+          //print(currentLocation);
           cameratopostion(_currentlocation!);
          // _cameraTopotion( LatLng);
           //var marker =Marker(markerId: MarkerId('current location'),icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),position: currentlocation!);
@@ -101,19 +104,29 @@ await controller.animateCamera(CameraUpdate.newCameraPosition(_newcamerapostion)
   List<LatLng>polylinecoordinates=[];
 PolylinePoints polylinePoints=new PolylinePoints();
 PolylineResult Result=
-await polylinePoints.getRouteBetweenCoordinates('AIzaSyDiZohDDaXZbS944vCt03PwiD2eUahp7Hc',
-    PointLatLng(_userlocation.latitude,_userlocation.longitude), PointLatLng(_destinationlocatio.latitude,_destinationlocatio.longitude),travelMode: TravelMode.driving);
+await polylinePoints.getRouteBetweenCoordinates
+  ('AIzaSyB0MweXa8Uh4IgNC35ayWrW8j1dN4SGn4c',
+    PointLatLng(_userlocation.latitude,_userlocation.longitude),
+    PointLatLng(_destinationlocatio.latitude,_destinationlocatio.longitude),
+    travelMode: TravelMode.driving);
 if(Result.points.isEmpty){
   Result.points.forEach((PointLatLng point) {
     polylinecoordinates.add(LatLng(point.latitude,point.longitude));
   });
-}else{
+
+}
+else{
   print(Result.errorMessage);
 }
+setState(() {
+
+});
 return polylinecoordinates;
   }
  Future<void> generatepolyline(List<LatLng>polylinecoordinate) async {
-PolylineId id=PolylineId('poly');
+   print('Polyline Coordinates: $polylinecoordinate');
+
+   PolylineId id=PolylineId('poly');
 Polyline polyline=
 Polyline(
     polylineId: id,color:Colors.black,

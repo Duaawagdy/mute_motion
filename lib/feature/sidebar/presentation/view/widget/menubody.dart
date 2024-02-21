@@ -48,10 +48,7 @@ class menubody extends StatelessWidget{
       ),
 
        */
-      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){//GoRouter.of(context).push('/map');
-Navigator.of(context).push( MaterialPageRoute (
-  builder: (BuildContext context) => const map(),
-),);
+      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){GoRouter.of(context).push('/map');
         },),
       Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
