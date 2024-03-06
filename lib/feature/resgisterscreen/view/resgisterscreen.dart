@@ -335,6 +335,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: MaterialButton(
                                   onPressed: () async {
                                     if (formKey.currentState!.validate()) {
+                                        setUserEmail(emailCont.text);
                                         LoadingIndicator= true;
                                         setState(() {});
                                       await ApiProvide().UserRegisteration(

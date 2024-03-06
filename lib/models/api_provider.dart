@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/OTP.dart';
-import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
 import 'package:mute_motion/models/OTP_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,27 +14,36 @@ class ApiProvide {
         required TextEditingController emailCont,
         required TextEditingController passCont}) async {
     try {
-      Map<String, dynamic> requestBody = {
-        "email": emailCont.text,
-        "password": passCont.text,
-      };
-      Response response =
+  Map<String, dynamic> requestBody = {
+    "email": emailCont.text,
+    "password": passCont.text,
+  };
+  Response response = await Dio().post("$baseUrl/driver/login", data: requestBody);
+  
+  // Check if response is successful
+  if (response.statusCode == 200) {
+    print('Request successful');
+    print('Response: ${response.data}');
+    
+    // Assuming your response data has a 'token' field
+    String token = response.data["token"];
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("token", token);
+    print("Token is: $token");
+    
+    // Navigate to next screen
+    GoRouter.of(context).push('/navbar');
+  } else {
+    // Handle non-200 status code
+    print('Request failed with status: ${response.statusCode}');
+    _showErrorDialogLogin(context, 'Request failed with status: ${response.statusCode}', emailCont, passCont);
+  }
+} catch (e) {
+  // Handle Dio exceptions
+  print('Request failed with error: $e');
+  _showErrorDialogLogin(context, 'Request failed with error: $e', emailCont, passCont);
+}
 
-      await Dio().post("$baseUrl/driver/login", data: requestBody);
-      GoRouter.of(context).push('/navbar');
-      print('Request successful');
-      print('Response: ${response.data}');
-      print(response.data["token"]);
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("token", response.data["token"]);
-      String? token = prefs.getString("token");
-      print("Token is : $token");
-    } catch (e) {
-      if (e is DioException) {
-        print(e.response?.data);
-        _showErrorDialogLogin(context, 'Request failed!\n ${e.response?.data["message"]} ', emailCont, passCont);
-      }
-    }
   }
 
   void _showErrorDialogLogin(
@@ -132,7 +140,7 @@ class ApiProvide {
 
       await OTPprovider().sendcode(email: email);
       Navigator.of(context).push(MaterialPageRoute (
-        builder: (BuildContext context) =>  OTP(rg: regmodel(email)),
+        builder: (BuildContext context) =>  OTP(),
       ),);
       print('Request successful');
       print('Response: ${response.data}');

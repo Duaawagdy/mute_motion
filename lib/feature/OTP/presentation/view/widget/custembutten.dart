@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class custembutten extends StatelessWidget{
-  const custembutten({this.onPressed});
+    custembutten({this.onPressed,required this.text});
+    final String text;
   final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,7 @@ class custembutten extends StatelessWidget{
           borderRadius: BorderRadius.circular(15)),
       child: MaterialButton(
           onPressed: onPressed,
-          child: const Text(
-            "Confirm",
+          child:  Text( text,
             style: TextStyle(fontSize: 22,fontFamily: 'Comfortaa', color: Colors.white),
           )),
     );

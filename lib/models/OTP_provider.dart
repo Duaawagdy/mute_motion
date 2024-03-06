@@ -10,7 +10,7 @@ class OTPprovider{
         "email":email
       };
       Response response =
-          await Dio().post("$baseUrl/driver/verify",data: requestBody);
+          await Dio().post("$baseUrl/passenger/verify",data: requestBody);
       print(response.data);
     }
     catch(ex){

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemOTPbar.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custembutten.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemcodefield.dart';
-import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
 import 'package:mute_motion/models/OTP_provider.dart';
 
 class OTP extends StatefulWidget {
-  OTP({super.key,required this.rg, });
-    final regmodel rg;
+  OTP({super.key,});
+    //final regmodel rg;
 
   @override
   State<OTP> createState() => _OTPState();
 }
 
 class _OTPState extends State<OTP> {
-  //String email = "yaraafifi106@gmail.com";
+  
   TextEditingController code1 = TextEditingController();
 
   TextEditingController code2 = TextEditingController();
@@ -49,7 +49,8 @@ class _OTPState extends State<OTP> {
                     height: 56,
                   ),
                   Text(
-                    "Please enter the 4-digit code sent via Email on\n ${widget.rg.email}",
+                    //"Please enter the 4-digit code sent via Email on\n ${widget.rg.email}",
+                    "Please enter the 4-digit code sent via Email on\n ${getUserEmail()}",
                     style: TextStyle(
                         color: Color(0xff003248),
                         fontFamily: 'Comfortaa',
@@ -98,8 +99,8 @@ class _OTPState extends State<OTP> {
                     height: 79,
                   ),
                   custembutten(
+                    text: 'Confirm',
                     onPressed: () async {
-    
                       if (formKey.currentState!.validate()) {
                         isLoading = true;
                         setState(() {});
@@ -119,7 +120,8 @@ class _OTPState extends State<OTP> {
     
                       await OTPprovider().code(
                           context: context,
-                          email: '${widget.rg?.email}',
+                          //email: '${widget.rg?.email}',
+                          email: '${getUserEmail()}',
                           code: code.toString(),
                           code1: code1,
                           code2: code2,
@@ -129,7 +131,6 @@ class _OTPState extends State<OTP> {
                           }
                         isLoading = false;
                         setState(() {});
-                      //GoRouter.of(context).push('/navbar');
                     },
                   ),
                   SizedBox(
@@ -145,8 +146,9 @@ class _OTPState extends State<OTP> {
                           )),
                       TextButton(
                           onPressed: () async {
-                            print(widget.rg?.email);
-                            await OTPprovider().sendcode(email: '${widget.rg?.email}');
+                            print(getUserEmail());
+                            //await OTPprovider().sendcode(email: '${widget.rg?.email}');
+                            await OTPprovider().sendcode(email: '${getUserEmail()}');
                           },
                           child: const Text(
                             "Resend OTP",
