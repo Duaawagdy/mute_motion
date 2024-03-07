@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mute_motion/feature/map/view/widgets/custembutten.dart';
 import 'package:mute_motion/feature/map/view/widgets/cutemfield.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 class maindisplay extends StatelessWidget {
   //final GoogleMapController? googleMapControllermap;
   
@@ -25,6 +27,7 @@ class displaydetailscontaine extends StatefulWidget {
     super.key,
 
   });
+
 
   //static final GoogleMapController? googleMapController;
 
@@ -68,6 +71,7 @@ class _displaydetailscontaineState extends State<displaydetailscontaine> {
     ;
   }
 }
+
 class WidgetSwitcher extends ChangeNotifier {
   late Widget _currentWidget;
   final GoogleMapController? googleMapControllerconfirm;
@@ -158,7 +162,9 @@ class setLocationWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: const Color(0xffffffff) ,
                     borderRadius: BorderRadius.circular(15)),
-                child: custembuttenWhite(googleMapController: googleMapControllerconfirm, text: 'Confirm', onPressed: onPressed,),
+                child: custembuttenWhite(googleMapController: googleMapControllerconfirm, text: 'Confirm', onPressed: (){
+                  server();
+                },),
               ),
               SizedBox(width: 20,),
               custembuttensearch()
@@ -168,4 +174,175 @@ class setLocationWidget extends StatelessWidget {
       ],
     );
   }
+  void server()async{
+    final url = 'https://router.project-osrm.org/route/v1/car/30.596914863758823,31.475045710400234;30.596244768305716,31.47646756515574?geometries=polyline&annotations=true';
+    final response = await http.get(
+        Uri.parse(url)    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+
+      // Extract information from the response
+      List<dynamic> routes = data['routes'];
+      if (routes.isNotEmpty) {
+        Map<String, dynamic> route = routes[0];
+        print('Distance: ${route['distance']} meters');
+        print('Duration: ${route['duration']} seconds');
+
+        // Extract OSM node IDs and coordinates
+        List<dynamic> legs = route['legs'];
+        for (var leg in legs) {
+          List<dynamic> steps = leg['steps'];
+          for (var step in steps) {
+            List<dynamic> intersections = step['intersections'];
+            for (var intersection in intersections) {
+              print('OSM Node ID: ${intersection['osm_node_id']}');
+              print('Coordinates: ${intersection['location']}');
+            }
+          }
+        }
+      }
+    } else {
+      print('Failed to fetch route details. Status code: ${response.statusCode}');
+    }
+  }
 }
+/*Padding(
+  padding: EdgeInsetsDirectional.fromSTEB(12, 32, 12, 12),
+  child: Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: FlutterFlowTheme.of(context).secondaryBackground,
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 3,
+          color: Color(0x33000000),
+          offset: Offset(0, 1),
+        )
+      ],
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(20, 4, 10, 4),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              width: 300,
+              child: TextFormField(
+                controller: _model.textController,
+                focusNode: _model.textFieldFocusNode,
+                onChanged: (_) => EasyDebounce.debounce(
+                  '_model.textController',
+                  Duration(milliseconds: 100),
+                  () => setState(() {}),
+                ),
+                autofocus: true,
+                textCapitalization: TextCapitalization.sentences,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Type something...',
+                  hintStyle: FlutterFlowTheme.of(context).bodySmall,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                maxLines: 8,
+                minLines: 1,
+                keyboardType: TextInputType.multiline,
+                validator:
+                    _model.textControllerValidator.asValidator(context),
+              ),
+            ),
+          ),
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.send_rounded,
+              color: FlutterFlowTheme.of(context).primary,
+              size: 30,
+            ),
+            showLoadingIndicator: true,
+            onPressed: () async {
+              setState(() {
+                _model.chatHistory = functions.saveChatHistory(
+                    _model.chatHistory,
+                    functions.convertToJSON(_model.textController.text));
+              });
+              // Put your API key in the API value below in order to make this a functional app.
+              _model.chatGPTResponse =
+                  await OpenAIChatGPTGroup.sendFullPromptCall.call(
+                apiKey: 'No Key',
+                promptJson: _model.chatHistory,
+              );
+              if ((_model.chatGPTResponse?.succeeded ?? true)) {
+                setState(() {
+                  _model.chatHistory = functions.saveChatHistory(
+                      _model.chatHistory,
+                      getJsonField(
+                        (_model.chatGPTResponse?.jsonBody ?? ''),
+                        r'''$['choices'][0]['message']''',
+                      ));
+                });
+                setState(() {
+                  _model.textController?.clear();
+                });
+              }
+              await Future.delayed(const Duration(milliseconds: 800));
+              await _model.listViewController?.animateTo(
+                _model.listViewController!.position.maxScrollExtent,
+                duration: Duration(milliseconds: 100),
+                curve: Curves.ease,
+              );
+              setState(() {});
+            },
+          ),
+        ],
+      ),
+    ),
+  ),
+)
+*/

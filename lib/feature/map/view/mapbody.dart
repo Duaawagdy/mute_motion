@@ -100,30 +100,34 @@ await controller.animateCamera(CameraUpdate.newCameraPosition(_newcamerapostion)
     });
 
   }
-  Future<List<LatLng>> getpolylinepoints() async{
-  List<LatLng>polylinecoordinates=[];
-PolylinePoints polylinePoints=new PolylinePoints();
-PolylineResult Result=
-await polylinePoints.getRouteBetweenCoordinates
-  ('AIzaSyB0MweXa8Uh4IgNC35ayWrW8j1dN4SGn4c',
-    PointLatLng(_userlocation.latitude,_userlocation.longitude),
-    PointLatLng(_destinationlocatio.latitude,_destinationlocatio.longitude),
-    travelMode: TravelMode.driving);
-if(Result.points.isEmpty){
-  Result.points.forEach((PointLatLng point) {
-    polylinecoordinates.add(LatLng(point.latitude,point.longitude));
-  });
+  Future<List<LatLng>> getpolylinepoints() async {
+    List<LatLng> polylinecoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    try {
+      PolylineResult Result = await polylinePoints.getRouteBetweenCoordinates(
+        'AIzaSyAPmuYF0lap3-EZk1Vfz5rj_DWXOqB2X08',  // Replace with your actual API key
+        PointLatLng(_userlocation.latitude, _userlocation.longitude),
+        PointLatLng(_destinationlocatio.latitude, _destinationlocatio.longitude),
+        travelMode: TravelMode.driving,
+      );
 
-}
-else{
-  print(Result.errorMessage);
-}
-setState(() {
+      if (Result.points.isNotEmpty) {
+        Result.points.forEach((PointLatLng point) {
+          polylinecoordinates.add(LatLng(point.latitude, point.longitude));
+        });
+      } else {
+        print('No polyline points found.');
+      }
+    } catch (e) {
+      print('Error fetching polyline points: $e');
+    }
 
-});
-return polylinecoordinates;
+    setState(() {});
+
+    return polylinecoordinates;
   }
- Future<void> generatepolyline(List<LatLng>polylinecoordinate) async {
+
+  Future<void> generatepolyline(List<LatLng>polylinecoordinate) async {
    print('Polyline Coordinates: $polylinecoordinate');
 
    PolylineId id=PolylineId('poly');

@@ -49,7 +49,7 @@ void dispose(){
 
       body: Stack(
     children: <Widget>[ mymap(),
-      Positioned(bottom: 0,child: maindisplay())
+      Positioned(bottom: 0,child: maindisplay()),
     ],
       )
 
