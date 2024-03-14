@@ -4,11 +4,10 @@ import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemOTPbar.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custembutten.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemcodefield.dart';
-import 'package:mute_motion/feature/resgisterscreen/model/regmodel.dart';
 import 'package:mute_motion/models/OTP_provider.dart';
 
 class OTP extends StatefulWidget {
-  OTP({super.key, required regmodel rg,});
+  OTP({super.key,});
     //final regmodel rg;
 
   @override
