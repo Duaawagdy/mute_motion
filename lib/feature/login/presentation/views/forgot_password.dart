@@ -263,27 +263,30 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("The code will expire automatically in ",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Comfortaa',
-                            )),
-                        Countdown(
-                          controller: _controller,
-                          seconds: 300,
-                          build: (BuildContext context, double time) =>
-                              Text(time.toString()),
-                          interval: Duration(milliseconds: 100),
-                          onFinished: () {
-                            setState(() {});
-                            isVisible = true;
-                            print('Timer is done!');
-                          },
-                        )
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("The code will expire automatically in ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'Comfortaa',
+                              )),
+                          Countdown(
+                            controller: _controller,
+                            seconds: 300,
+                            build: (BuildContext context, double time) =>
+                                Text(time.toString()),
+                            interval: Duration(milliseconds: 100),
+                            onFinished: () {
+                              setState(() {});
+                              isVisible = true;
+                              print('Timer is done!');
+                            },
+                          )
+                        ],
+                      ),
                     ),
                     Visibility(
                   visible: isVisible,

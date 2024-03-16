@@ -1,8 +1,15 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/feature/profile/profile_mode.dart';
+import 'package:mute_motion/feature/profile/view/buttom_sheet.dart';
 import 'package:mute_motion/feature/profile/view/profile_item.dart';
-import 'package:mute_motion/feature/resgisterscreen/view/widget/custombutton.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
+import 'package:mute_motion/models/getUserInfo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile_Screen extends StatefulWidget {
   const Profile_Screen({super.key});
@@ -12,6 +19,72 @@ class Profile_Screen extends StatefulWidget {
 }
 
 class _Profile_ScreenState extends State<Profile_Screen> {
+  late ProfileModel _userData = ProfileModel(
+    cartype: '',
+    color: '',
+    model: '',
+    fullname: '',
+    email: '',
+    phone: '',
+    age: '',
+  );
+  bool isLoading = false;
+  final ImagePicker _picker = ImagePicker();
+    Uint8List? _selectedImageBytes;
+  @override
+  void initState() {
+    super.initState();
+    getInfo();
+  }
+
+  Future<void> getInfo() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString("token");
+      ProfileModel userData = await UserInfo.getUserInfo(token!);
+
+      setState(() {
+        _userData = userData;
+      });
+    } catch (e) {
+      print('Error: $e');
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void _takePhoto() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.camera);
+    // Open the camera and capture a photo
+    if (pickedFile != null) {
+      final File imageFile = File(pickedFile.path);
+      final bytes = await imageFile.readAsBytes();
+      setState(() {
+        _selectedImageBytes = bytes;
+      });
+    }
+  }
+
+  void _openGallery() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    // Open the gallery and select an image
+    if (pickedFile != null) {
+      final File imageFile = File(pickedFile.path);
+      final bytes = await imageFile.readAsBytes();
+      setState(() {
+        _selectedImageBytes = bytes;
+      });
+    }
+  }
+
   TextEditingController nameCont = TextEditingController();
   TextEditingController emailCont = TextEditingController();
   TextEditingController phoneCont = TextEditingController();
@@ -31,7 +104,6 @@ class _Profile_ScreenState extends State<Profile_Screen> {
       body: SingleChildScrollView(
         child: Stack(
           alignment: Alignment.topCenter,
-          //alignment: Alignment.center,
           children: <Widget>[
             SingleChildScrollView(
               child: Container(
@@ -95,9 +167,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       scrollDirection: Axis.horizontal,
                       child: Container(
                         margin: EdgeInsets.only(
-                            top: 30, left: 10, right: 22, bottom: 5),
+                            top: 30, left: 5, right: 22, bottom: 5),
                         height: 110,
-                        width: 350,
+                        width: 355,
                         padding: const EdgeInsets.only(
                           top: 20,
                           left: 15,
@@ -117,7 +189,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Car Type:',
+                                      'Car Type:  ${_userData.cartype} ',
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'Lato',
@@ -127,7 +199,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                       height: 6,
                                     ),
                                     Text(
-                                      'color:       Model:   ',
+                                      'Color:  ${_userData.color}      Model:  ${_userData.model}',
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'Lato',
@@ -144,8 +216,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                           color: Colors.white),
                                     ),
                                   ]),
+                              //SizedBox(width: 10,),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                padding:
+                                    const EdgeInsets.only(left: 3, right: 25),
                                 child: Image.asset('assets/car 1.png'),
                               )
                             ],
@@ -154,8 +228,8 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       ),
                     ),
                     Container(
-                      margin:
-                          EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
+                      // margin:
+                      //     EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
                       height: MediaQuery.of(context).size.height,
                       width: double.infinity,
                       padding: const EdgeInsets.only(
@@ -170,38 +244,25 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Profile_item(text: 'Name'),
+                              Profile_item(
+                                  textTitle: 'Name', text: _userData.fullname),
                               SizedBox(
                                 height: 6,
                               ),
-                              Profile_item(text: 'Email'),
+                              Profile_item(
+                                  textTitle: 'Email', text: _userData.email),
                               SizedBox(
                                 height: 6,
                               ),
-                              Profile_item(text: 'Phone'),
+                              Profile_item(
+                                  textTitle: 'Phone', text: _userData.phone),
                               SizedBox(
                                 height: 6,
                               ),
-                              Profile_item(text: 'Age'),
+                              Profile_item(
+                                  textTitle: 'Age', text: _userData.age),
                               SizedBox(
                                 height: 15,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 10,
-                                  right: 25,
-                                ),
-                                child: CustomButon(
-                                  text: 'Save',
-                                  onTap: () async {
-                                    // if (formKey.currentState!.validate()) {
-                                    //   nameCont.text;
-                                    //   emailCont.text;
-                                    //   phoneCont.text;
-                                    //   ageCont.text;
-                                    // }
-                                  },
-                                ),
                               ),
                             ]),
                       ),
@@ -215,7 +276,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                 child: CircleAvatar(
                   radius: 80,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/man.png'),
+                  backgroundImage: _selectedImageBytes != null
+                    ? MemoryImage(_selectedImageBytes!)
+                    : AssetImage('assets/man.png') as ImageProvider<Object>?,
                 )),
             Positioned(
               top: 123,
@@ -227,10 +290,29 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   color: Color(0xff003248),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.camera,
-                  color: Colors.white,
-                  size: 27,
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(
+                                20.0), // Adjust the radius as needed
+                            topRight: Radius.circular(
+                                20.0), // Adjust the radius as needed
+                          ),
+                        ),
+                        isScrollControlled: true,
+                        builder: ((builder) => ButtomSheet(
+                              takePhoto: _takePhoto,
+                              openGallery: _openGallery,
+                            )));
+                  },
+                  child: Icon(
+                    Icons.camera,
+                    color: Colors.white,
+                    size: 27,
+                  ),
                 ),
               ),
             )
