@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class OTPprovider{
   static const String baseUrl = "https://mutemotion.onrender.com/api/v1";
   sendcode({required String email})async{
@@ -33,6 +34,10 @@ class OTPprovider{
       Response response =
       await Dio().post("$baseUrl/driver/verify", data: requestBody);
       if (response.statusCode == 200 || response.statusCode == 201 ) {
+        String token = response.data["token"];
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString("token", token);
+        print("Token is: $token");
         GoRouter.of(context).push('/navbar');
         print('Response: ${response.data}');
       }else {

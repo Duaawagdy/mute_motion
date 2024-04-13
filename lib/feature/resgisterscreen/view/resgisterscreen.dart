@@ -336,6 +336,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   onPressed: () async {
                                     if (formKey.currentState!.validate()) {
                                         setUserEmail(emailCont.text);
+                                        setUserName(nameCont.text);
                                         LoadingIndicator= true;
                                         setState(() {});
                                       await ApiProvide().UserRegisteration(

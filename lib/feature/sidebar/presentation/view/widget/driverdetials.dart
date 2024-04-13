@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mute_motion/core/utils/constant.dart';
 
 class driverdetials extends StatelessWidget{
   @override
@@ -15,7 +16,7 @@ class driverdetials extends StatelessWidget{
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10.0),
+              padding: const EdgeInsets.only(left: 15.0),
               child: CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 35,
@@ -26,8 +27,19 @@ class driverdetials extends StatelessWidget{
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 62, left: 12),
-                  child: Text(
-                    'Hassan Mohamed',
+                  child: getUserName()==null?
+                    Text(
+                    'User Name',
+                    style: TextStyle(
+                      color: Color(0xFFF8F8F8),
+                      fontSize: 16,
+                      fontFamily: 'Comfortaa',
+                      fontWeight: FontWeight.w700,
+                      height: 0.07,
+                    ),
+                  )
+                    :Text(
+                    '${getUserName()}',
                     style: TextStyle(
                       color: Color(0xFFF8F8F8),
                       fontSize: 16,
