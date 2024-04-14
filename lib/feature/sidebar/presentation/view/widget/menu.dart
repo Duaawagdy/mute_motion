@@ -8,7 +8,6 @@ final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Container(
-
       child: ListTile(
         leading: Icon(
           icon,

@@ -52,6 +52,7 @@ dependencies:
   flutter_polyline_points: ^2.0.0
   timer_count_down: ^2.2.2
   image_picker: ^1.0.7
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:

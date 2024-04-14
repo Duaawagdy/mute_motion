@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/AppRouter.dart';
-import 'package:mute_motion/feature/map/view/map.dart';
-import 'package:mute_motion/feature/map/view/mapbody.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/menu.dart';
+import 'package:mute_motion/feature/sidebar/presentation/view/widget/mode_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class menubody extends StatelessWidget{
-   menubody({super.key});
+    menubody({super.key});
   approuter ap=approuter();
 
   @override
@@ -26,28 +25,6 @@ class menubody extends StatelessWidget{
           )
       ),
     child: ListView(children: [
-      /*menuitem(itemname: 'Orders',icon: Icons.receipt_outlined,onpressed: (){GoRouter.of(context).push('/orders');},),
-      Padding(
-        padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
-        child: Divider(color: Colors.grey,thickness: 2,),
-      ),
-      menuitem(itemname: 'My Orders',icon: Icons.check_circle,onpressed: (){GoRouter.of(context).push('/myorders');}),
-      Padding(
-        padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
-        child: Divider(color: Colors.grey,thickness: 2,),
-      ),
-      menuitem(itemname: 'signs',icon: Icons.sign_language,onpressed: (){GoRouter.of(context).push('/sign');},),
-      Padding(
-        padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
-        child: Divider(color: Colors.grey,thickness: 2,),
-      ),
-      menuitem(itemname: 'Translator',icon: Icons.camera_alt,onpressed: (){GoRouter.of(context).push('/translation');}),
-      Padding(
-        padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
-        child: Divider(color: Colors.grey,thickness: 2,),
-      ),
-
-       */
       menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){GoRouter.of(context).push('/map');
         },),
       Padding(
@@ -72,6 +49,8 @@ class menubody extends StatelessWidget{
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),
       ),
+      SizedBox(height: 150,),
+      modeItem(),
     ],
     ),
     );

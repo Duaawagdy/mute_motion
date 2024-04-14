@@ -30,7 +30,11 @@ class ApiProvide {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("token", token);
     print("Token is: $token");
-    
+    // set User Name in side bar
+    String fullname = response.data["user"]["fullname"];
+    await prefs.setString("fullname", fullname);
+    print("fullname is: $fullname");
+    setUserName(fullname);
     // Navigate to next screen
     GoRouter.of(context).push('/navbar');
   } else {
