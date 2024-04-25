@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
+import 'package:mute_motion/feature/traslator/view/cameratranlator.dart';
 class Translator_Screen extends StatelessWidget {
   const Translator_Screen({super.key});
 
@@ -66,7 +67,11 @@ class Translator_Screen extends StatelessWidget {
                       color: const Color(0xff003248),
                       borderRadius: BorderRadius.circular(15)),
                   child: MaterialButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.of(context).push( MaterialPageRoute (
+                          builder: (BuildContext context) =>  cameratranslator(),
+                        ),);
+                      },
                       child: const Text(
                         "Start Translator",
                         style: TextStyle(fontSize: 22,fontFamily: 'Comfortaa', color: Colors.white),
