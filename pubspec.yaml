@@ -54,6 +54,8 @@ dependencies:
   image_picker: ^1.0.7
   flutter_switch: ^0.3.2
   audioplayers: ^5.2.1
+  camera: ^0.10.5+9
+  socket_io_client: ^2.0.3+1
 
 dev_dependencies:
   flutter_test:
