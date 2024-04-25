@@ -1,8 +1,10 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 
 class signs extends StatelessWidget{
-  const signs({super.key});
+   signs({super.key});
+  final player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -30,42 +32,50 @@ class signs extends StatelessWidget{
               topRight: Radius.circular(20),
             )
         ),
-      child: ListView(children: [
-        buildasset('assets/hello.png'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(color: Colors.grey,thickness: 2,),
-        ),
-        buildasset('assets/urwelcome.png'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(color: Colors.grey,thickness: 2,),
-        ),
-        buildasset('assets/pgo.png'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(color: Colors.grey,thickness: 2,),
-        ),
-        buildasset('assets/wwas.png'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(color: Colors.grey,thickness: 2,),
-        ),
-        buildasset('assets/thu.png'),
-      ],),),
+        child: ListView(children: [
+          buildasset('assets/hello.png','sounds/hello.mp3'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Divider(color: Colors.grey,thickness: 2,),
+          ),
+          buildasset('assets/urwelcome.png','sounds/uarewelcom.mp3'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Divider(color: Colors.grey,thickness: 2,),
+          ),
+          buildasset('assets/pgo.png','sounds/PuttingGasolineOn.mp3'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Divider(color: Colors.grey,thickness: 2,),
+          ),
+          buildasset('assets/wwas.png','sounds/wewillarrivesoon.mp3'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Divider(color: Colors.grey,thickness: 2,),
+          ),
+          buildasset('assets/thu.png','sounds/thankyou.mp3'),
+
+        ],),),
     );
 
   }
 
-  Padding buildasset(String assset) {
+  Widget buildasset(String assset,String sound) {
 
-    return Padding(
-        padding: const EdgeInsets.only(left: 54.0,right: 60),
-        child: SizedBox(
+    return GestureDetector(
+      onTap: (){
+
+player.play(AssetSource(sound));
+        print('run');
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: Container(
             height:195,
             width: 317,
             child: Image.asset(assset)),
-      );
+      ),
+    );
   }
 
 }
