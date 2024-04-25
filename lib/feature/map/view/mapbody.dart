@@ -56,7 +56,7 @@ class _MyMapState extends State<MyMap> {
     await controller.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
   }
 
-  Future<void> getPolylinePoints() async {
+  Future<List<LatLng>> getPolylinePoints() async {
     List<LatLng> polylineCoordinates = [];
     PolylinePoints polylinePoints = PolylinePoints();
     try {
