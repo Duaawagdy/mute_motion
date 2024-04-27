@@ -2,6 +2,7 @@ import 'dart:ui';
 
 const kprimaryColor= Color(0xffFFFFFF);
 const borderColor= Color(0xff003248);
+const chatColorMe = Color(0xffffd700);
 String? userEmail;
 String? userName;
 String? userPhoto;
