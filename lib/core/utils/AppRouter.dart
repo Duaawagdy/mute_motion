@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/about_us/view/about_as_screen.dart';
 import 'package:mute_motion/feature/cardetaials/view/cardetailsscreen%20.dart';
+import 'package:mute_motion/feature/chat/presentation/views/chat_screen_view.dart';
 import 'package:mute_motion/feature/chat/view/chat_screen.dart';
 import 'package:mute_motion/feature/login/presentation/views/forgot_password.dart';
 import 'package:mute_motion/feature/login/presentation/views/loginview.dart';
