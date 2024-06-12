@@ -41,7 +41,7 @@ class _MyMapState extends State<MyMap> {
 
   Future<void> getLocationUpdates() async {
     _locationSubscription = _locationController.onLocationChanged.listen((LocationData currentLocation) {
-      if (currentLocation.latitude != null && currentLocation.longitude != null) {
+      if (currentLocation.latitude !=  null && currentLocation.longitude != null) {
         setState(() {
           _currentLocation = LatLng(currentLocation.latitude!, currentLocation.longitude!);
           cameratoposition(_currentLocation!);
@@ -52,7 +52,7 @@ class _MyMapState extends State<MyMap> {
 
   Future<void> cameratoposition(LatLng pos) async {
     final GoogleMapController controller = await _mapController.future;
-    CameraPosition newCameraPosition = CameraPosition(target: pos, zoom: 16);
+    CameraPosition newCameraPosition =   CameraPosition(target: pos, zoom: 16);
     await controller.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
   }
 
