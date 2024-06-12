@@ -60,10 +60,12 @@ class _MyMapState extends State<MyMap> {
     List<LatLng> polylineCoordinates = [];
     PolylinePoints polylinePoints = PolylinePoints();
     try {
+
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         "AIzaSyC2Zz-eWGawv378cWw5Olhayx9SAX72Jko", // Replace with your actual API key
         PointLatLng(_userLocation.latitude, _userLocation.longitude),
         PointLatLng(_destinationLocation.latitude, _destinationLocation.longitude),
+
         travelMode: TravelMode.driving,
       );
 
