@@ -87,143 +87,145 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
         color: borderColor,
         height: 160,
         width: double.infinity,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          sendMessage('Hello');
-                        },
-                        child: Text(
-                          'Hello',
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle12,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      height: 40,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          sendMessage('Where are you?');
-                        },
-                        child: Text(
-                          'Where are you?',
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle12,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      height: 40,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          sendMessage('Don\'t be late. I\'m waiting for you!');
-                        },
-                        child: Text(
-                          'Don\'t be late. I\'m waiting for you!',
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle12,
-                        ),
-                      ),
-                    ), //
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      height: 40,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          sendMessage('I\'m coming');
-                        },
-                        child: Text(
-                          'I\'m coming',
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.textStyle12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                  ),
-                  child: TextFormField(
-                    cursorColor: borderColor,
-                    controller: msgController,
-                    decoration: InputDecoration(
-                      hintText: 'Message',
-                      suffixIcon: IconButton(
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
                           onPressed: () {
-                            sendMessage(msgController.text);
-                            msgController.text = "";
+                            sendMessage('Hello');
                           },
-                          icon: const FaIcon(
-                            FontAwesomeIcons.solidPaperPlane,
-                            color: borderColor,
-                          )),
-                      hintStyle: TextStyle(
-                         fontFamily: 'Comfortaa',
-                        color: Colors.black.withOpacity(0.65),
-                        fontSize: 12,
+                          child: Text(
+                            'Hello',
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.textStyle12,
+                          ),
+                        ),
                       ),
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        height: 40,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            sendMessage('Where are you?');
+                          },
+                          child: Text(
+                            'Where are you?',
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.textStyle12,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        height: 40,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            sendMessage('Don\'t be late. I\'m waiting for you!');
+                          },
+                          child: Text(
+                            'Don\'t be late. I\'m waiting for you!',
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.textStyle12,
+                          ),
+                        ),
+                      ), //
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        height: 40,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            sendMessage('I\'m coming');
+                          },
+                          child: Text(
+                            'I\'m coming',
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.textStyle12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: TextFormField(
+                      cursorColor: borderColor,
+                      controller: msgController,
+                      decoration: InputDecoration(
+                        hintText: 'Message',
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              sendMessage(msgController.text);
+                              msgController.text = "";
+                            },
+                            icon: const FaIcon(
+                              FontAwesomeIcons.solidPaperPlane,
+                              color: borderColor,
+                            )),
+                        hintStyle: TextStyle(
+                           fontFamily: 'Comfortaa',
+                          color: Colors.black.withOpacity(0.65),
+                          fontSize: 12,
+                        ),
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

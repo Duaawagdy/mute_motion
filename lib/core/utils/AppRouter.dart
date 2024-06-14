@@ -107,7 +107,7 @@ class approuter {
     GoRoute(
       path: '/chat',
       builder: (context, state) {
-        return Chat_Screen();
+        return ChatScreenView();
       },
     ),
     GoRoute(
