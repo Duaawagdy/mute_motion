@@ -48,8 +48,9 @@ void dispose(){
      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       body: Stack(
-    children: <Widget>[ mymap(),
-      Positioned(bottom: 0,child: maindisplay()),
+    children: <Widget>[ MyMap(),
+
+    //  Positioned(bottom: 0 ,child:  maindisplay()),
     ],
       )
 
