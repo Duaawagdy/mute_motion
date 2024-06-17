@@ -2,7 +2,10 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
     <application
         android:label="mute_motion"
         android:name="${applicationName}"
@@ -12,9 +15,9 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.v3.API_KEY"
-            android:value="AIzaSyAPmuYF0lap3-EZk1Vfz5rj_DWXOqB2X08" />
+            android:value="AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY" />
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAPmuYF0lap3-EZk1Vfz5rj_DWXOqB2X08" />
+            android:value="AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

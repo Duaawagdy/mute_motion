@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+import 'package:location/location.dart' as loc;
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:google_api_headers/google_api_headers.dart';
 
 class MyMap extends StatefulWidget {
   const MyMap();
@@ -11,14 +13,17 @@ class MyMap extends StatefulWidget {
 }
 
 class _MyMapState extends State<MyMap> {
-  late GoogleMapController? googleMapController;
+  GoogleMapController? googleMapController;
   final Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
-  Location _locationController = Location();
+  loc.Location _locationController = loc.Location();
   LatLng? _currentLocation;
-  Map<PolylineId, Polyline> polylines = {};
   static const LatLng _destinationLocation = LatLng(30.541920853284697, 31.678156380256656);
-  static const LatLng _userLocation = LatLng(30.538064272855628, 31.662419559020925);
-  StreamSubscription<LocationData>? _locationSubscription;
+  LatLng? _userLocation;
+
+  final Mode _mode = Mode.overlay;
+  final String googleApiKey = "AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY"; // Replace with your API key
+
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -26,106 +31,173 @@ class _MyMapState extends State<MyMap> {
     initializeMap();
   }
 
-  @override
-  void dispose() {
-    _locationSubscription?.cancel();
-    super.dispose();
-  }
-
   Future<void> initializeMap() async {
     await getLocationUpdates();
-    await getPolylinePoints().then((coordinates) {
-      generatePolyline(coordinates);
-    });
   }
 
   Future<void> getLocationUpdates() async {
-    _locationSubscription = _locationController.onLocationChanged.listen((LocationData currentLocation) {
-      if (currentLocation.latitude !=  null && currentLocation.longitude != null) {
+    bool _serviceEnabled;
+    loc.PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await _locationController.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await _locationController.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await _locationController.hasPermission();
+    if (_permissionGranted == loc.PermissionStatus.denied) {
+      _permissionGranted = await _locationController.requestPermission();
+      if (_permissionGranted != loc.PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationController.onLocationChanged.listen((loc.LocationData currentLocation) {
+      if (currentLocation.latitude != null && currentLocation.longitude != null) {
         setState(() {
           _currentLocation = LatLng(currentLocation.latitude!, currentLocation.longitude!);
-          cameratoposition(_currentLocation!);
+          _userLocation = _currentLocation; // Update user location to current location
         });
       }
     });
   }
 
-  Future<void> cameratoposition(LatLng pos) async {
+  Future<void> goToCurrentLocation() async {
+    if (_currentLocation != null) {
+      final GoogleMapController controller = await _mapController.future;
+      CameraPosition newCameraPosition = CameraPosition(target: _currentLocation!, zoom: 16);
+      await controller.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
+    }
+  }
+
+  Future<void> goToUserLocation() async {
+    if (_userLocation != null) {
+      final GoogleMapController controller = await _mapController.future;
+      CameraPosition newCameraPosition = CameraPosition(target: _userLocation!, zoom: 16);
+      await controller.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
+    }
+  }
+
+  Future<void> goToDestinationLocation() async {
     final GoogleMapController controller = await _mapController.future;
-    CameraPosition newCameraPosition =   CameraPosition(target: pos, zoom: 16);
+    CameraPosition newCameraPosition = CameraPosition(target: _destinationLocation, zoom: 16);
     await controller.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
   }
 
-  Future<void> getPolylinePoints() async {
-    List<LatLng> polylineCoordinates = [];
-    PolylinePoints polylinePoints = PolylinePoints();
-    try {
+  Future<void> handleSearch() async {
+    setState(() {
+      _isLoading = true;
+    });
 
-      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        "AIzaSyC2Zz-eWGawv378cWw5Olhayx9SAX72Jko", // Replace with your actual API key
-        PointLatLng(_userLocation.latitude, _userLocation.longitude),
-        PointLatLng(_destinationLocation.latitude, _destinationLocation.longitude),
+    Prediction? p = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: googleApiKey,
+      mode: _mode,
+      language: "en",
+      components: [Component(Component.country, "us")],
+      onError: (response) {
+        print(response.errorMessage);
+      },
+    );
 
-        travelMode: TravelMode.driving,
-      );
+    await displayPrediction(p);
 
-      if (result.points.isNotEmpty) {
-        result.points.forEach((PointLatLng point) {
-          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-        });
-      } else {
-        print('No polyline points found.');
-      }
-    } catch (e) {
-      print('Error fetching polyline points: $e');
-    }
-
-    return polylineCoordinates;
+    setState(() {
+      _isLoading = false;
+    });
   }
 
-  void generatePolyline(List<LatLng> polylineCoordinates) {
-    PolylineId id = PolylineId('poly');
-    Polyline polyline = Polyline(
-      polylineId: id,
-      color: Colors.black,
-      points: polylineCoordinates,
-      width: 8,
-    );
-    setState(() {
-      polylines[id] = polyline;
-    });
+  Future<void> displayPrediction(Prediction? p) async {
+    if (p != null) {
+      GoogleMapsPlaces places = GoogleMapsPlaces(
+        apiKey: googleApiKey,
+        apiHeaders: await GoogleApiHeaders().getHeaders(),
+      );
+      PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+
+      if (detail.status == "OK") {
+        final lat = detail.result.geometry!.location.lat;
+        final lng = detail.result.geometry!.location.lng;
+        LatLng searchedLocation = LatLng(lat, lng);
+
+        setState(() {
+          _userLocation = searchedLocation;
+        });
+
+        final GoogleMapController controller = await _mapController.future;
+        CameraPosition newCameraPosition = CameraPosition(target: searchedLocation, zoom: 16);
+        await controller.animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
+      } else {
+        print("Error retrieving place details: ${detail.errorMessage}");
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentLocation == null
-          ? Center(child: Text('Loading...'))
-          : GoogleMap(
-        onMapCreated: (GoogleMapController controller) {
-          _mapController.complete(controller);
-          googleMapController = controller;
-          initMapStyle();
-        },
-        initialCameraPosition: CameraPosition(target: _destinationLocation, zoom: 10),
-        markers: {
-          Marker(
-            markerId: MarkerId('currentlocation'),
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-            position: _currentLocation!,
+      body: Stack(
+        children: [
+          GoogleMap(
+            onMapCreated: (GoogleMapController controller) {
+              _mapController.complete(controller);
+              googleMapController = controller;
+              initMapStyle();
+            },
+            initialCameraPosition: CameraPosition(target: _destinationLocation, zoom: 10),
+            markers: {
+              Marker(
+                markerId: MarkerId('destinationlocation'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+                position: _destinationLocation,
+              ),
+              if (_userLocation != null)
+                Marker(
+                  markerId: MarkerId('userlocation'),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+                  position: _userLocation!,
+                ),
+            },
           ),
-          Marker(
-            markerId: MarkerId('destinationlocation'),
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
-            position: _destinationLocation,
+          if (_isLoading)
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+          Positioned(
+            top: 10,
+            left: 15,
+            right: 15,
+            child: ElevatedButton(
+              onPressed: handleSearch,
+              child: Text("Search Location"),
+            ),
           ),
-          Marker(
-            markerId: MarkerId('userlocation'),
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-            position: _userLocation,
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: goToCurrentLocation,
+            child: Icon(Icons.my_location),
+            tooltip: 'Go to Current Location',
           ),
-        },
-        polylines: Set<Polyline>.of(polylines.values),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: goToUserLocation,
+            child: Icon(Icons.person_pin_circle),
+            tooltip: 'Go to User Location',
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: goToDestinationLocation,
+            child: Icon(Icons.location_pin),
+            tooltip: 'Go to Destination',
+          ),
+        ],
       ),
     );
   }
