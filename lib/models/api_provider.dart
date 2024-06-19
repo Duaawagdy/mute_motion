@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +40,10 @@ class ApiProvide {
     setUserName(fullname);
     // Navigate to next screen
     GoRouter.of(context).push('/navbar');
-  } else {
+  } else if (response.statusCode == 401) {
+    final error = response.statusMessage;
+    _showErrorDialogLogin(context,error!, emailCont, passCont);}
+   else {
     // Handle non-200 status code
     print('Request failed with status: ${response.statusCode}');
     _showErrorDialogLogin(context, 'Request failed with status: ${response.statusCode}', emailCont, passCont);
@@ -46,7 +51,6 @@ class ApiProvide {
 } catch (e) {
   // Handle Dio exceptions
   print('Request failed with error: $e');
-  _showErrorDialogLogin(context, 'Request failed with error: $e', emailCont, passCont);
 }
 
   }

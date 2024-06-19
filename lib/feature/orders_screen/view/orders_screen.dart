@@ -58,7 +58,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
                 textSize: 22.0,
                 animationDuration:Duration(milliseconds: 600),
                 onChanged: (value) {
-                  setState(() {
+                  setState(()  {
                     isOnline = value;
                   });
                 }, onTap: (){}, onDoubleTap: (){}, onSwipe: (){},

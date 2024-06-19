@@ -22,7 +22,7 @@ class _MyMapState extends State<MyMap> {
   LatLng? _userLocation;
 
   final Mode _mode = Mode.overlay;
-  final String googleApiKey = "AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY"; // Replace with your API key
+  final String googleApiKey = "AIzaSyC2Zz-eWGawv378cWw5Olhayx9SAX72Jko"; // Replace with your API key
 
   bool _isLoading = false;
 

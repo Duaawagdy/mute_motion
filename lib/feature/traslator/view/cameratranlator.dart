@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'dart:typed_data';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:socket_io_client/socket_io_client.dart' as Io;
@@ -11,6 +14,7 @@ class cameratranslator extends StatefulWidget{
 }
 
 class _cameratranslatorState extends State<cameratranslator> {
+
   bool _initialized = true;
   int currentCamera = 0;
    CameraController? controller;
@@ -20,7 +24,7 @@ class _cameratranslatorState extends State<cameratranslator> {
   @override
   void initState() {
     _cameraSetUp();
-    initSocket();
+    //initSocket();
     print('3');
 
     super.initState();
@@ -30,7 +34,10 @@ class _cameratranslatorState extends State<cameratranslator> {
     controller?.dispose();
     super.dispose();
   }
-  initSocket(){
+  initconnection()async{
+    Response response = await Dio().post("http://192.168.1.10:5000/upload", data:"hi");
+  }
+ /*Socket(){
     print('1');
     Map<String,dynamic> options={'trasports':['websocket'],'autoConnection':false};
     Io.Socket socket =Io.io('https://mutemotion.onrender.com/stream',options);
@@ -40,7 +47,7 @@ class _cameratranslatorState extends State<cameratranslator> {
     print('4');
     socket.onConnect((_) {print('connected to server');});
     print('5');
-  }
+  }*/
   Future<void> _startStreaming() async {
     if (controller?.value.isInitialized==null) {
       return;
@@ -51,14 +58,34 @@ class _cameratranslatorState extends State<cameratranslator> {
       print(isStreaming);
     });
 
+
     _streamSubscription = controller?.startImageStream((CameraImage image) {
       // Convert the image to a byte array
-      List<int> bytes = image.planes[0].bytes;
-      print('video format is ${bytes}');
+      int? bytes = image.planes[0].bytesPerRow;
+      int? bytes1 = image.planes[1].bytesPerPixel;
+      int? bytes2 = image.planes[2].bytesPerPixel;
+      //print('video format is ${bytes}');
+
+      Uint8List pointerList =Uint8List(image.planes[0].bytes.length);
+      Uint8List pointerList1=Uint8List(image.planes[1].bytes.length);
+      Uint8List pointerList2=Uint8List(image.planes[2].bytes.length);
+      pointerList.setRange(0, image.planes[0].bytes.length, image.planes[0].bytes);
+      pointerList1.setRange(0, image.planes[1].bytes.length, image.planes[1].bytes);
+      pointerList2.setRange(0, image.planes[2].bytes.length,image.planes[2].bytes);
+      print("plane1 :${pointerList}");
+     // print("plane2 :${pointerList1}");
+      //print('bytes:${bytes}');
+      initconnection();
+      //print('bytes1:${bytes1}');
+      //print('bytes:${bytes2}');
+     // print("plane3 :${pointerList2}");
       // Send the byte array to the backend
       //_sendFrame(bytes);
     }) as StreamSubscription<CameraImage>;
   }
+
+
+
   Future<void> _stopStreaming() async {
     if (controller?.value.isInitialized==null) {
       return;
@@ -70,6 +97,9 @@ class _cameratranslatorState extends State<cameratranslator> {
 
     await _streamSubscription?.cancel();
     await controller?.stopImageStream();
+  }
+  getrgb(List bytes){
+
   }
   _cameraSetUp() async {
     cameras = await availableCameras();
@@ -139,3 +169,4 @@ class _cameratranslatorState extends State<cameratranslator> {
     ],),);
   }
 }
+
