@@ -62,6 +62,9 @@ dependencies:
   google_maps_webservice: ^0.0.20-nullsafety.5
   google_api_headers: ^1.0.1
   dartz: ^0.10.1
+  flutter_polyline_points: ^1.0.0
+  responsive_sizer: ^3.3.1
+  geolocator: ^11.1.0
 
 
 dev_dependencies:

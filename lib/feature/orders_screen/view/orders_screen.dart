@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:mute_motion/core/utils/offline.dart';
 import 'package:mute_motion/core/utils/online.dart';
+import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 
 class Orders_Screen extends StatefulWidget {
@@ -60,6 +61,8 @@ class _OrdersScreenState extends State<Orders_Screen> {
                 onChanged: (value) {
                   setState(()  {
                     isOnline = value;
+
+                      OrderRepoImpl().onlinetoggle(isOnline);
                   });
                 }, onTap: (){}, onDoubleTap: (){}, onSwipe: (){},
               ),

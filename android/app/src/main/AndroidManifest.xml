@@ -15,9 +15,9 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.v3.API_KEY"
-            android:value="AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY" />
+            android:value="AIzaSyC2Zz-eWGawv378cWw5Olhayx9SAX72Jko" />
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY" />
+            android:value="AIzaSyC2Zz-eWGawv378cWw5Olhayx9SAX72Jko" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

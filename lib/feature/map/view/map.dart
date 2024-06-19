@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mute_motion/feature/map/view/mapbody.dart';
+
 import 'package:mute_motion/feature/map/view/widgets/containerdisplay.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 
@@ -50,7 +51,7 @@ void dispose(){
       body: Stack(
     children: <Widget>[ MyMap(),
 
-    //  Positioned(bottom: 0 ,child:  maindisplay()),
+     //Positioned(bottom: 0 ,child:  maindisplay()),
     ],
       )
 
