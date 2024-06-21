@@ -339,7 +339,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         setUserName(nameCont.text);
                                         LoadingIndicator= true;
                                         setState(() {});
-                                      await ApiProvide().UserRegisteration(
+                                      await ApiProvider().userRegistration(
                                           context: context,
                                           fullname: nameCont.text,
                                           age: ageCont.text,

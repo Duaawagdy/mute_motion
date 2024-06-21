@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "983375663115",
-    "project_id": "iti-project-2a733",
-    "storage_bucket": "iti-project-2a733.appspot.com"
+    "project_number": "1015246050058",
+    "project_id": "mutemotion-e44be",
+    "storage_bucket": "mutemotion-e44be.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:983375663115:android:76194d24d100aff43f770e",
+        "mobilesdk_app_id": "1:1015246050058:android:06edc120e797f928aaa0f3",
         "android_client_info": {
-          "package_name": "com.example.task1"
+          "package_name": "com.example.mute_motion"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "983375663115-0ifjmackddj5ou28guj8e64sn1j33ppv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAg5U8fj2vuOrBAQPn91AbukyBybYE8qGw"
+          "current_key": "AIzaSyB081aXoj8h0TSw_Loq-8K1b1MICktmG2Q"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "983375663115-0ifjmackddj5ou28guj8e64sn1j33ppv.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

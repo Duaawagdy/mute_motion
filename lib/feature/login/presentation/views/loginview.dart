@@ -154,7 +154,7 @@ class _login_screenState extends State<login_screen> {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
                             prefs.setString('email', emailCont.text);
-                            await ApiProvide().UserLogin(
+                            await ApiProvider().userLogin(
                                 context: context,
                                 emailCont: emailCont,
                                 passCont: passCont);
