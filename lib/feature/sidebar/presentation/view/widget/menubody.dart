@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/AppRouter.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/menu.dart';
-import 'package:mute_motion/feature/sidebar/presentation/view/widget/mode_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class menubody extends StatelessWidget{
@@ -50,7 +49,6 @@ class menubody extends StatelessWidget{
         child: Divider(color: Colors.grey,thickness: 2,),
       ),
       SizedBox(height: 150,),
-      modeItem(),
     ],
     ),
     );
