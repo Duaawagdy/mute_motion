@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/profile/profile_mode.dart';
@@ -126,42 +127,68 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     SizedBox(
                       height: 70,
                     ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Colors.amber,
+                    //       size: 20,
+                    //     ),
+                    //   ],
+                    // ),
+                    Text(
+                      '${getUserName()}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: borderColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    //SizedBox(height: 30,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
+                        Icon(FontAwesomeIcons.solidStar,color: Colors.yellow,size: 12,),
+                      SizedBox(width: 5,),
+                      Text(
+                        '${getDriverRating()}',
+                        style: TextStyle(
+                          fontFamily: 'Comfortaa',
+                          color: borderColor,
+                          fontSize: 14,
                         ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
+                      ),
+                      SizedBox(width: 10,),
+                        Text(
+                          '${getNumOfReviews()} Reviews',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: borderColor,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ],
-                    ),
-                    Text(
-                      '128 Reviews',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                      ),
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
