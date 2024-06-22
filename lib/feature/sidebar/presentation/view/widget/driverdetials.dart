@@ -50,12 +50,22 @@ class driverdetials extends StatelessWidget{
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:8,left: 8.0),
+                  padding: const EdgeInsets.only(top:12,left: 8.0),
                   child: Row(
                     children: [
                       Icon(FontAwesomeIcons.solidStar,color: Colors.yellow,size: 11,),
+                      SizedBox(width: 5,),
                       Text(
-                        '  4.9 (123 Reviewers)',
+                        '${getDriverRating()}',
+                        style: TextStyle(
+                          fontFamily: 'Comfortaa',
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Text(
+                        '${getNumOfReviews()} Reviews',
                         style: TextStyle(
                           fontFamily: 'Comfortaa',
                           color: Colors.white,

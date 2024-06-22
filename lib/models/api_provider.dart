@@ -122,28 +122,35 @@ class ApiProvider {
       };
 
       Response response = await Dio().post("$baseUrl/driver/login", data: requestBody);
-
-      if (response.statusCode == 200) {
+      
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print('Request successful');
         print('Response: ${response.data}');
-
         String token = response.data["token"];
         String userId = response.data["user"]["_id"];
         String fullname = response.data["user"]["fullname"];
+        String rating = response.data["user"]["rating"];
+        String numberOfReviews = response.data["user"]["numberOfReviews"];
         
+        double ratingValue = double.parse(rating);
+        String roundedRating = ratingValue.toStringAsFixed(1);
+
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("token", token);
         await prefs.setString("userId", userId);
         await prefs.setString("fullname", fullname);
-        
+        await prefs.setString("rating", roundedRating);
+        await prefs.setString("numberOfReviews", numberOfReviews);
         print("Token is: $token");
         print("UserId is: $userId");
         print("Fullname is: $fullname");
-
+        print("Rating is: $rating");
+        print("NumberOfReviews is: $numberOfReviews");
         await updateFCMToken(userId: userId, fcmToken: fcmToken);
 
         setUserName(fullname);
-
+        setDriverRating(roundedRating);
+        setNumOfReviews(numberOfReviews);
         GoRouter.of(context).push('/navbar');
       } else if (response.statusCode == 401) {
         final error = response.statusMessage;
@@ -211,15 +218,24 @@ class ApiProvider {
         print('Response: ${response.data}');
 
         String userId = response.data["user"]["_id"];
+        String rating = response.data["user"]["rating"];
+        String numberOfReviews = response.data["user"]["numberOfReviews"];
+
+        double ratingValue = double.parse(rating);
+        String roundedRating = ratingValue.toStringAsFixed(1);
+
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("userId", userId);
-
+        await prefs.setString("rating", roundedRating);
+        await prefs.setString("numberOfReviews", numberOfReviews);
+        
         await updateFCMToken(userId: userId, fcmToken: fcmToken!);
-
         await OTPprovider().sendcode(email: email);
         Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => OTP(),
         ));
+        setDriverRating(roundedRating);
+        setNumOfReviews(numberOfReviews);
       } else {
         _showErrorDialogReg(context, 'Registration failed', 'Unknown error occurred');
       }
