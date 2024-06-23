@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 
 class CustomButon extends StatelessWidget {
@@ -13,16 +14,16 @@ class CustomButon extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: borderColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        width: double.infinity,
-        height: 60,
+        width: (double.infinity).w,
+        height: 60.h,
         child: Center(
             child: Text(
           text,
           style: TextStyle(
             fontFamily: 'Comfortaa',
-            fontSize: 20,
+            fontSize: 20.sp,
             color: kprimaryColor,
           ),
         )),
