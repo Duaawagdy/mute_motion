@@ -147,10 +147,9 @@ class ApiProvider {
         print("Rating is: $rating");
         print("NumberOfReviews is: $numberOfReviews");
         await updateFCMToken(userId: userId, fcmToken: fcmToken);
-
-        setUserName(fullname);
-        setDriverRating(roundedRating);
-        setNumOfReviews(numberOfReviews);
+        // setUserName(fullname);
+        // setDriverRating(roundedRating);
+        // setNumOfReviews(numberOfReviews);
         GoRouter.of(context).push('/navbar');
       } else if (response.statusCode == 401) {
         final error = response.statusMessage;
@@ -218,6 +217,7 @@ class ApiProvider {
         print('Response: ${response.data}');
 
         String userId = response.data["user"]["_id"];
+        String fullname = response.data["user"]["fullname"];
         String rating = response.data["user"]["rating"];
         String numberOfReviews = response.data["user"]["numberOfReviews"];
 
@@ -226,16 +226,17 @@ class ApiProvider {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("userId", userId);
+        await prefs.setString("fullname", fullname);
         await prefs.setString("rating", roundedRating);
         await prefs.setString("numberOfReviews", numberOfReviews);
-        
+        await prefs.setString("fullname", fullname);
         await updateFCMToken(userId: userId, fcmToken: fcmToken!);
         await OTPprovider().sendcode(email: email);
         Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => OTP(),
         ));
-        setDriverRating(roundedRating);
-        setNumOfReviews(numberOfReviews);
+        // setDriverRating(roundedRating);
+        // setNumOfReviews(numberOfReviews);
       } else {
         _showErrorDialogReg(context, 'Registration failed', 'Unknown error occurred');
       }

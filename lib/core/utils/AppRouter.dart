@@ -3,13 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/about_us/view/about_as_screen.dart';
 import 'package:mute_motion/feature/cardetaials/view/cardetailsscreen%20.dart';
 import 'package:mute_motion/feature/chat/presentation/views/chat_screen_view.dart';
-import 'package:mute_motion/feature/chat/view/chat_screen.dart';
 import 'package:mute_motion/feature/login/presentation/views/forgot_password.dart';
 import 'package:mute_motion/feature/login/presentation/views/loginview.dart';
 import 'package:mute_motion/feature/map/view/map.dart';
 import 'package:mute_motion/feature/my_orders/view/my_orders_screen.dart';
 import 'package:mute_motion/feature/navbar/view/navbar_roots.dart';
-import 'package:mute_motion/feature/notifaction/view/Notification_screen.dart';
 import 'package:mute_motion/feature/orders_screen/view/orders_screen.dart';
 import 'package:mute_motion/feature/presentation/SplashView.dart';
 import 'package:mute_motion/feature/profile/view/profile_screen.dart';
@@ -78,12 +76,6 @@ class approuter {
       path: '/translation',
       builder: (context, state) {
         return Translator_Screen();
-      },
-    ),
-    GoRoute(
-      path: '/notification',
-      builder: (context, state) {
-        return Notification_Screen();
       },
     ),
     GoRoute(

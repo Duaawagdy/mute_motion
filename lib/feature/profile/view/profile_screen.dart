@@ -20,6 +20,17 @@ class Profile_Screen extends StatefulWidget {
 }
 
 class _Profile_ScreenState extends State<Profile_Screen> {
+  String userName = '';
+  String userRating = '';
+  String reviews = '';
+  Future<void> _getUserNameRateReview() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('fullname') ?? '';
+      userRating = prefs.getString('rating') ?? '';
+      reviews = prefs.getString('numberOfReviews') ?? '';
+    });
+  }
   late ProfileModel _userData = ProfileModel(
     cartype: '',
     color: '',
@@ -36,8 +47,8 @@ class _Profile_ScreenState extends State<Profile_Screen> {
   void initState() {
     super.initState();
     getInfo();
+    _getUserNameRateReview();
   }
-
   Future<void> getInfo() async {
     setState(() {
       isLoading = true;
@@ -125,69 +136,41 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 70,
+                      height: 80,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //     Icon(
-                    //       Icons.star,
-                    //       color: Colors.amber,
-                    //       size: 20,
-                    //     ),
-                    //   ],
-                    // ),
                     Text(
-                      '${getUserName()}',
+                      userName.isNotEmpty ? userName : 'User Name',
                       style: TextStyle(
-                        fontSize: 16,
-                        color: borderColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      color: borderColor,
+                      fontSize: 16,
+                      fontFamily: 'Comfortaa',
+                      fontWeight: FontWeight.bold,
+                      height: 0.07,
                     ),
-                    //SizedBox(height: 30,),
+                    ),
+                    SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(FontAwesomeIcons.solidStar,color: Colors.yellow,size: 12,),
                       SizedBox(width: 5,),
                       Text(
-                        '${getDriverRating()}',
-                        style: TextStyle(
+                      userRating.isNotEmpty ? userRating : '',
+                      style: TextStyle(
                           fontFamily: 'Comfortaa',
                           color: borderColor,
-                          fontSize: 14,
+                          fontSize: 12,
                         ),
-                      ),
+                    ),
                       SizedBox(width: 10,),
-                        Text(
-                          '${getNumOfReviews()} Reviews',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: borderColor,
-                            fontWeight: FontWeight.normal,
-                          ),
+                      Text(
+                      reviews.isNotEmpty ? '${reviews} Reviews' : '',
+                      style: TextStyle(
+                          fontFamily: 'Comfortaa',
+                          color: borderColor,
+                          fontSize: 12,
                         ),
+                    ),
                       ],
                     ),
                     SingleChildScrollView(

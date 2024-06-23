@@ -60,19 +60,12 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Upload Car Image',
-                        style: TextStyle(
-                            fontSize: 16, fontFamily: 'Lato', color: borderColor),
-                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      GestureDetector(
-                          onTap: () {},
-                          child: Image.asset('assets/Group 542.png')),
+                      Image.asset('assets/car 1.png'),
                       SizedBox(
-                        height: 25,
+                        height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
