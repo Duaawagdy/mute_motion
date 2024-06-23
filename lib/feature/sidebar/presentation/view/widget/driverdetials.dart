@@ -2,8 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class driverdetials extends StatelessWidget{
+class driverdetials extends StatefulWidget{
+  @override
+  State<driverdetials> createState() => _driverdetialsState();
+}
+
+class _driverdetialsState extends State<driverdetials> {
+  String userName = '';
+  String userRating = '';
+  String reviews = '';
+  @override
+  void initState() {
+    super.initState();
+    _getUserNameRateReview();
+  }
+
+  Future<void> _getUserNameRateReview() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('fullname') ?? '';
+      userRating = prefs.getString('rating') ?? '';
+      reviews = prefs.getString('numberOfReviews') ?? '';
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,31 +46,21 @@ class driverdetials extends StatelessWidget{
                 backgroundImage: AssetImage('assets/man.png'),
               ),
             ),
+            SizedBox(width: 10,),
             Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 62, left: 12),
-                  child: getUserName()==null?
-                    Text(
-                    'User Name',
-                    style: TextStyle(
+                  child: Text(
+                      userName.isNotEmpty ? userName : 'User Name',
+                      style: TextStyle(
                       color: Color(0xFFF8F8F8),
                       fontSize: 16,
                       fontFamily: 'Comfortaa',
                       fontWeight: FontWeight.w700,
                       height: 0.07,
                     ),
-                  )
-                    :Text(
-                    '${getUserName()}',
-                    style: TextStyle(
-                      color: Color(0xFFF8F8F8),
-                      fontSize: 16,
-                      fontFamily: 'Comfortaa',
-                      fontWeight: FontWeight.w700,
-                      height: 0.07,
                     ),
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top:12,left: 8.0),
@@ -56,22 +69,22 @@ class driverdetials extends StatelessWidget{
                       Icon(FontAwesomeIcons.solidStar,color: Colors.yellow,size: 11,),
                       SizedBox(width: 5,),
                       Text(
-                        '${getDriverRating()}',
-                        style: TextStyle(
+                      userRating.isNotEmpty ? userRating : '',
+                      style: TextStyle(
                           fontFamily: 'Comfortaa',
                           color: Colors.white,
                           fontSize: 12,
                         ),
-                      ),
+                    ),
                       SizedBox(width: 10,),
                       Text(
-                        '${getNumOfReviews()} Reviews',
-                        style: TextStyle(
+                      reviews.isNotEmpty ? '${reviews} Reviews' : '',
+                      style: TextStyle(
                           fontFamily: 'Comfortaa',
                           color: Colors.white,
                           fontSize: 12,
                         ),
-                      ),
+                    ),
                     ],
                   ),
                 ),
@@ -90,5 +103,4 @@ class driverdetials extends StatelessWidget{
       ),
     ),);
   }
-
 }

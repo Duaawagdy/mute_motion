@@ -12,19 +12,7 @@ setUserEmail(String? mail) => userEmail = mail;
 String? getUserEmail() {
   return userEmail;
 }
-setUserName(String? name) => userName = name;
-String? getUserName() {
-  return userName;
-}
 setUserPhoto(String? photo) => userPhoto = photo;
 String? getUserPhoto() {
   return userPhoto;
-}
-setDriverRating(String? rate) => diverRate = rate;
-String? getDriverRating() {
-  return diverRate;
-}
-setNumOfReviews(String? Reviews) => numOfReviews = Reviews;
-String? getNumOfReviews() {
-  return numOfReviews;
 }

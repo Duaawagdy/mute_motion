@@ -30,11 +30,6 @@ class menubody extends StatelessWidget{
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
         child: Divider(color: Colors.grey,thickness: 2,),
       ),
-      menuitem(itemname: 'notifications',icon: Icons.notifications_none,onpressed: (){GoRouter.of(context).push('/notification');}),
-      Padding(
-        padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
-        child: Divider(color: Colors.grey,thickness: 2,),
-      ),
       menuitem(itemname: 'About Us',icon: Icons.supervised_user_circle,onpressed: (){GoRouter.of(context).push('/aboutus');}),
       Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 18,top: 0),
