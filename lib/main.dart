@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:mute_motion/core/utils/AppRouter.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
@@ -57,14 +58,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
-        Provider<ApiProvider>(create: (context) => ApiProvider()),
-      ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: approuter.router,
+    return ScreenUtilInit(
+      designSize: const Size(430, 932),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
+          Provider<ApiProvider>(create: (context) => ApiProvider()),
+        ],
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: approuter.router,
+        ),
       ),
     );
   }
