@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mute_motion/core/utils/constant.dart';
@@ -41,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Scaffold(
             backgroundColor: kprimaryColor,
             body: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0).w,
               child: Form(
                 key: formKey,
                 child: Column(
@@ -53,15 +54,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Image.asset('assets/pana.png'),
-                            const SizedBox(
-                              height: 5,
+                              SizedBox(
+                              height: 5.h,
                             ),
                             Container(
                               alignment: Alignment.center,
-                              child: const Text(
+                              child: Text(
                                 'Welcome',
                                 style: TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 32.sp,
                                   color: borderColor,
                                   fontFamily: 'comfortaa',
                                 ),
@@ -71,13 +72,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               'Please Enter your Info',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 color: borderColor,
                                 fontFamily: 'comfortaa',
                               ),
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             CustomTextField(
                               cont: nameCont,
@@ -88,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               icon: Icons.person,
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             CustomTextField(
                               cont: ageCont,
@@ -99,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintText: 'Age',
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             TextFormField(
                               controller: emailCont,
@@ -139,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             TextFormField(
                               controller: passCont,
@@ -183,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             TextFormField(
                               controller: confirm,
@@ -229,7 +230,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             CustomTextField(
                               cont: phoneCont,
@@ -240,27 +241,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               icon: Icons.call,
                             ),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                               
                             Container(
                                 margin: EdgeInsets.only(),
-                                height: 58,
-                                width: 250,
+                                height: 70.h,
+                                width: 250.w,
                                 padding: const EdgeInsets.only(
                                   top: 2,
                                   left: 1,
-                                ),
+                                ).r,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(
                                     color: borderColor,
                                   ),
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5),
-                                      topRight: Radius.circular(5),
-                                      bottomRight: Radius.circular(5),
-                                      bottomLeft: Radius.circular(5)),
+                                      topLeft: Radius.circular(5.r),
+                                      topRight: Radius.circular(5.r),
+                                      bottomRight: Radius.circular(5.r),
+                                      bottomLeft: Radius.circular(5.r)),
                                 ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,9 +270,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         onPressed: () {
                                           buildShowModalBottomSheet(context);
                                         },
-                                        child: Text("Credit Details")),
+                                        child: Text("Credit Details",textAlign: TextAlign.center,)),
                                     SizedBox(
-                                      width: 200,
+                                      width:212.w,
                                     ),
                                     IconButton(
                                       onPressed: () {
@@ -282,26 +283,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ],
                                 )),
                             SizedBox(
-                              height: 18,
+                              height: 18.h,
                             ),
                             Container(
                                 margin: EdgeInsets.only(),
-                                height: 58,
-                                width: 250,
+                                height: 70.h,
+                                width: 250.w,
                                 padding: const EdgeInsets.only(
                                   top: 2,
                                   left: 1,
-                                ),
+                                ).r,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(
                                     color: borderColor,
                                   ),
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5),
-                                      topRight: Radius.circular(5),
-                                      bottomRight: Radius.circular(5),
-                                      bottomLeft: Radius.circular(5)),
+                                      topLeft: Radius.circular(5.r),
+                                      topRight: Radius.circular(5.r),
+                                      bottomRight: Radius.circular(5.r),
+                                      bottomLeft: Radius.circular(5.r)),
                                 ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,7 +314,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         },
                                         child: Text("Car Details")),
                                     SizedBox(
-                                      width: 215,
+                                      width: 232.w,
                                     ),
                                     IconButton(
                                       onPressed: () {
@@ -325,13 +326,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ],
                                 )),
                             SizedBox(
-                              height: 30,
+                              height: 30.h,
                             ),
                             Container(
-                              width: double.infinity,
+                              width: (double.infinity).w,
                               decoration: BoxDecoration(
                                   color: const Color(0xff003248),
-                                  borderRadius: BorderRadius.circular(20)),
+                                  borderRadius: BorderRadius.circular(20.r)),
                               child: MaterialButton(
                                   onPressed: () async {
                                     if (formKey.currentState!.validate()) {
@@ -359,23 +360,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     LoadingIndicator= false;
                                         setState(() {});
                                   },
-                                  child: const Text(
+                                  child:  Text(
                                     "Register",
                                     style: TextStyle(
-                                        fontSize: 22,
+                                        fontSize: 22.sp,
                                         fontFamily: 'Comfortaa',
                                         color: Colors.white),
                                   )),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 10.h,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text('already have an account?',
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                       fontFamily: 'Comfortaa',
                                     )),
                                 GestureDetector(
@@ -386,7 +387,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     '  Login',
                                     style: TextStyle(
                                       color: borderColor,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontFamily: 'Comfortaa',
                                     ),
                                   ),
@@ -412,7 +413,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return showModalBottomSheet(
       isScrollControlled: true,
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0.r)),
         context: context,
         builder: (BuildContext context) {
           return Padding(
