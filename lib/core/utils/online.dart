@@ -29,7 +29,8 @@ class _OnlineState extends State<Online> {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.hasData) {
               final pendingOrders = snapshot.data!.pendingOrders;
-              return Column(
+              //print(pendingOrders);
+              return pendingOrders.isEmpty? NoOrder():Column(
                 children: List.generate(pendingOrders.length, (index) {
                   final pendingOrder = pendingOrders[index];
                   return Column(
@@ -42,6 +43,7 @@ class _OnlineState extends State<Online> {
                         sourceLocation: pendingOrder.locationName,
                         destinationLocation: pendingOrder.destinationName,
                         cost: pendingOrder.cost ?? 'N/A',
+                        orderId: pendingOrder.orderid,
                       ),
                       SizedBox(
                         height: 20,
@@ -55,6 +57,21 @@ class _OnlineState extends State<Online> {
           },
         ),
       ),
+    );
+  }
+}
+
+class NoOrder extends StatelessWidget {
+  const NoOrder({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 250),
+      child: Text('You don\'t have order yet',
+        style: TextStyle(fontSize: 26,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
     );
   }
 }

@@ -14,6 +14,7 @@ class OrderRepoImpl {
   Future<PendingOrdersResponse> fetchNewestOrder() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
+    //print(token);
     final String apiUrl = "https://mutemotion.onrender.com/api/v1/pendingOrders";
     try {
       Response response = await Dio().get(
@@ -23,12 +24,13 @@ class OrderRepoImpl {
         }),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-       // print('Request successful');
-        //print('Raw response data: ${response.data}');
+        print('Request successful');
+       // print('Raw response data: ${response.data}');
 
         final pendingOrdersResponse = PendingOrdersResponse.fromJson(response.data);
 
         return pendingOrdersResponse;
+
       } else {
         throw Exception('Failed to load user data');
       }
@@ -60,7 +62,7 @@ Future<void> onlinetoggle(bool state) async {
         }),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Request successful');
+        print(' update state successful');
       } else {
         throw Exception('Failed to update state');
       }
@@ -70,6 +72,29 @@ Future<void> onlinetoggle(bool state) async {
   }
 
 
+  Future<void> responedToOrder(String orderId,bool state) async {
+
+    final String apiUrl = "https://mutemotion.onrender.com/api/v1/respondToRequest"; // Removed the leading space
+
+    try {
+      Map<String, dynamic> requestBody = {
+        "orderId":orderId,
+        "accept":state
+      };
+      Response response = await Dio().post(
+        apiUrl,
+        data: requestBody,
+
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('respond successful');
+      } else {
+        throw Exception('Failed to respond');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 
 
 }
