@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Offline extends StatelessWidget {
   const Offline({super.key});
 
@@ -8,11 +9,11 @@ class Offline extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 250,),
+          SizedBox(height: 250.h,),
           Text('You are offline',
-                  style: TextStyle(fontSize: 26,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
+                  style: TextStyle(fontSize: 30.sp,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
           Text('Be online to get your orders now',
-                  style: TextStyle(fontSize: 18,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
+                  style: TextStyle(fontSize: 20.sp,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
         ],
       )
     ;

@@ -84,7 +84,7 @@ class _driverdetialsState extends State<driverdetials> {
               ),
             ],
           ),
-          SizedBox(width: 20.w,),
+          SizedBox(width: 15.w,),
           IconButton(
             onPressed:() {GoRouter.of(context).push('/profile');},
             icon: Icon(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 import 'package:mute_motion/feature/orders_screen/view/widget/custemrequest.dart';
 //import 'package:mute_motion/feature/orders_screen/model/pending_order.dart';
@@ -21,7 +22,7 @@ class _OnlineState extends State<Online> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(left: 5, right: 20, top: 15, bottom: 15),
+        padding: EdgeInsets.only(left: 5.w, right: 20.w, top: 15.h, bottom: 15.h),
         child: FutureBuilder<PendingOrdersResponse>(
           future: OrderRepoImpl().fetchNewestOrder(),
           builder: (BuildContext context, AsyncSnapshot<PendingOrdersResponse> snapshot) {
@@ -46,7 +47,7 @@ class _OnlineState extends State<Online> {
                         orderId: pendingOrder.orderid,
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 20.h,
                       ),
                     ],
                   );
@@ -71,7 +72,7 @@ class NoOrder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 250),
       child: Text('You don\'t have order yet',
-        style: TextStyle(fontSize: 26,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
+        style: TextStyle(fontSize: 26.sp,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
     );
   }
 }

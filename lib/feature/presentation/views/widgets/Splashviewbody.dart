@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/Assets.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -32,8 +33,8 @@ class _SplashviewbodyState extends State<Splashviewbody> with SingleTickerProvid
               CurvedAnimation(parent: _animationcontroller,
                   curve: Curves.easeOut)),
           child: Container(
-            height: 510,
-            width: 510,
+            height: 510.h,
+            width: 510.w,
             child: Image.asset(AssetsData.logo),
           ),
         ),

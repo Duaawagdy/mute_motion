@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
     return Consumer<AuthProvider>(builder: (context, provider, child) {
       return SizedBox(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0).w,
           child: Form(
               key: formKey,
               child: SingleChildScrollView(
@@ -32,7 +33,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                       'Setup Credit Card',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 21,
+                          fontSize: 21.sp,
                           fontFamily: 'Lato',
                           color: Color(0xff003248)),
                     ),
@@ -40,37 +41,37 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                       color: Color(0x88101010),
                     ),
                     SizedBox(
-                      height: 35,
+                      height: 35.h,
                     ),
                     Row(
                       children: [
                         Text(
                           'Card Types Accepted',
                           style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontFamily: 'Comfortaa',
                               color: Color(0xff003248)),
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 20.w,
                         ),
                         Image.asset('assets/Vector.png'),
                         SizedBox(
-                          width: 20,
+                          width: 20.w,
                         ),
                         SizedBox(
-                            height: 36,
-                            width: 49,
+                            height: 36.h,
+                            width: 49.w,
                             child: Image.asset('assets/Group 450.png')),
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 20.h,
                     ),
                     Text(
                       'Card Number',
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontFamily: 'Comfortaa',
                           color: Color(0xff003248)),
                     ),
@@ -88,7 +89,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                       },
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 30.h,
                     ),
                     Row(
                       children: [
@@ -98,12 +99,12 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                             Text(
                               'Expiry Date',
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'Comfortaa',
                                   color: Color(0xff003248)),
                             ),
                             Container(
-                              width: 150, // Set a finite width
+                              width: 150.w,
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 inputFormatters: <TextInputFormatter>[
@@ -121,7 +122,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                           ],
                         ),
                         SizedBox(
-                          width: 30,
+                          width: 30.w,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,12 +130,12 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                             Text(
                               'CVV',
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'Comfortaa',
                                   color: Color(0xff003248)),
                             ),
                             Container(
-                              width: 150, // Set a finite width
+                              width: 150.w, // Set a finite width
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 inputFormatters: <TextInputFormatter>[
@@ -154,7 +155,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                       ],
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 30.h,
                     ),
                     Text(
                       'We will securely store this card for a faster payment experience',
@@ -164,13 +165,13 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                           color: Color(0xff003248)),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 30.h,
                     ),
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
                           color: const Color(0xff003248),
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15.r)),
                       child: MaterialButton(
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
@@ -181,10 +182,10 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                               );
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             "Add Card",
                             style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontFamily: 'Comfortaa',
                                 color: Colors.white),
                           )),
