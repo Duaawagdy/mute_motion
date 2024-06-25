@@ -66,21 +66,24 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
           ),
         ),
       ),
-      body: Obx(
-        () => ListView.builder(
-            itemCount: chatController.chatMessages.length,
-            itemBuilder: (context, index) {
-              var currentItem = chatController.chatMessages[index];
-             // DateTime now = DateTime.now();
-              /* String formattedTime = DateFormat('h:mm a').format(now);
-              Time = formattedTime;
-              print(formattedTime); */
-              return MessageItem(
-                sentByMe: currentItem.sentByMe == socket.id,
-                message: currentItem.message,
-                //time: Time,
-              );
-            }),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 160),
+        child: Obx(
+          () => ListView.builder(
+              itemCount: chatController.chatMessages.length,
+              itemBuilder: (context, index) {
+                var currentItem = chatController.chatMessages[index];
+               // DateTime now = DateTime.now();
+                /* String formattedTime = DateFormat('h:mm a').format(now);
+                Time = formattedTime;
+                print(formattedTime); */
+                return MessageItem(
+                  sentByMe: currentItem.sentByMe == socket.id,
+                  message: currentItem.message,
+                  //time: Time,
+                );
+              }),
+        ),
       ),
       bottomSheet: Container(
         color: borderColor,

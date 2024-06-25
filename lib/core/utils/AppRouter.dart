@@ -21,7 +21,7 @@ class approuter {
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return Splashview();
+        return ChatScreenView();
       },
     ),
     GoRoute(
