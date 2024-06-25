@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Sign_To_Text extends StatelessWidget {
   const Sign_To_Text({super.key});
 
@@ -7,7 +8,7 @@ class Sign_To_Text extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
-        title: Text('Sign To Text',style: TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),),
+        title: Text('Sign To Text',style: TextStyle(fontSize: 25.sp, fontFamily: 'Lato', color: Colors.white),),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -15,15 +16,15 @@ class Sign_To_Text extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
           width: double.infinity,
-          padding:const EdgeInsets.only(
-            top: 20,
-            left: 15,
+          padding: EdgeInsets.only(
+            top: 20.h,
+            left: 15.w,
           ),
-          decoration:const BoxDecoration(
+          decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20.r),
+                  topRight: Radius.circular(20.r),
                   )
                   ),
           child: SingleChildScrollView(
@@ -31,58 +32,58 @@ class Sign_To_Text extends StatelessWidget {
               children: [
                 Container(
                   margin:
-                        EdgeInsets.only(right: 22,left: 10),
-                        padding: EdgeInsets.all(8),
-                  height: 250,
-                  width: double.infinity,
+                        EdgeInsets.only(right: 22.w,left: 10.w),
+                        padding: EdgeInsets.all(8).w,
+                  height: 250.h,
+                  width: (double.infinity).w,
                   decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: Color(0xff003248)),
                   ),
                   child: Icon(Icons.image,size: 68, color: Colors.grey,
                   ),
                 ),
                 SizedBox(
-                      height: 10,
+                      height: 10.h,
                     ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 23, left: 13),
+                  padding:  EdgeInsets.only(right: 23.w, left: 13.w),
                   child: Center(child: Image.asset('assets/sign_to_text.png')),
                 ),
                 SizedBox(
-                      height: 10,
+                      height: 10.h,
                     ),
                 Container(
                   margin:
-                        EdgeInsets.only(right: 22,left: 10),
-                        padding: EdgeInsets.all(8),
-                  height: 200,
-                  width: double.infinity,
+                        EdgeInsets.only(right: 22.w,left: 10.w),
+                        padding: EdgeInsets.all(8).w,
+                  height: 200.h,
+                  width: (double.infinity).w,
                   decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: Color(0xff003248)),
                   ),
                   child: Text('',
-                  style: TextStyle(fontSize: 15,fontFamily: 'Comfortaa', color: Color(0xff003248))),
+                  style: TextStyle(fontSize: 15.sp,fontFamily: 'Comfortaa', color: Color(0xff003248))),
                 ),
                 SizedBox(
-                      height: 50,
+                      height: 50.h,
                     ),
                 Container(
                   margin:
-                        EdgeInsets.only(right: 22,left: 10),
+                        EdgeInsets.only(right: 22.w,left: 10.w),
                         //padding: EdgeInsets.all(8),
-                width: double.infinity,
+                width: (double.infinity).w,
                 decoration: BoxDecoration(
                     color: const Color(0xff003248),
-                    borderRadius: BorderRadius.circular(15)),
+                    borderRadius: BorderRadius.circular(15.r)),
                 child: MaterialButton(
                     onPressed: (){},
-                    child: const Text(
+                    child: Text(
                       "Done",
-                      style: TextStyle(fontSize: 22,fontFamily: 'Comfortaa', color: Colors.white),
+                      style: TextStyle(fontSize: 22.sp,fontFamily: 'Comfortaa', color: Colors.white),
                     )),
               ),
               ],

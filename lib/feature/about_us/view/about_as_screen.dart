@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 
 class About_As extends StatelessWidget {
@@ -13,7 +14,7 @@ class About_As extends StatelessWidget {
         title: Text(
           'About Us',
           style:
-              TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),
+              TextStyle(fontSize: 25.sp, fontFamily: 'Lato', color: Colors.white),
         ),
         //leading: Icon(Icons.menu,color: Colors.white,),
         elevation: 0,
@@ -22,16 +23,16 @@ class About_As extends StatelessWidget {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 15,
-        ),
-        decoration: const BoxDecoration(
+        width: (double.infinity).w,
+        padding:  EdgeInsets.only(
+          top: 20.h,
+          left: 15.w,
+        ).r,
+        decoration:  BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20.r),
+              topRight: Radius.circular(20.r),
             )),
         child: SingleChildScrollView(
           child: Column(
@@ -39,23 +40,23 @@ class About_As extends StatelessWidget {
               Text(
                 'Let’s introduce ourselves!',
                 style: TextStyle(
-                    fontSize: 22, fontFamily: 'Lato', color: Color(0xff003248)),
+                    fontSize: 22.sp, fontFamily: 'Lato', color: Color(0xff003248)),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Image.asset('assets/about_us.png'),
               SizedBox(
-                height: 20,
+                height: 20.h,
               ),
               Container(
-                margin: EdgeInsets.only(right: 22, left: 10),
-                padding: EdgeInsets.all(8),
-                height: 400,
-                width: double.infinity,
+                margin: EdgeInsets.only(right: 22.w, left: 10.w),
+                padding: EdgeInsets.all(8).w,
+                height: 465.h,
+                width: (double.infinity).w,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: Color(0xff003248)),
                 ),
                 child: SingleChildScrollView(
@@ -63,7 +64,7 @@ class About_As extends StatelessWidget {
                       "The MuteMotion project aims to create an innovative smart taxi service catering specifically to deaf and mute drivers. It involves the development of advanced driver assistance systems (ADAS) using artificial intelligence (AI) and mobile application technologies. By enhancing safety features, communication tools, and convenience, MuteMotion seeks to empower the deaf/mute community with job opportunities and effective interaction platforms.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontFamily: 'Comfortaa',
                           color: Color(0xff003248))),
                 ),

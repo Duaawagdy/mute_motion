@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/my_orders/view/my_orders_screen.dart';
 import 'package:mute_motion/feature/orders_screen/view/orders_screen.dart';
 import 'package:mute_motion/feature/signs/view/signs.dart';
@@ -39,7 +40,7 @@ class _Navbar_RootsState extends State<Navbar_Roots> {
           unselectedItemColor: Colors.black,
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 15,
+            fontSize: 15.sp,
           ),
           currentIndex: _selectedIndex,
           onTap: (index){

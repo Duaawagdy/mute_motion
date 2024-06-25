@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/resgisterscreen.dart';
@@ -35,7 +36,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
               title: Text(
                 'Car Details',
                 style: TextStyle(
-                    fontSize: 25, fontFamily: 'Lato', color: Colors.white),
+                    fontSize: 25.sp, fontFamily: 'Lato', color: Colors.white),
               ),
               elevation: 0,
               centerTitle: true,
@@ -46,29 +47,29 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
-                padding: const EdgeInsets.only(
-                  top: 30,
-                  left: 22,
+                padding:  EdgeInsets.only(
+                  top: 30.h,
+                  left: 22.w,
                 ),
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
                     )),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 10,
+                        height: 10.h,
                       ),
                       Image.asset('assets/car 1.png'),
                       SizedBox(
-                        height: 20,
+                        height: 20.h,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                        padding: EdgeInsets.only(right: 20.w),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -80,7 +81,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 cont: provider.typeCont,
                               ),
                               SizedBox(
-                                height: 18,
+                                height: 18.h,
                               ),
                               CustomTextField(
                                 onChanged: (data) {
@@ -90,7 +91,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 cont: provider.colorCont,
                               ),
                               SizedBox(
-                                height: 18,
+                                height: 18.h,
                               ),
                               CustomTextField(
                                 onChanged: (data) {
@@ -100,7 +101,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 cont: provider.modelCont,
                               ),
                               SizedBox(
-                                height: 18,
+                                height: 18.h,
                               ),
                               CustomTextField(
                                 onChanged: (data) {
@@ -110,7 +111,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 cont: provider.numCont,
                               ),
                               SizedBox(
-                                height: 18,
+                                height: 18.h,
                               ),
                               CustomTextField(
                                 onChanged: (data) {
@@ -120,13 +121,13 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 cont: provider.describeCont,
                               ),
                               SizedBox(
-                                height: 40,
+                                height: 40.h,
                               ),
                               Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: const Color(0xff003248),
-                                    borderRadius: BorderRadius.circular(20)),
+                                    borderRadius: BorderRadius.circular(20.r)),
                                 child: MaterialButton(
                                     onPressed: () async {
                                       if (formKey.currentState!.validate()){
@@ -141,16 +142,16 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                       }
                                       
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       "Save",
                                       style: TextStyle(
-                                          fontSize: 22,
+                                          fontSize: 22.sp,
                                           fontFamily: 'Comfortaa',
                                           color: Colors.white),
                                     )),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 30.h,
                               ),
                             ]),
                       ),

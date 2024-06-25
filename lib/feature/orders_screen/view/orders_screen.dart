@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:mute_motion/core/utils/offline.dart';
@@ -61,7 +62,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
       appBar: AppBar(
         title: Text(
           'Orders',
-          style: TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),
+          style: TextStyle(fontSize: 25.sp, fontFamily: 'Lato', color: Colors.white),
         ),
         elevation: 0,
         centerTitle: true,
@@ -69,16 +70,16 @@ class _OrdersScreenState extends State<Orders_Screen> {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 15,
+        width: (double.infinity).w,
+        padding:  EdgeInsets.only(
+          top: 20.h,
+          left: 15.w,
         ),
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20.r),
+            topRight: Radius.circular(20.r),
           ),
         ),
         child: SingleChildScrollView(
@@ -86,7 +87,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
             children: [
               LiteRollingSwitch(
                 value: isOnline,
-                width: 170,
+                width: 170.w,
                 textOn: 'Online',
                 textOff: 'Offline',
                 textOnColor: Colors.white,

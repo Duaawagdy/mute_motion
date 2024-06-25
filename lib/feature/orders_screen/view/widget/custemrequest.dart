@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mute_motion/feature/orders_screen/view/widget/message.dart';
 
@@ -23,15 +24,15 @@ class trassportrequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: 5.h),
       decoration: BoxDecoration(
           color: Color(0xffF0EFEF),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
-              blurRadius: 4,
-              spreadRadius: 2,
+              blurRadius: 4.r,
+              spreadRadius: 2.r,
             )
           ]),
       child: Column(
@@ -40,10 +41,10 @@ class trassportrequest extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                  padding: EdgeInsets.all(3),
-                  width: 50,
-                  height: 50,
+                  margin: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 4.h),
+                  padding: EdgeInsets.all(3).w,
+                  width: 50.w,
+                  height: 50.h,
                   decoration: BoxDecoration(
                     color: Color(0xff003248),
                     shape: BoxShape.circle,
@@ -51,7 +52,7 @@ class trassportrequest extends StatelessWidget {
                   child: Center(
                     child: Text('${requestNumber}',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontFamily: 'lato',
                           color: Colors.white,
                         )),
@@ -60,7 +61,7 @@ class trassportrequest extends StatelessWidget {
                 Text(
                   "Transport Request",
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontFamily: 'Comfortaa',
                       color: Color(0xff003248)),
                 ),
@@ -68,62 +69,62 @@ class trassportrequest extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           Row(
             children: [
               Icon(Icons.person),
               SizedBox(
-                width: 10,
+                width: 10.w,
               ),
               Text(passengerName!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Row(
             children: [
               Icon(Icons.calendar_month),
               SizedBox(
-                width: 10,
+                width: 10.w,
               ),
               Text(timeDate!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Row(
             children: [
               Icon(Icons.location_on),
               SizedBox(
-                width: 10,
+                width: 10.w,
               ),
               Text(sourceLocation!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Row(
             children: [
               Icon(FontAwesomeIcons.locationArrow),
               SizedBox(
-                width: 10,
+                width: 10.w,
               ),
               Text(destinationLocation!,
                   style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
             ],
           ),
           Divider(
-            thickness: 2,
-            height: 30,
-            indent: 10,
-            endIndent: 5,
+            thickness: 2.h,
+            height: 30.h,
+            indent: 10.w,
+            endIndent: 5.w,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -131,14 +132,14 @@ class trassportrequest extends StatelessWidget {
               Text(
                 'Expected Cost: ',
                 style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Comfortaa'),
               ),
               Text(
                 cost!,
                 style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     color: Color(0xff087405),
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Comfortaa'),
@@ -146,14 +147,14 @@ class trassportrequest extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           Container(
-            margin: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-            width: double.infinity,
+            margin: EdgeInsets.only(left: 8.w, right: 8.w, bottom: 8.h),
+            width: (double.infinity).w,
             decoration: BoxDecoration(
                 color: const Color(0xff003248),
-                borderRadius: BorderRadius.circular(15)),
+                borderRadius: BorderRadius.circular(15.r)),
             child: MaterialButton(
                 onPressed: () {
                   showDialog(
@@ -163,10 +164,10 @@ class trassportrequest extends StatelessWidget {
                       });
                   print(orderId);
                 },
-                child: const Text(
+                child: Text(
                   "Take It Now",
                   style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 22.sp,
                       fontFamily: 'Comfortaa',
                       color: Colors.white),
                 )),

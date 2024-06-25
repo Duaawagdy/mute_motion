@@ -35,8 +35,8 @@ class _login_screenState extends State<login_screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(
-                    height: 20,
+                    SizedBox(
+                    height: 20.h,
                   ),
                   Image.asset('assets/pana.png'),
                   SizedBox(

@@ -126,7 +126,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                 child: Container(
                   margin: EdgeInsets.only(top: 80.h),
                   //height: MediaQuery.of(context).size.height,
-                  width: double.infinity,
+                  width: (double.infinity).w,
                   padding:  EdgeInsets.only(
                     top: 20.h,
                     left: 15.w,
@@ -141,7 +141,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 97.h,
+                        height: 85.h,
                       ),
                       Text(
                         userName.isNotEmpty ? userName : 'User Name',
@@ -179,13 +179,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ],
                       ),
                       Padding(
-                        padding:  EdgeInsets.only(top: 18.h, left: 24.w, right: 24.w, bottom: 49.h),
+                        padding:  EdgeInsets.only(top: 30.h, left: 5.w, right: 18.w, bottom: 25.h),
                         child: Container(
-
-                          //margin: EdgeInsets.only(top: 18.h, left: 24.w, right: 24.w, bottom: 49.h),
                           height: 110.h,
                           width: 395.w,
-                        //  padding:  EdgeInsets.only(top: 20.h, left: 15.w,),
                           decoration: BoxDecoration(
                               color: borderColor,
                               borderRadius: BorderRadius.only(
@@ -228,7 +225,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                             color: Colors.white),
                                       ),
                                     ]),
-                                //SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                 Image.asset('assets/car 1.png',width: 100.w,height: 95.h,)
                               ],
                             ),
@@ -236,12 +233,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ),
                       ),
                       Container(
-                        // margin:
-                        //     EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
                         height: MediaQuery.of(context).size.height,
-                        width: double.infinity,
+                        width: (double.infinity).w,
                         padding:  EdgeInsets.only(
-                          top: 20.h,
+                          top: 10.h,
                           left: 15.w,
                         ),
                         decoration: const BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 
 class Profile_item extends StatelessWidget {
@@ -12,7 +13,7 @@ class Profile_item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 30, bottom: 8),
+      padding:  EdgeInsets.only(right: 30.w, bottom: 8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -20,22 +21,22 @@ class Profile_item extends StatelessWidget {
             textTitle,
             style: TextStyle(
               color: borderColor,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Comfortaa',
               fontWeight: FontWeight.w600,
-              letterSpacing: 0.40,
+              letterSpacing: 0.40.w,
             ),
           ),
           SizedBox(
-            height: 15,
+            height: 15.h,
           ),
           Text(
             text,
             style: TextStyle(
               color: borderColor.withOpacity(0.699999988079071),
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Comfortaa',
-              letterSpacing: 0.40,
+              letterSpacing: 0.40.w,
             ),
           ),
           Divider(
