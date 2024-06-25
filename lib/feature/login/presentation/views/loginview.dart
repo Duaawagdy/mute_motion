@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mute_motion/core/utils/constant.dart';
@@ -27,7 +28,7 @@ class _login_screenState extends State<login_screen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0).w,
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -38,27 +39,27 @@ class _login_screenState extends State<login_screen> {
                     height: 20,
                   ),
                   Image.asset('assets/pana.png'),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
                   Container(
                     alignment: Alignment.center,
-                    child: const Text(
+                    child:  Text(
                       "Welcome",
                       style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 32.sp,
                           fontFamily: 'Comfortaa',
                           color: borderColor),
                     ),
                   ),
-                  const Center(
+                   Center(
                       child: Text("Please Enter your info",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontFamily: 'Comfortaa',
                               color: borderColor))),
-                  const SizedBox(
-                    height: 18,
+                   SizedBox(
+                    height: 18.h,
                   ),
                   TextFormField(
                     controller: emailCont,
@@ -94,8 +95,8 @@ class _login_screenState extends State<login_screen> {
                       prefixIconColor: borderColor,
                     ),
                   ),
-                  const SizedBox(
-                    height: 18,
+                 SizedBox(
+                    height: 18.h,
                   ),
                   TextFormField(
                     controller: passCont,
@@ -138,14 +139,14 @@ class _login_screenState extends State<login_screen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 30.h,
                   ),
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: const Color(0xff003248),
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(20.r)),
                     child: MaterialButton(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
@@ -162,10 +163,10 @@ class _login_screenState extends State<login_screen> {
                             setState(() {});
                           }
                         },
-                        child: const Text(
+                        child:  Text(
                           "Login",
                           style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 22.sp,
                               fontFamily: 'Comfortaa',
                               color: Colors.white),
                         )),
@@ -181,11 +182,11 @@ class _login_screenState extends State<login_screen> {
                         isLoading = false;
                       });
                       },
-                      child: const Text(
+                      child:  Text(
                         "forgot your password",
                         style: TextStyle(
                             color: Colors.red,
-                            fontSize: 16,
+                            fontSize: 18.sp,
                             fontFamily: 'Comfortaa',
                             fontWeight: FontWeight.bold),
                       ),
@@ -193,20 +194,20 @@ class _login_screenState extends State<login_screen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Don't have an account? ",
+                      Text("Don't have an account? ",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             fontFamily: 'Comfortaa',
                           )),
                       TextButton(
                           onPressed: () {
                             GoRouter.of(context).push('/resgister');
                           },
-                          child: const Text(
+                          child:  Text(
                             "Register now",
                             style: TextStyle(
                                 color: borderColor,
-                                fontSize: 16,
+                                fontSize: 18.sp,
                                 fontFamily: 'Comfortaa',
                                 fontWeight: FontWeight.bold),
                           )),

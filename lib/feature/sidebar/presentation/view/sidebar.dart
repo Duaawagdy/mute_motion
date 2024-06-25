@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/driverdetials.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/menubody.dart';
 //import 'package:passenger_app/constants.dart';
@@ -13,7 +14,10 @@ class NavDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: darkGreen,
       child: ListView(padding: EdgeInsets.zero, children: [
-        driverdetials(),
+        Padding(
+          padding:  EdgeInsets.only(top: 28.h,left: 28.w,bottom: 12.h,right: 18.w),
+          child: driverdetials(),
+        ),
         menubody(),
       ]),
     );
