@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class custemcodefield extends StatelessWidget {
-  const custemcodefield({super.key, required this.codecontroller});
+   custemcodefield({super.key, required this.codecontroller,  this.focusNode, this.onChanged});
   final TextEditingController codecontroller;
+   FocusNode ?focusNode;
+   Function(String) ?onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +20,8 @@ class custemcodefield extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 13),
         child: TextFormField(
+          onChanged:onChanged ,
+          focusNode: focusNode,
           controller: codecontroller, maxLength: 1,
           validator: (value) {
           if (value!.isEmpty) {

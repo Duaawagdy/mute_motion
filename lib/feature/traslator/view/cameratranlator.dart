@@ -133,7 +133,7 @@ class _cameratranslatorState extends State<cameratranslator> {
             height: MediaQuery.of(context).size.height * 0.20,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                color: Color(0xff003248)),
+                color: Colors.transparent),
             child:
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Expanded(
@@ -144,7 +144,7 @@ class _cameratranslatorState extends State<cameratranslator> {
 
                            Icons.switch_camera
                              ,
-                        color: Colors.white70),
+                        color: Colors.grey),
                     onPressed: () {
                       switchCamera();
                     },
@@ -152,7 +152,7 @@ class _cameratranslatorState extends State<cameratranslator> {
               Expanded(
                   child: Container(
                     height: 80,
-                    decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white70),
+                    decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.grey),
                     child: IconButton(
                       onPressed: (){
                         isStreaming ? _stopStreaming() : _startStreaming();
