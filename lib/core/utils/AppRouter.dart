@@ -63,7 +63,7 @@ class approuter {
     GoRoute(
       path: '/profile',
       builder: (context, state) {
-        return Profile_Screen();
+        return ProfileScreen();
       },
     ),
     GoRoute(

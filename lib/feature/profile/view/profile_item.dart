@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 
-class Profile_item extends StatelessWidget {
-  const Profile_item({
+class ProfileItem extends StatelessWidget {
+  const ProfileItem({
     super.key,
     required this.textTitle,
     required this.text,

@@ -4,6 +4,7 @@ import 'package:mute_motion/feature/profile/profile_mode.dart';
 class UserInfo {
   static Future<ProfileModel> getUserInfo(String? token) async {
     final String apiUrl = 'https://mutemotion.onrender.com/api/driverInfo';
+          print(token);
     try {
       Response response = await Dio().get(
         apiUrl,
