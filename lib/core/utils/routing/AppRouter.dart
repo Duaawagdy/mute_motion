@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mute_motion/feature/about_us/view/about_as_screen.dart';
+import 'package:mute_motion/feature/about_us/presentation/view/about_as_screen.dart';
 import 'package:mute_motion/feature/cardetaials/view/cardetailsscreen%20.dart';
 import 'package:mute_motion/feature/chat/presentation/views/chat_screen_view.dart';
 import 'package:mute_motion/feature/login/presentation/views/forgot_password.dart';
@@ -10,11 +10,11 @@ import 'package:mute_motion/feature/my_orders/view/my_orders_screen.dart';
 import 'package:mute_motion/feature/navbar/view/navbar_roots.dart';
 import 'package:mute_motion/feature/orders_screen/view/orders_screen.dart';
 import 'package:mute_motion/feature/presentation/SplashView.dart';
-import 'package:mute_motion/feature/profile/view/profile_screen.dart';
+import 'package:mute_motion/feature/profile/presentation/view/profile_screen.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/resgisterscreen.dart';
-import 'package:mute_motion/feature/searsh/search_screen.dart';
-import 'package:mute_motion/feature/signs/view/signs.dart';
-import 'package:mute_motion/feature/traslator/view/translator_screen.dart';
+import 'package:mute_motion/feature/searsh/presentation/view/search_screen.dart';
+import 'package:mute_motion/feature/signs/presentation/view/signs.dart';
+import 'package:mute_motion/feature/traslator/presentation/view/translator_screen.dart';
 
 class approuter {
   static final GoRouter router = GoRouter(routes: <RouteBase>[

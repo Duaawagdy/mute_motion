@@ -7,16 +7,18 @@ import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class driverdetials extends StatefulWidget {
+class driverDetails extends StatefulWidget {
   @override
-  State<driverdetials> createState() => _driverdetialsState();
+  State<driverDetails> createState() => _DriverDetailsState();
 }
 
-class _driverdetialsState extends State<driverdetials> {
+class _DriverDetailsState extends State<driverDetails> {
   String userName = '';
   String userRating = '';
   String reviews = '';
+  String profileImg = '';
   Uint8List? _profileImage;
+  bool _isLoadingImage = true;
 
   @override
   void initState() {
@@ -31,15 +33,28 @@ class _driverdetialsState extends State<driverdetials> {
       userName = prefs.getString('fullname') ?? '';
       userRating = prefs.getString('rating') ?? '';
       reviews = prefs.getString('numberOfReviews') ?? '';
+      profileImg = prefs.getString('profileImg') ?? '';
     });
   }
 
   Future<void> _loadProfileImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? base64Image = prefs.getString('profile_image');
+    String? base64Image = prefs.getString('profileImg');
     if (base64Image != null) {
+      try {
+        setState(() {
+          _profileImage = base64Decode(base64Image);
+          _isLoadingImage = false;
+        });
+      } catch (e) {
+        print('Error decoding image: $e');
+        setState(() {
+          _isLoadingImage = false;
+        });
+      }
+    } else {
       setState(() {
-        _profileImage = base64Decode(base64Image);
+        _isLoadingImage = false;
       });
     }
   }
@@ -51,14 +66,19 @@ class _driverdetialsState extends State<driverdetials> {
       width: 309.w,
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 38.r,
-            backgroundImage: _profileImage != null
-                ? MemoryImage(_profileImage!)
-                : AssetImage('assets/man.png') as ImageProvider<Object>?,
-          ),
-          SizedBox(width: 5.w),
+          _isLoadingImage
+              ? CircularProgressIndicator()
+              : CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 38.r,
+                  backgroundImage: _profileImage != null
+                      ? MemoryImage(_profileImage!)
+                      :  (profileImg.isNotEmpty
+                                    ? NetworkImage(profileImg)
+                                    : NetworkImage('https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg')) // Placeholder image
+                                        as ImageProvider<Object>?,
+                ),
+          //SizedBox(width: 5.w),
           Column(
             children: [
               Padding(
@@ -78,7 +98,7 @@ class _driverdetialsState extends State<driverdetials> {
                 padding: EdgeInsets.only(top: 12.h, left: 8.0.w),
                 child: Row(
                   children: [
-                    Icon(FontAwesomeIcons.solidStar, color: Colors.yellow, size: 11),
+                    Icon(FontAwesomeIcons.solidStar, color: Colors.yellow, size: 10),
                     SizedBox(width: 5.w),
                     Text(
                       userRating.isNotEmpty ? userRating : '',
@@ -102,7 +122,7 @@ class _driverdetialsState extends State<driverdetials> {
               ),
             ],
           ),
-          SizedBox(width: 15.w),
+          //SizedBox(width: 5.w),
           IconButton(
             onPressed: () {
               GoRouter.of(context).push('/profile');

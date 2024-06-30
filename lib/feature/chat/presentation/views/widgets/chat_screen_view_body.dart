@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:mute_motion/core/styles.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/core/utils/theming/styles.dart';
 import 'package:mute_motion/feature/chat/controller/chat_controller.dart';
 import 'package:mute_motion/feature/chat/model/messages.dart';
 import 'package:mute_motion/feature/chat/presentation/views/widgets/message_item.dart';

@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../resgisterscreen/view/resgisterscreen.dart';
+import '../../../resgisterscreen/view/resgisterscreen.dart';
+
 
 class Card_Details_Screen extends StatefulWidget {
   const Card_Details_Screen({super.key});

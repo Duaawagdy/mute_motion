@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/models/api_provider.dart';
-import 'package:mute_motion/models/forgot_password_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../data/forgot_password_api.dart';
 
 class login_screen extends StatefulWidget {
   login_screen({super.key});

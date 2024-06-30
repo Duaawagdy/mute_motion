@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mute_motion/core/utils/constant.dart';
-import 'package:mute_motion/feature/carddetials/view/card_details.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
 import 'package:mute_motion/feature/resgisterscreen/view/widget/customtextfield.dart';
 import 'package:mute_motion/models/api_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../carddetials/presentation/view/card_details.dart';
 
 class RegisterScreen extends StatefulWidget {
 
@@ -85,7 +86,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onChanged: (data) {
                                 name = data;
                               },
-                              hintText: 'Full Name',
+                              hintText: 'First name & Last name',
+                              lableText: 'Full name',
                               icon: Icons.person,
                             ),
                             SizedBox(
@@ -98,6 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               icon: Icons.calendar_month,
                               hintText: 'Age',
+                              lableText: 'Age',
                             ),
                             SizedBox(
                               height: 18.h,
@@ -238,6 +241,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 phone = data;
                               },
                               hintText: 'Phone',
+                              lableText: 'Phone',
                               icon: Icons.call,
                             ),
                             SizedBox(

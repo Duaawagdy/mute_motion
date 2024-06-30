@@ -5,8 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../core/utils/constant.dart';
+import '../feature/OTP/data/OTP_provider.dart';
 import '../feature/OTP/presentation/view/OTP.dart';
-import 'OTP_provider.dart';
+
 
 class ApiProvider {
   static const String baseUrl = "https://mutemotion.onrender.com/api/v1";
@@ -131,7 +132,8 @@ class ApiProvider {
         String fullname = response.data["user"]["fullname"];
         String rating = response.data["user"]["rating"];
         String numberOfReviews = response.data["user"]["numberOfReviews"];
-        
+        String profileImg = response.data["user"]["profileImg"];
+
         double ratingValue = double.parse(rating);
         String roundedRating = ratingValue.toStringAsFixed(1);
 
@@ -141,15 +143,15 @@ class ApiProvider {
         await prefs.setString("fullname", fullname);
         await prefs.setString("rating", roundedRating);
         await prefs.setString("numberOfReviews", numberOfReviews);
+        await prefs.setString("profileImg", profileImg);
         print("Token is: $token");
         print("UserId is: $userId");
         print("Fullname is: $fullname");
         print("Rating is: $rating");
         print("NumberOfReviews is: $numberOfReviews");
+        print("ProfileImg is: $profileImg");
         await updateFCMToken(userId: userId, fcmToken: fcmToken);
-        // setUserName(fullname);
-        // setDriverRating(roundedRating);
-        // setNumOfReviews(numberOfReviews);
+        
         GoRouter.of(context).push('/navbar');
       } else if (response.statusCode == 401) {
         final error = response.statusMessage;
@@ -235,8 +237,6 @@ class ApiProvider {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => OTP(),
         ));
-        // setDriverRating(roundedRating);
-        // setNumOfReviews(numberOfReviews);
       } else {
         _showErrorDialogReg(context, 'Registration failed', 'Unknown error occurred');
       }

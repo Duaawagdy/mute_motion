@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
-import 'package:mute_motion/feature/traslator/view/cameratranlator.dart';
+
+import 'cameratranlator.dart';
 class Translator_Screen extends StatelessWidget {
   const Translator_Screen({super.key});
 
