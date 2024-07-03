@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mute_motion/core/utils/theming/styles.dart';
 
-import '../../../../../core/styles.dart';
 
 class chatItem extends StatelessWidget {
   const chatItem({super.key, required this.text, required this.onPressed});

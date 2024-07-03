@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-import 'package:mute_motion/core/utils/offline.dart';
-import 'package:mute_motion/core/utils/online.dart';
 import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 import 'package:mute_motion/models/locationservice.dart';
 //import 'package:mute_motion/models/socketmannger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'widget/offline.dart';
+import 'widget/online.dart';
 
 class Orders_Screen extends StatefulWidget {
   const Orders_Screen({Key? key}) : super(key: key);

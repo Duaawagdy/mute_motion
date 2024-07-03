@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mute_motion/core/utils/AppRouter.dart';
+import 'package:mute_motion/core/utils/routing/AppRouter.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/widget/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,6 +40,7 @@ class menubody extends StatelessWidget{
       menuitem(itemname: 'Log Out',icon: Icons.logout,onpressed: () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.remove('email');
+        prefs.remove('profileImg');
         approuter.clearAndNavigate(context, '/loginview');}),
       Padding(
         padding: EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),

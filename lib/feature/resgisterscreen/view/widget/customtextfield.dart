@@ -6,10 +6,12 @@ class CustomTextField extends StatelessWidget {
       {super.key,
       this.onChanged,
       this.hintText,
+      this.lableText,
       this.icon,
       this.cont,
       this.onTap});
   String? hintText;
+  String? lableText;
   final IconData? icon;
   //final IconData ?sufficon;
   Function(String)? onChanged;
@@ -29,7 +31,7 @@ class CustomTextField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
             hintText: hintText,
-            labelText: hintText,
+            labelText: lableText,
             hintStyle: TextStyle(
               color: borderColor,
             ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/my_orders/view/my_orders_screen.dart';
 import 'package:mute_motion/feature/orders_screen/view/orders_screen.dart';
-import 'package:mute_motion/feature/signs/view/signs.dart';
-import 'package:mute_motion/feature/traslator/view/translator_screen.dart';
+
+import '../../signs/presentation/view/signs.dart';
+import '../../traslator/presentation/view/translator_screen.dart';
 
 
 class Navbar_Roots extends StatefulWidget {

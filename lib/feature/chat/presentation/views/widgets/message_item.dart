@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mute_motion/core/styles.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/core/utils/theming/styles.dart';
 
 
 class MessageItem extends StatelessWidget {

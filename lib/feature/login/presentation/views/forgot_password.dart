@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custembutten.dart';
 import 'package:mute_motion/feature/OTP/presentation/view/widget/custemcodefield.dart';
-import 'package:mute_motion/models/forgot_password_api.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+
+import '../../data/forgot_password_api.dart';
 
 class ForgotPassword extends StatefulWidget {
   // ForgotPassword({super.key, required this.rg,});
@@ -28,6 +30,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController passCont = TextEditingController();
 
   TextEditingController confirm = TextEditingController();
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
+  FocusNode focusNode3 = FocusNode();
+  FocusNode focusNode4 = FocusNode();
 
   GlobalKey<FormState> formKey = GlobalKey();
   final CountdownController _controller =
@@ -36,6 +42,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   bool isLoading = false;
   bool Show_Pass = true;
   bool isVisible = false;
+  void _onFieldChanged(String value, int index) {
+    if (value.length == 1) {
+      switch (index) {
+        case 0:
+          FocusScope.of(context).requestFocus(focusNode2);
+          break;
+        case 1:
+          FocusScope.of(context).requestFocus(focusNode3);
+          break;
+        case 2:
+          FocusScope.of(context).requestFocus(focusNode4);
+          break;
+        case 3:
+          focusNode4.unfocus();
+          break;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,31 +104,29 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          custemcodefield(
-                            codecontroller: code1,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          custemcodefield(
-                            codecontroller: code2,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          custemcodefield(
-                            codecontroller: code3,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          custemcodefield(
-                            codecontroller: code4,
-                          )
-                        ],
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      custemcodefield(
+                        codecontroller: code1, focusNode: focusNode1,
+                        onChanged: (value) => _onFieldChanged(value, 0),
                       ),
+                      SizedBox(width: 12.w),
+                      custemcodefield(
+                        codecontroller: code2,  focusNode: focusNode2,
+                        onChanged: (value) => _onFieldChanged(value, 1),
+                      ),
+                      SizedBox(width: 12.w),
+                      custemcodefield(
+                        codecontroller: code3,  focusNode: focusNode3,
+                        onChanged: (value) => _onFieldChanged(value, 2),
+                      ),
+                      SizedBox(width: 12.w),
+                      custemcodefield(
+                        codecontroller: code4, focusNode: focusNode4,
+                        onChanged: (value) => _onFieldChanged(value, 3),
+                      )
+                    ],
+                  ),
                     ),
                     SizedBox(
                       height: 40,
