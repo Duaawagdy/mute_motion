@@ -2,90 +2,75 @@ import 'package:geolocator/geolocator.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketIOManager {
-  static late final SocketIOManager _instance = SocketIOManager();
+  static final SocketIOManager _instance = SocketIOManager._internal();
   late IO.Socket socket;
+
+  factory SocketIOManager() {
+    return _instance;
+  }
+
+  SocketIOManager._internal();
 
   static SocketIOManager get instance {
     return _instance;
   }
 
   void connect() {
-    socket = IO.io('https://mutemotion.onrender.com');
+    socket = IO.io('https://mutemotion.onrender.com', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': true,
+    });
+
     socket.connect();
+
     socket.onConnect((_) {
       print('socket onConnect');
     });
 
 
-    socket.onDisconnect((_) {
-      print('socket onDisconnect');
-    });
+
     socket.onError((data) {
       print('Socket onError: $data');
-
     });
-    if (socket.disconnected) {
-      socket.connect();
-    }
+
+    socket.onConnectError((data) {
+      print('socket onConnectError: $data');
+    });
+
+
   }
 
   void disconnect() {
-    socket.disconnect();
-    socket.close();
-  }
-  void emitDriverLocation(String driverId,Position position) {
     if (socket.connected) {
-      Map messageMap = {
-        'driverId': driverId,
-        "Lat":position.latitude
-        ,"Lon":position.longitude
-      };
+      socket.disconnect();
 
-      socket.emit('updateLocation', messageMap);
-    } else {
-      print('Error: Socket not connected or initialized');
+      print('Socket disconnected and closed.');
     }
   }
-  void emitDriverconnection(String driverId) {
-    if (socket.connected) {
-      socket.emit('connectDriver', {'driverId': driverId});
+  void emitDriverLocation(String driverId,Position position) {
+    if (socket.connected&& driverId!=null) {
+
+
+      socket.emit('updateLocation', {'driverId': driverId, 'location': {'latitude': position.latitude, 'longitude': position.longitude}});
+      print('driver location send ');
     } else {
-      print('Error: Socket not connected or initialized');
+      print('Error: Socket not connected or id is null');
+    }
+  }
+  void emitDriverconnection(String? driverId) {
+    if (socket.connected&&driverId!=null) {
+
+      socket.emit('connectDriver', {'driverId': driverId});
+      print('connected driver');
+    } else {
+      print('Error: Socket not connected or initialized or id is null');
     }
   }
   void emitDriverdisconnection(String driverId) {
     if (socket.connected) {
       socket.emit('disconnectDriver', {'driverId': driverId});
     } else {
-      print('Error: Socket not connected or initialized');
+      print('Error: Socket not connected or initialized or id is null');
     }
   }
 }
-/*
-  void emitDriverLocation(String driverId,Position position) {
-    if (socket != null && socket!.connected) {
-      Map messageMap = {
-        'driverId': driverId,
-        "Lat":position.latitude
-        ,"Lon":position.longitude
-      };
-
-      socket!.emit('updateLocation', messageMap);
-    } else {
-      print('Error: Socket not connected or initialized');
-    }
-  }
-  void emitDriverconnection(String driverId) {
-    if (socket != null && socket!.connected) {
-      socket!.emit('connectDriver', {'driverId': driverId});
-    } else {
-      print('Error: Socket not connected or initialized');
-    }
-  }
-  void emitDriverdisconnection(String driverId) {
-    if (socket != null && socket!.connected) {
-      socket!.emit('disconnectDriver', {'driverId': driverId});
-    } else {
-      print('Error: Socket not connected or initialized');
-    }
-  }*/

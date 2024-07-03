@@ -5,6 +5,7 @@ import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 import 'package:mute_motion/models/locationservice.dart';
+import 'package:mute_motion/models/socketmannger.dart';
 //import 'package:mute_motion/models/socketmannger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,35 +27,53 @@ class _OrdersScreenState extends State<Orders_Screen> {
 
   @override
   void initState() {
-   // super.initState();
-   // _fetchToken(); // Fetch token on initialization
-    //SocketIOManager.instance.connect(); // Connect to socket server
+    super.initState();
+
+    SocketIOManager.instance.connect(); // Connect to socket server
+    _fetchToken();
+
+    sendLocationUpdate();
+
+
+  }
+  @override
+  void dispose() {
+    SocketIOManager.instance.disconnect();
+    super.dispose();
   }
 
-  Future<void> _fetchToken() async {
+  Future<String?> _fetchToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _token = prefs.getString("token");
-    if (_token == null) {
-      // Handle missing token (e.g., show error, redirect to login)
-    }
+    String? useId = prefs.getString("userId");
+    return useId;
+
   }
 
- // Future<void> sendLocationUpdate() async {
- //   if (_token == null) {
- //     return; // Avoid sending location update without token
- //   }
-//
- //   Position position = await _locationService.getLocation();
- //   try {
- //     SocketIOManager.instance.emitDriverLocation(
- //       _token!,
- //       position,
- //     );
- //   } catch (error) {
- //     print('Error sending location update: $error');
- //     // Handle error appropriately (e.g., retry, notify user)
- //   }
- // }
+  Future<void> sendLocationUpdate() async {
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("userId");
+    print(token);
+    if (token == null) {
+      return; // Avoid sending location update without token
+    }
+
+    Position position = await _locationService.getLocation();
+    print(position);
+    try {
+      SocketIOManager.instance.emitDriverconnection(token);
+      SocketIOManager.instance.emitDriverLocation(
+        token,
+        position,
+      );
+      print(isOnline);
+    } catch (error) {
+      print('Error sending location update: $error');
+      // Handle error appropriately (e.g., retry, notify user)
+    }
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

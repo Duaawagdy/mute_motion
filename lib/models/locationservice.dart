@@ -42,7 +42,7 @@ class LocationService {
     Position position= await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best,
     );
-    print(position);
+    print('location is ${position}');
     return position;
   }
 
