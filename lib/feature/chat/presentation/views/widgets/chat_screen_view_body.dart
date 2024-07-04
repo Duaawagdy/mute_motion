@@ -11,6 +11,7 @@ import 'package:mute_motion/feature/chat/model/messages.dart';
 import 'package:mute_motion/feature/chat/presentation/views/widgets/message_item.dart';
 
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'chat_Item.dart';
@@ -263,11 +264,18 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   ChatController chatController = Get.put(ChatController());
   late IO.Socket socket;
   bool isPassengerTyping = false;
-  String driverId = '65e267aa32d2c427699c8f19';
-  String passengerId = '65e1ebd1915c0c1913448f06';
-
+  String driverId = '';
+  String passengerId = '';
+ void fetchIds() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    driverId= prefs.getString('userId')!;
+    passengerId = prefs.getString('passengerId')!;
+     connectDriver();  
+     fetchChatHistory();
+ }
   @override
   void initState() {
+    fetchIds();
     super.initState();
     socket = IO.io(
         'https://mutemotion.onrender.com/',
@@ -277,8 +285,8 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
             .build());
     socket.connect();
     setUpSocketListener();
-    connectDriver();  
-    fetchChatHistory();
+   
+  
   }
 
   @override

@@ -61,7 +61,7 @@ String?orderId;
                     child: MaterialButton(
                         onPressed: () {
                           OrderRepoImpl().responedToOrder(orderId!, true);
-                          GoRouter.of(context).push('/map');
+                          GoRouter.of(context).push('/chat');
                         },
                         child:  Text(
                           "Confirm",
