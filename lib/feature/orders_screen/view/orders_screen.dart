@@ -30,7 +30,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
     super.initState();
 
     SocketIOManager.instance.connect(); // Connect to socket server
-    _fetchToken();
+    //_fetchToken();
 
     sendLocationUpdate();
 

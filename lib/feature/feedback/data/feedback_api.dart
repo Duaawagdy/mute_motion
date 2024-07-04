@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mute_motion/core/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RatingApi {
@@ -57,7 +58,7 @@ class RatingApi {
         showRatingDialog(
           context: context,
           title: 'Success',
-          content: 'Rating submitted successfully.',
+          content: 'Feedback submitted successfully.',
         );
       } else {
         // Handle non-200 status code
@@ -96,13 +97,13 @@ class RatingApi {
           title: Text(
             title,
             style: TextStyle(
-              color: Colors.white,
+              color: borderColor,
               fontWeight: FontWeight.bold,
             ),
           ),
           content: Text(
             content,
-            style: TextStyle(color: Colors.white, fontSize: 15),
+            style: TextStyle(color: borderColor, fontSize: 15),
           ),
           actions: <Widget>[
             TextButton(
@@ -115,7 +116,7 @@ class RatingApi {
               child: Text(
                 'OK',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: borderColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 17,
                 ),

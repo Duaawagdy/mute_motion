@@ -5,6 +5,7 @@ class PendingOrder {
   String? locationName;
   String? destinationName;
   String? orderid;
+  String? passengerid;
 
   PendingOrder({
     this.serviceType,
@@ -13,6 +14,7 @@ class PendingOrder {
     this.locationName,
     this.destinationName,
     this.orderid,
+    this.passengerid
   });
 
   factory PendingOrder.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class PendingOrder {
       locationName: json['locationName'] ?? '',
       destinationName: json['destinationName'] ?? '',
       orderid: json['orderid'] ?? '',
+      passengerid: json['passenger'] ?? '',
     );
   }
 }

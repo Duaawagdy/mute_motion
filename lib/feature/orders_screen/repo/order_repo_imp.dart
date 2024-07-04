@@ -25,10 +25,12 @@ class OrderRepoImpl {
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Request successful');
-       // print('Raw response data: ${response.data}');
+        //print('Raw response data: ${response.data}');
 
         final pendingOrdersResponse = PendingOrdersResponse.fromJson(response.data);
-
+        print('passenger  id${pendingOrdersResponse.pendingOrders[0].passengerid}');
+        String? passengerId=pendingOrdersResponse.pendingOrders[0].passengerid;
+        prefs.setString("passengerId",passengerId!);
         return pendingOrdersResponse;
 
       } else {
