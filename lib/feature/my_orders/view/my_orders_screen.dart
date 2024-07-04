@@ -22,7 +22,6 @@ class _My_OrdersState extends State<My_Orders> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         title: Text('My Orders',style: TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),),
-        //leading: Icon(FontAwesomeIcons.bars,color: Colors.white,),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
