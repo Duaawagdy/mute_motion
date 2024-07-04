@@ -34,7 +34,8 @@ class PendingOrdersResponse {
 
   factory PendingOrdersResponse.fromJson(Map<String, dynamic> json) {
     var list = json['pendingOrders'] as List;
-    List<PendingOrder> pendingOrdersList = list.map((i) => PendingOrder.fromJson(i)).toList();
+    List<PendingOrder> pendingOrdersList =
+        list.map((i) => PendingOrder.fromJson(i)).toList();
     return PendingOrdersResponse(pendingOrders: pendingOrdersList);
   }
 }

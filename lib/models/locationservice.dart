@@ -1,7 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
-
   Future<bool> checkLocationIfPermanentlyDisabled() async {
     LocationPermission permission = await Geolocator.checkPermission();
 
@@ -39,7 +38,7 @@ class LocationService {
   }
 
   Future<Position> getLocation() async {
-    Position position= await Geolocator.getCurrentPosition(
+    Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best,
     );
     print('location is ${position}');
@@ -52,7 +51,5 @@ class LocationService {
         accuracy: LocationAccuracy.high,
       ),
     );
-
   }
-
 }
