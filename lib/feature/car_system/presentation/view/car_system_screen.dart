@@ -19,13 +19,13 @@ class _CarSystemScreenState extends State<CarSystemScreen> {
       'assets/Steering_wheel_demo.mp4', // Path to your video file
     )
       ..initialize().then((_) {
-        setState(() {}); // When the video is initialized, update the UI.
+        setState(() {}); // When the video is initialized, update the UI
       });
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose the controller to free resources.
+    _controller.dispose(); // Dispose the controller to free resources
     super.dispose();
   }
 
@@ -70,7 +70,7 @@ class _CarSystemScreenState extends State<CarSystemScreen> {
                   child: VideoPlayer(_controller),
                 )
               else
-                Center(child: CircularProgressIndicator()), // Show a loader until the video is loaded.
+                Center(child: CircularProgressIndicator()), // Show a loader until the video is loaded
               SizedBox(height: 40.h),
               _buildControlButtons(),
               SizedBox(height: 40.h),

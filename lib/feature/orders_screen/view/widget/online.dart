@@ -21,39 +21,46 @@ class _OnlineState extends State<Online> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(left: 5.w, right: 20.w, top: 15.h, bottom: 15.h),
+        padding:
+            EdgeInsets.only(left: 5.w, right: 20.w, top: 15.h, bottom: 15.h),
         child: FutureBuilder<PendingOrdersResponse>(
           future: OrderRepoImpl().fetchNewestOrder(),
-          builder: (BuildContext context, AsyncSnapshot<PendingOrdersResponse> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<PendingOrdersResponse> snapshot) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.hasData) {
               final pendingOrders = snapshot.data!.pendingOrders;
-              
-              return pendingOrders.isEmpty? NoOrder():Column(
-                children: List.generate(pendingOrders.length, (index) {
-                  final pendingOrder = pendingOrders[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      trassportrequest(
-                        requestNumber: index + 1,
-                        passengerName: 'Yara Afifi',
-                        timeDate: '10:03 - 26 April',
-                        sourceLocation: pendingOrder.locationName,
-                        destinationLocation: pendingOrder.destinationName,
-                        cost: pendingOrder.cost ?? 'N/A',
-                        orderId: pendingOrder.orderid,
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                    ],
-                  );
-                }),
-              );
+
+              return pendingOrders.isEmpty
+                  ? NoOrder()
+                  : Column(
+                      children: List.generate(pendingOrders.length, (index) {
+                        final pendingOrder = pendingOrders[index];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            trassportrequest(
+                              requestNumber: index + 1,
+                              passengerName: 'Norhan Ahmed',
+                              // timeDate: '10:03 - 26 April',
+                              sourceLocation: pendingOrder.locationName,
+                              destinationLocation: pendingOrder.destinationName,
+                              cost: pendingOrder.cost ?? 'N/A',
+                              orderId: pendingOrder.orderid,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                          ],
+                        );
+                      }),
+                    );
             }
-            return Center(child: CircularProgressIndicator(color: Color(0xff003248),));
+            return Center(
+                child: CircularProgressIndicator(
+              color: Color(0xff003248),
+            ));
           },
         ),
       ),
@@ -70,10 +77,11 @@ class NoOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 250),
-      child: Text('You don\'t have order yet',
-        style: TextStyle(fontSize: 26.sp,fontFamily: 'Comfortaa', color: Color(0xff003248)),),
+      child: Text(
+        'You don\'t have order yet',
+        style: TextStyle(
+            fontSize: 26.sp, fontFamily: 'Comfortaa', color: Color(0xff003248)),
+      ),
     );
   }
 }
-
-

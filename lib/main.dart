@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -62,7 +61,8 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 932),
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
+          ChangeNotifierProvider<AuthProvider>(
+              create: (context) => AuthProvider()),
           Provider<ApiProvider>(create: (context) => ApiProvider()),
         ],
         child: MaterialApp.router(

@@ -84,19 +84,19 @@ class trassportrequest extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          Row(
-            children: [
-              Icon(Icons.calendar_month),
-              SizedBox(
-                width: 10.w,
-              ),
-              Text(timeDate!,
-                  style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
+          // Row(
+          //   children: [
+          //     Icon(Icons.calendar_month),
+          //     SizedBox(
+          //       width: 10.w,
+          //     ),
+          //     Text(timeDate!,
+          //         style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
+          //   ],
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
           Row(
             children: [
               Icon(Icons.location_on),
