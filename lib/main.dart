@@ -25,7 +25,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  // Request notification permissions
+ 
   await _requestNotificationPermission();
 
   runApp(const MyApp());
