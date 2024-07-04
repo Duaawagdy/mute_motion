@@ -1,4 +1,3 @@
-
 import 'dart:convert'; // For base64 encoding/decoding
 import 'dart:io';
 import 'dart:typed_data';
@@ -134,7 +133,8 @@ class _Profile_ScreenState extends State<ProfileScreen> {
   }
 
   void _takePhoto() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       final File imageFile = File(pickedFile.path);
       final bytes = await imageFile.readAsBytes();
@@ -148,7 +148,8 @@ class _Profile_ScreenState extends State<ProfileScreen> {
   }
 
   void _openGallery() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       final File imageFile = File(pickedFile.path);
       final bytes = await imageFile.readAsBytes();
@@ -184,7 +185,8 @@ class _Profile_ScreenState extends State<ProfileScreen> {
         children: [
           if (isLoading) ...[
             Center(
-              child: CircularProgressIndicator(), // Show loader while data is loading
+              child:
+                  CircularProgressIndicator(), // Show loader while data is loading
             ),
           ] else ...[
             SingleChildScrollView(
@@ -335,13 +337,8 @@ class _Profile_ScreenState extends State<ProfileScreen> {
                               child: Form(
                                 key: formKey,
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ProfileItem(
-                                        textTitle: 'Name',
-                                        text: _userData.fullname),
-                                    SizedBox(height: 14.h),
                                     ProfileItem(
                                         textTitle: 'Email',
                                         text: _userData.email),
@@ -351,8 +348,7 @@ class _Profile_ScreenState extends State<ProfileScreen> {
                                         text: _userData.phone),
                                     SizedBox(height: 14.h),
                                     ProfileItem(
-                                        textTitle: 'Age',
-                                        text: _userData.age),
+                                        textTitle: 'Age', text: _userData.age),
                                     SizedBox(height: 15.h),
                                   ],
                                 ),
@@ -372,10 +368,11 @@ class _Profile_ScreenState extends State<ProfileScreen> {
                             backgroundColor: Colors.white,
                             backgroundImage: _selectedImageBytes != null
                                 ? MemoryImage(_selectedImageBytes!)
-                                  : (profileImg.isNotEmpty
-                                    ? NetworkImage(profileImg)
-                                    :  NetworkImage('https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg')) // Placeholder image
-                                        as ImageProvider<Object>?,
+                                : (profileImg.isNotEmpty
+                                        ? NetworkImage(profileImg)
+                                        : NetworkImage(
+                                            'https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg')) // Placeholder image
+                                    as ImageProvider<Object>?,
                             onBackgroundImageError: (_, __) {
                               setState(() {
                                 isImageLoading = false; // Hide loader on error
@@ -432,4 +429,3 @@ class _Profile_ScreenState extends State<ProfileScreen> {
     );
   }
 }
-
