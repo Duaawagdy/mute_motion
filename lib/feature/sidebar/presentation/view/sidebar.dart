@@ -15,7 +15,7 @@ class NavDrawer extends StatelessWidget {
       backgroundColor: darkGreen,
       child: ListView(padding: EdgeInsets.zero, children: [
         Padding(
-          padding:  EdgeInsets.only(top: 28.h,left: 15.w,bottom: 12.h,right: 18.w),
+          padding:  EdgeInsets.only(top: 20.h,left: 15.w,bottom: 12.h,),
           child: driverDetails(),
         ),
         menubody(),

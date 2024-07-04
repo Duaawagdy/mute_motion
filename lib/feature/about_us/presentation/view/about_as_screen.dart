@@ -11,6 +11,7 @@ class About_As extends StatelessWidget {
       drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'About Us',
           style:

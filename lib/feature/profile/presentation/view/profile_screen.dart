@@ -175,6 +175,7 @@ class _Profile_ScreenState extends State<ProfileScreen> {
       drawer: NavDrawer(),
       backgroundColor: const Color(0xff003248),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
