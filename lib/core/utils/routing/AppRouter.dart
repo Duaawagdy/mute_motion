@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/feature/about_us/presentation/view/about_as_screen.dart';
+import 'package:mute_motion/feature/car_system/presentation/view/car_system_screen.dart';
 import 'package:mute_motion/feature/cardetaials/view/cardetailsscreen%20.dart';
 import 'package:mute_motion/feature/chat/presentation/views/chat_screen_view.dart';
+import 'package:mute_motion/feature/delete_account/presentation/view/delete_completed_screen.dart';
+import 'package:mute_motion/feature/delete_account/presentation/view/delete_my_screen.dart';
 import 'package:mute_motion/feature/login/presentation/views/forgot_password.dart';
 import 'package:mute_motion/feature/login/presentation/views/loginview.dart';
 import 'package:mute_motion/feature/map/view/map.dart';
@@ -94,6 +97,24 @@ class approuter {
       path: '/map',
       builder: (context, state) {
         return map();
+      },
+    ),
+    GoRoute(
+      path: '/carsystem',
+      builder: (context, state) {
+        return CarSystemScreen();
+      },
+    ),
+    GoRoute(
+      path: '/deletemyaccount',
+      builder: (context, state) {
+        return DeleteAccountScreen();
+      },
+    ),
+    GoRoute(
+      path: '/deletecompleted',
+      builder: (context, state) {
+        return DeleteCompletedScreen();
       },
     ),
     GoRoute(

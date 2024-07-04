@@ -80,6 +80,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
       drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Orders',
           style: TextStyle(fontSize: 25.sp, fontFamily: 'Lato', color: Colors.white),

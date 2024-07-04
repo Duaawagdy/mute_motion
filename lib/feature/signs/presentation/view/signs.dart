@@ -13,6 +13,7 @@ class signs extends StatelessWidget{
       drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text('Signs',style: TextStyle(fontSize: 25.sp, fontFamily: 'Lato', color: Colors.white),),
         //leading: IconButton(onPressed:(){} ,icon: Icon(FontAwesomeIcons.bars,color: Colors.white,)),
         elevation: 0,

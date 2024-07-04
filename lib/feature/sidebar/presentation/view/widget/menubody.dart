@@ -32,6 +32,11 @@ class menubody extends StatelessWidget{
         padding:  EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),
         child: Divider(color: Colors.grey,thickness: 1.5.w,),
       ),
+      menuitem(itemname: 'Car System',icon: Icons.car_rental_rounded,onpressed: (){GoRouter.of(context).push('/carsystem');}),
+      Padding(
+        padding:  EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),
+        child: Divider(color: Colors.grey,thickness: 1.5.w,),
+      ),
       menuitem(itemname: 'About Us',icon: Icons.supervised_user_circle,onpressed: (){GoRouter.of(context).push('/aboutus');}),
       Padding(
         padding:  EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),
@@ -46,6 +51,7 @@ class menubody extends StatelessWidget{
         padding: EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),
         child: Divider(color: Colors.grey,thickness: 1.5.w,),
       ),
+      menuitem(itemname: 'Delete Account',icon: Icons.delete,onpressed: (){GoRouter.of(context).push('/deletemyaccount');}),
       SizedBox(height: 150.h,),
     ],
     ),

@@ -20,6 +20,7 @@ class _My_OrdersState extends State<My_Orders> {
         drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text('My Orders',style: TextStyle(fontSize: 25, fontFamily: 'Lato', color: Colors.white),),
         elevation: 0,
         centerTitle: true,

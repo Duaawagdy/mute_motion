@@ -12,6 +12,7 @@ class Translator_Screen extends StatelessWidget {
       drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'Translator',
           style:
