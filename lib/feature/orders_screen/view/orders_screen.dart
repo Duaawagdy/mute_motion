@@ -55,7 +55,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
     String? token = prefs.getString("userId");
     print(token);
     if (token == null) {
-      return; // Avoid sending location update without token
+      return; 
     }
 
     Position position = await _locationService.getLocation();
@@ -69,7 +69,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
       print(isOnline);
     } catch (error) {
       print('Error sending location update: $error');
-      // Handle error appropriately (e.g., retry, notify user)
+  
     }
 
 
