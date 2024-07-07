@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/core/utils/constant.dart';
-import 'package:mute_motion/feature/my_orders/model/order.dart';
-import 'package:mute_motion/feature/my_orders/repo/complete_order_api.dart';
-import 'package:mute_motion/feature/my_orders/view/widgets/complete_order.dart';
+
+import 'package:mute_motion/feature/my_orders/my_orders/model/order.dart';
+import 'package:mute_motion/feature/my_orders/my_orders/repo/complete_order_api.dart';
+import 'package:mute_motion/feature/my_orders/my_orders/view/widgets/complete_order.dart';
+
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
 
 class My_Orders extends StatefulWidget {

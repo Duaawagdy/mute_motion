@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:mute_motion/feature/my_orders/model/order.dart';
+//import 'package:mute_motion/feature/my_orders/model/order.dart';
+import 'package:mute_motion/feature/my_orders/my_orders/model/order.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
