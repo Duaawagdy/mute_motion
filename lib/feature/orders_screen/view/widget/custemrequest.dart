@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mute_motion/feature/orders_screen/view/widget/message.dart';
 
+import '../../../map/view/map_screen.dart';
+
 class trassportrequest extends StatelessWidget {
   trassportrequest(
       {super.key,
@@ -12,8 +14,7 @@ class trassportrequest extends StatelessWidget {
       this.sourceLocation,
       this.destinationLocation,
       this.cost,
-        this.orderId
-      });
+      this.orderId});
   int? requestNumber;
   String? passengerName;
   String? timeDate;
@@ -86,19 +87,6 @@ class trassportrequest extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(Icons.calendar_month),
-              SizedBox(
-                width: 10.w,
-              ),
-              Text(timeDate!,
-                  style: TextStyle(fontSize: 15, fontFamily: 'Comfortaa'))
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            children: [
               Icon(Icons.location_on),
               SizedBox(
                 width: 10.w,
@@ -160,9 +148,18 @@ class trassportrequest extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return messagerequest(orderId:orderId ,);
+                        return messagerequest(
+                          orderId: orderId,
+                        );
+
+
+
                       });
-                  print(orderId);
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RouteScreen()),
+                  );
+
                 },
                 child: Text(
                   "Take It Now",

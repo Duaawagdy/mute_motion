@@ -6,7 +6,6 @@ import 'package:mute_motion/feature/orders_screen/view/orders_screen.dart';
 import '../../signs/presentation/view/signs.dart';
 import '../../traslator/presentation/view/translator_screen.dart';
 
-
 class Navbar_Roots extends StatefulWidget {
   const Navbar_Roots({super.key});
 
@@ -25,7 +24,6 @@ class _Navbar_RootsState extends State<Navbar_Roots> {
     signs(),
     //Translator Screen
     Translator_Screen(),
-
   ];
   @override
   Widget build(BuildContext context) {
@@ -44,22 +42,26 @@ class _Navbar_RootsState extends State<Navbar_Roots> {
             fontSize: 15.sp,
           ),
           currentIndex: _selectedIndex,
-          onTap: (index){
+          onTap: (index) {
             setState(() {
               _selectedIndex = index;
             });
           },
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.receipt),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.receipt),
               label: "Orders",
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.check_circle),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.check_circle),
               label: "My Orders",
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.sign_language),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.sign_language),
               label: "Signs",
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.camera_alt),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.camera_alt),
               label: "Translator",
             ),
           ],
