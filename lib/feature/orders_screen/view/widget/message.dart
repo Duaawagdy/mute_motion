@@ -6,6 +6,8 @@ import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 class messagerequest extends StatelessWidget {
    messagerequest({super.key,this.orderId});
 String?orderId;
+   List<double> ?startPoints;
+   List<double> ?endPoints;
 
   @override
   Widget build(BuildContext context) {

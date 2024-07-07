@@ -40,7 +40,7 @@ class OrderRepoImpl {
       handleError(error);
       rethrow;
     } catch (error) {
-      print('Unexpected error: $error');
+      print('Unexpected error: $errogit r');
       rethrow;
     }
   }

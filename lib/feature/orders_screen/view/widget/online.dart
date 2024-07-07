@@ -44,6 +44,8 @@ class _OnlineState extends State<Online> {
                         destinationLocation: pendingOrder.destinationName,
                         cost: pendingOrder.cost, // Convert cost to string
                         orderId: pendingOrder.orderid,
+                        startPoints: pendingOrder.startLocation.coordinates,
+                        endPoints: pendingOrder.destination.coordinates,
                       ),
                       SizedBox(
                         height: 20.h,
