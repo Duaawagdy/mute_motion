@@ -1,17 +1,20 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:http/http.dart' as http;
 
-class cameratranslator extends StatefulWidget {
+
+class VideoStreamingPage extends StatefulWidget {
+
+
+
   @override
-  State<cameratranslator> createState() => _cameratranslatorState();
+  _VideoStreamingPageState createState() => _VideoStreamingPageState();
 }
 
-class _cameratranslatorState extends State<cameratranslator> {
+class _VideoStreamingPageState extends State<VideoStreamingPage> {
   late TextEditingController tex = TextEditingController();
   bool _initialized = false;
   int currentCamera = 0;
@@ -73,7 +76,7 @@ class _cameratranslatorState extends State<cameratranslator> {
       final elapsed = now.difference(_lastFrameTime).inMilliseconds;
       if (elapsed >= (1000 ~/ frameRate)) {
         _lastFrameTime = now;
-        _sendFrameToServer('http://192.168.1.24:5000', cameraImage);
+        _sendFrameToServer('http://192.168.0.114:5000', cameraImage);
         _getLabelsFromServer();
       }
     });
@@ -94,7 +97,7 @@ class _cameratranslatorState extends State<cameratranslator> {
       setState(() {
         isStreaming = true;
       });
-      serverUrl = 'http://192.168.1.24:5000';
+      serverUrl = 'http://192.168.0.114:5000';
       _startStreaming();
     }
   }
@@ -104,7 +107,7 @@ class _cameratranslatorState extends State<cameratranslator> {
     try {
       final Uint8List bytes = cameraImage.planes[0].bytes;
       final response = await client.post(
-        Uri.parse('http://192.168.1.24:5000/frame?mode=$mode'),
+        Uri.parse('http://192.168.0.114:5000/frame?mode=$mode'),
         headers: {'Content-Type': 'image/jpeg'},
         body: bytes,
       );
@@ -118,7 +121,7 @@ class _cameratranslatorState extends State<cameratranslator> {
 
   Future<void> _getLabelsFromServer() async {
     try {
-      final response = await client.get(Uri.parse('http://192.168.1.24:5000/labels'));
+      final response = await client.get(Uri.parse('http://192.168.0.114:5000/labels'));
       if (response.statusCode == 200) {
         final labels = json.decode(response.body) as Map<String, dynamic>;
         setState(() {
@@ -144,13 +147,13 @@ class _cameratranslatorState extends State<cameratranslator> {
   void _startReceivingMessages() {
     const fetchInterval = Duration(milliseconds: 500);
     _timer = Timer.periodic(fetchInterval, (_) {
-     // _fetchMessagesFromServer();
+      // _fetchMessagesFromServer();
     });
   }
 
   Future<void> _fetchMessagesFromServer() async {
     try {
-      final response = await client.get(Uri.parse('http://192.168.1.24:5000/receive'));
+      final response = await client.get(Uri.parse('http://192.168.0.114:5000/receive'));
       if (response.statusCode == 200) {
         final messages = json.decode(response.body) as List<dynamic>;
         if (messages.isNotEmpty) {
@@ -169,7 +172,7 @@ class _cameratranslatorState extends State<cameratranslator> {
   void _sendMessageToServer(String message) async {
     try {
       final response = await client.post(
-        Uri.parse('http://192.168.1.24:5000/send'),
+        Uri.parse('http://192.168.0.114:5000/send'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'message': message}),
       );
@@ -209,108 +212,130 @@ class _cameratranslatorState extends State<cameratranslator> {
 
   @override
   Widget build(BuildContext context) {
+    if (!controller.value.isInitialized) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
-      body: _initialized
-          ? Stack(
+      appBar: AppBar(
+        title: const Text('Video Streaming'),
+      ),
+      body:  _initialized ?Column(
         children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: double.infinity,
-              child: CameraPreview(controller)),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+          Expanded(
+            child: Center(
+              child: Stack(
+                children: [
+                  CameraPreview(controller),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.black54,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Gesture Label: $gestureLabel',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          ),
+                          Text(
+                            'Sign Label: $signLabel',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Received Message: $receivedMessage',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.black54,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Gesture Label: $gestureLabel',
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 18),
-                      ),
-                      Text(
-                        'Sign Label: $signLabel ',
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  ),
+
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: _connectToServer,
+                  child:
+                  Text(isStreaming ? 'Stop Streaming' : 'Start Streaming'),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.18,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(24)),
-                    color: Colors.grey.shade300,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 30,
-                          icon: Icon(
-                            Icons.cameraswitch_outlined,
-                            color: Color(0xff003248),
-                          ),
-                          onPressed: () {
-                            switchCamera();
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff003248),
-                          ),
-                          onPressed: _connectToServer,
-                          child: Text(isStreaming
-                              ? 'Stop translation'
-                              : 'Start translation'),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: _toggleMode,
-                        child: Text(mode == "gesture"
-                            ? "Switch to Sign Mode"
-                            : "Switch to Gesture Mode"),
-                      ),
-                     // const Spacer(),
-                    ],
+                Expanded(
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 30,
+                    icon: Icon(
+                      Icons.cameraswitch_outlined,
+                      color: Color(0xff003248),
+                    ),
+                    onPressed: () {
+                      switchCamera();
+                    },
                   ),
                 ),
               ],
             ),
           ),
+          ElevatedButton(
+            onPressed: _toggleMode,
+            child: Text(mode == "gesture"
+                ? "Switch to Sign Mode"
+                : "Switch to Gesture Mode"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Send Message'),
+                    content: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          receivedMessage = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Message',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          _sendMessageToServer(receivedMessage);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Send'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancel'),
+                      ),
+
+                    ],
+                  );
+                },
+              );
+            },
+            child: const Text('Send Message to Passenger'),
+          ),
         ],
-      )
-          : Center(
+      ): Center(
         child: CircularProgressIndicator(),
       ),
     );
   }
 }
-
-
-//Container(
-//height: 80,
-//decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.grey),
-//child: IconButton(
-//onPressed: (){
-//// isStreaming ? _stopStreaming() : _startStreaming();
-//},
-//iconSize: 50,
-//padding: EdgeInsets.zero,
-//constraints: const BoxConstraints(),
-//icon:  isStreaming? Icon(Icons.rectangle, color: Color(0xff003248)):Icon(Icons.circle, color: Color(0xff003248)),
-//),
-//)

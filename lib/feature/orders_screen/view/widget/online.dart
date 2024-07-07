@@ -4,6 +4,8 @@ import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 import 'package:mute_motion/feature/orders_screen/view/widget/custemrequest.dart';
 import 'package:mute_motion/feature/orders_screen/view_model/orderModel.dart';
 
+// ... imports
+
 class Online extends StatefulWidget {
   const Online({super.key});
 
@@ -12,16 +14,12 @@ class Online extends StatefulWidget {
 }
 
 class _OnlineState extends State<Online> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  ScrollController _controller = new ScrollController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(left: 5.w, right: 20.w, top: 15.h, bottom: 15.h),
+        padding: EdgeInsets.only(left: 5.w, right: 20.w, top: 15.h, ),
         child: FutureBuilder<PendingOrdersResponse>(
           future: OrderRepoImpl().fetchNewestOrder(),
           builder: (BuildContext context, AsyncSnapshot<PendingOrdersResponse> snapshot) {
@@ -29,8 +27,10 @@ class _OnlineState extends State<Online> {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.hasData) {
               final pendingOrders = snapshot.data!.pendingOrders;
-              
-              return pendingOrders.isEmpty? NoOrder():Column(
+
+              return pendingOrders.isEmpty
+                  ? NoOrder()
+                  : Column(
                 children: List.generate(pendingOrders.length, (index) {
                   final pendingOrder = pendingOrders[index];
                   return Column(
@@ -38,11 +38,11 @@ class _OnlineState extends State<Online> {
                     children: [
                       trassportrequest(
                         requestNumber: index + 1,
-                        passengerName: 'Yara Afifi',
-                        timeDate: '10:03 - 26 April',
+                        passengerName: "duaa wagdy", // Use passenger name from data
+                        timeDate: '10:03 - 26 April', // Replace with actual time and date from data
                         sourceLocation: pendingOrder.locationName,
                         destinationLocation: pendingOrder.destinationName,
-                        cost: pendingOrder.cost ?? 'N/A',
+                        cost: pendingOrder.cost, // Convert cost to string
                         orderId: pendingOrder.orderid,
                       ),
                       SizedBox(
@@ -75,5 +75,4 @@ class NoOrder extends StatelessWidget {
     );
   }
 }
-
 
