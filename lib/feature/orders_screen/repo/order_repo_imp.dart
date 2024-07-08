@@ -1,9 +1,7 @@
-
 import 'package:dio/dio.dart';
 import 'package:mute_motion/core/errors/failures.dart';
 import 'package:mute_motion/feature/orders_screen/view_model/orderModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class OrderRepoImpl {
   void handleError(DioException error) {
@@ -20,7 +18,7 @@ class OrderRepoImpl {
     try {
       final response = await Dio().get(
         apiUrl,
-        options: Options(headers: {'Authorization':'Bearer $token'}),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -40,7 +38,7 @@ class OrderRepoImpl {
       handleError(error);
       rethrow;
     } catch (error) {
-      print('Unexpected error: $errogit r');
+      print('Unexpected error: $error');
       rethrow;
     }
   }
@@ -72,20 +70,17 @@ class OrderRepoImpl {
     }
   }
 
-
-  Future<void> responedToOrder(String orderId,bool state) async {
-
+  Future<void> responedToOrder(String orderId, bool state) async {
     final String apiUrl = "https://mutemotion.onrender.com/api/v1/respondToRequest"; // Removed the leading space
 
     try {
       Map<String, dynamic> requestBody = {
-        "orderId":orderId,
-        "accept":state
+        "orderId": orderId,
+        "accept": state
       };
       Response response = await Dio().post(
         apiUrl,
         data: requestBody,
-
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('respond successful');
@@ -96,6 +91,4 @@ class OrderRepoImpl {
       print(error);
     }
   }
-
-
 }
