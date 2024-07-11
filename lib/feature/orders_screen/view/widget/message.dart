@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mute_motion/feature/map/provider/map_provider.dart';
+import 'package:mute_motion/feature/map/view/map_screen.dart';
 import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
+import 'package:provider/provider.dart';
 
 class messagerequest extends StatelessWidget {
-   messagerequest({super.key,this.orderId});
+   messagerequest({super.key,this.orderId,this.endtpoints,this.startpoints,this.cost,this.startlocationname,this.endlocationname});
 String?orderId;
-   List<double> ?startPoints;
-   List<double> ?endPoints;
+
+   List<double> ?startpoints;
+   List<double> ?endtpoints;
+   String?cost;
+   String?startlocationname;
+   String?endlocationname;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,7 @@ String?orderId;
                 height: 26.h,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     height: 50.h,
@@ -63,7 +72,18 @@ String?orderId;
                     child: MaterialButton(
                         onPressed: () {
                           OrderRepoImpl().responedToOrder(orderId!, true);
-                          GoRouter.of(context).push('/chat');
+
+                        Provider.of<MapProvider>(context, listen: false)
+                            .getMyData(
+                            myLocation:LatLng(startpoints![0], startpoints![1]),
+                            myDestination: LatLng(endtpoints![0], endtpoints![1]),
+                            myCost: cost,
+                            );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RouteScreen()),
+                          );
+                          //GoRouter.of(context).push('/chat');
                         },
                         child:  Text(
                           "Confirm",

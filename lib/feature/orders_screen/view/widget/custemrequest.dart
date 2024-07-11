@@ -15,8 +15,10 @@ class trassportrequest extends StatelessWidget {
       this.destinationLocation,
       this.cost,
       this.orderId,
-        this.startPoints,
-        this.endPoints
+
+        this.startpoints
+        ,this.endtpoints
+
       });
   int? requestNumber;
   String? passengerName;
@@ -25,8 +27,9 @@ class trassportrequest extends StatelessWidget {
   String? destinationLocation;
   String? cost;
   String? orderId;
-  List<double> ?startPoints;
-  List<double> ?endPoints;
+
+  List<double> ?startpoints;
+  List<double> ?endtpoints;
 
   @override
   Widget build(BuildContext context) {
@@ -156,15 +159,16 @@ class trassportrequest extends StatelessWidget {
                       builder: (context) {
                         return messagerequest(
                           orderId: orderId,
+                          startpoints: startpoints,
+                          endtpoints: endtpoints,
+                          startlocationname: sourceLocation,
+                          endlocationname: destinationLocation,
                         );
 
 
 
                       });
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RouteScreen()),
-                  );
+
 
                 },
                 child: Text(

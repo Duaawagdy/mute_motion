@@ -45,8 +45,8 @@ class _SplashviewbodyState extends State<Splashviewbody> with SingleTickerProvid
     Future.delayed(Duration(seconds: 5),() async {
       WidgetsFlutterBinding.ensureInitialized();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var email = prefs.getString('email');
-      print(email);
+      String? email = prefs.getString("token");
+      print("there is${email}");
       email == null ? GoRouter.of(context).push( '/loginview'): GoRouter.of(context).push('/navbar');
 
     });

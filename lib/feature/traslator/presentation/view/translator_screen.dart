@@ -73,7 +73,7 @@ class Translator_Screen extends StatelessWidget {
                   child: MaterialButton(
                       onPressed: (){
                         Navigator.of(context).push( MaterialPageRoute (
-                          builder: (BuildContext context) =>  VideoStreamingPage(),
+                          builder: (BuildContext context) =>  cameratranslator(),
                         ),);
                       },
                       child: Text(

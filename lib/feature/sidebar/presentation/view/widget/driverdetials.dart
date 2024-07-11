@@ -63,8 +63,9 @@ class _DriverDetailsState extends State<driverDetails> {
   Widget build(BuildContext context) {
     return Container(
       height: 76.h,
-      width: 309.w,
+      width: 315.w,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _isLoadingImage
               ? CircularProgressIndicator()

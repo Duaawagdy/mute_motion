@@ -163,11 +163,11 @@ class ApiProvider {
     } catch (e) {
       if (e is DioException) {
         print('Dio error: ${e.response?.data}');
-        String errorMessage = e.response?.data["message"] ?? 'Unknown error occurred';
+        String errorMessage = e.response?.data["error"] ?? 'Unknown error occurred';
         if (e.response?.statusCode == 404) {
           _showErrorDialogLogin(context, 'Resource not found. Please check the URL or contact support.', emailCont, passCont);
         } else {
-          _showErrorDialogLogin(context, 'Request failed with error: $errorMessage', emailCont, passCont);
+          _showErrorDialogLogin(context, 'Request failed \n $errorMessage', emailCont, passCont);
         }
       } else {
         print('Request failed with error: $e');
