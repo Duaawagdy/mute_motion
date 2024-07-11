@@ -23,6 +23,7 @@ class _cameratranslatorState extends State<cameratranslator> {
   String gestureLabel = "None";
   String signLabel = "None";
   String mode = "gesture";
+  String ip = '';
   String receivedMessage = "";
   http.Client client = http.Client();
   DateTime _lastFrameTime = DateTime.now();
@@ -73,7 +74,7 @@ class _cameratranslatorState extends State<cameratranslator> {
       final elapsed = now.difference(_lastFrameTime).inMilliseconds;
       if (elapsed >= (1000 ~/ frameRate)) {
         _lastFrameTime = now;
-        _sendFrameToServer('http://192.168.1.24:5000', cameraImage);
+        _sendFrameToServer(serverUrl!, cameraImage);
         _getLabelsFromServer();
       }
     });
@@ -86,15 +87,12 @@ class _cameratranslatorState extends State<cameratranslator> {
       });
       _stopStreaming();
     } else {
-      final String ip = 'ip';
-      if (ip.isEmpty) {
-        return;
-      }
+
 
       setState(() {
         isStreaming = true;
       });
-      serverUrl = 'http://192.168.1.24:5000';
+      serverUrl = 'http://192.168.1.8:5000';
       _startStreaming();
     }
   }
@@ -104,7 +102,7 @@ class _cameratranslatorState extends State<cameratranslator> {
     try {
       final Uint8List bytes = cameraImage.planes[0].bytes;
       final response = await client.post(
-        Uri.parse('http://192.168.1.24:5000/frame?mode=$mode'),
+        Uri.parse('$serverUrl/frame?mode=$mode'),
         headers: {'Content-Type': 'image/jpeg'},
         body: bytes,
       );
@@ -118,20 +116,21 @@ class _cameratranslatorState extends State<cameratranslator> {
 
   Future<void> _getLabelsFromServer() async {
     try {
-      final response = await client.get(Uri.parse('http://192.168.1.24:5000/labels'));
+      final response = await client.get(Uri.parse('$serverUrl/labels'));
       if (response.statusCode == 200) {
         final labels = json.decode(response.body) as Map<String, dynamic>;
         setState(() {
           gestureLabel = labels['gesture'] ?? "None";
           signLabel = labels['sign'] ?? "None";
-
-          if (gestureLabel == "thumbsup" && mode != "gesture") {
-            mode = "gesture";
-            frameRate = 3;
-          } else if (gestureLabel == "victory" && mode != "sign") {
-            mode = "sign";
-            frameRate = 30;
-          }
+     print(signLabel);
+          // Check for mode switching gestures
+   //     if (gestureLabel == "thumbsup" && mode != "gesture") {
+   //       mode = "gesture";
+   //       frameRate = 3;
+   //     } else if (gestureLabel == "victory" && mode != "sign") {
+   //       mode = "sign";
+   //       frameRate = 30;
+   //     }
         });
       } else {
         print('Failed to get labels: ${response.statusCode}');
@@ -150,7 +149,7 @@ class _cameratranslatorState extends State<cameratranslator> {
 
   Future<void> _fetchMessagesFromServer() async {
     try {
-      final response = await client.get(Uri.parse('http://192.168.1.24:5000/receive'));
+      final response = await client.get(Uri.parse('$serverUrl/receive'));
       if (response.statusCode == 200) {
         final messages = json.decode(response.body) as List<dynamic>;
         if (messages.isNotEmpty) {
@@ -169,7 +168,7 @@ class _cameratranslatorState extends State<cameratranslator> {
   void _sendMessageToServer(String message) async {
     try {
       final response = await client.post(
-        Uri.parse('http://192.168.1.24:5000/send'),
+        Uri.parse('$serverUrl/send'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'message': message}),
       );
@@ -251,41 +250,59 @@ class _cameratranslatorState extends State<cameratranslator> {
                     BorderRadius.vertical(top: Radius.circular(24)),
                     color: Colors.grey.shade300,
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 30,
-                          icon: Icon(
-                            Icons.cameraswitch_outlined,
-                            color: Color(0xff003248),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0,right: 28),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            iconSize: 30,
+                            icon: Icon(
+                              Icons.cameraswitch_outlined,
+                              color: Color(0xff003248),
+                            ),
+                            onPressed: () {
+                              switchCamera();
+                            },
                           ),
-                          onPressed: () {
-                            switchCamera();
-                          },
                         ),
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff003248),
+                            ),
+                            onPressed: (){
+                              setState(() {
+                                ip='192.168.1.8';
+                              });
+                              _connectToServer();
+
+                            },
+
+                              child: Text(isStreaming
+                                  ? 'Stop \n translation'
+                                  : 'Start translation',
+                              softWrap: true,),
+
+                          ),
+                        ),
+                        SizedBox(width: 15,),
+                        ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xff003248),
                           ),
-                          onPressed: _connectToServer,
-                          child: Text(isStreaming
-                              ? 'Stop translation'
-                              : 'Start translation'),
+                          onPressed: _toggleMode,
+                          child: Text(mode == "gesture"
+                              ? "Switch to Sign Mode"
+                              : "Switch to Gesture Mode"),
                         ),
-                      ),
-                      ElevatedButton(
-                        onPressed: _toggleMode,
-                        child: Text(mode == "gesture"
-                            ? "Switch to Sign Mode"
-                            : "Switch to Gesture Mode"),
-                      ),
-                     // const Spacer(),
-                    ],
+
+                        //const Spacer(),
+                      ],
+                    ),
                   ),
                 ),
               ],

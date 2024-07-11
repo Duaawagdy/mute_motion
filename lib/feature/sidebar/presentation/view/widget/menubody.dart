@@ -44,7 +44,7 @@ class menubody extends StatelessWidget{
       ),
       menuitem(itemname: 'Log Out',icon: Icons.logout,onpressed: () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.remove('email');
+        prefs.remove("token");
         prefs.remove('profileImg');
         approuter.clearAndNavigate(context, '/loginview');}),
       Padding(

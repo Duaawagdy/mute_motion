@@ -26,7 +26,7 @@ class _My_OrdersState extends State<My_Orders> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
+
     return Scaffold(
       drawer: NavDrawer(),
       backgroundColor: Color(0xff003248),

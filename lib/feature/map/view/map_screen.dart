@@ -23,9 +23,7 @@ class RouteScreen extends StatelessWidget {
           provider.initState();
         },
         builder:(context,snapshot) => Scaffold(
-          appBar: AppBar(
-            title: const Text('Route Finder'),
-          ),
+
           body: Stack(
             children: <Widget>[
               provider.currentLocation == null
@@ -40,6 +38,16 @@ class RouteScreen extends StatelessWidget {
                   zoom: 14.0,
                 ),
                 polylines: provider.polylines,
+                markers: {
+                  Marker(
+                    markerId: const MarkerId('currentLocation'),
+                    position: LatLng(provider.currentLocation!.latitude!,
+                        provider.currentLocation!.longitude!),
+                    infoWindow: const InfoWindow(
+                      title: 'Current Location',
+                    ),
+                  ),
+                },
               ),
               const Positioned(
                 bottom: 0,
