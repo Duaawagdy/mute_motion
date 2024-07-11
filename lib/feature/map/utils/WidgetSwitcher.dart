@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mute_motion/feature/feedback/presentation/view/feedback_screen.dart';
+import 'package:mute_motion/feature/feedback/presentation/view/widgets/custom_button.dart';
 import 'setLocationWidget.dart';
 
 
@@ -39,7 +41,7 @@ class StartDrive extends StatelessWidget {
         children: [
           SizedBox(height: 18),
           Text(
-            '1 hr 10 min (10km)',
+            '1 hr 10 min (200km)',
             style: TextStyle(fontSize: 21, fontFamily: 'comfortaa', color: Color(0xffffffff)),
           ),
           SizedBox(height: 9),
@@ -55,9 +57,12 @@ class StartDrive extends StatelessWidget {
             ),
             child: ElevatedButton(
               onPressed: () {
-                // Start drive button action
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FeedbackScreen()),
+                );
               },
-              child: Text('Start Drive'),
+              child: Text('EndDrive'),
             ),
           ),
         ],

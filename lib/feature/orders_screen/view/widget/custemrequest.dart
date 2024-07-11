@@ -15,8 +15,10 @@ class trassportrequest extends StatelessWidget {
       this.destinationLocation,
       this.cost,
       this.orderId,
+
         this.startpoints
         ,this.endtpoints
+
       });
   int? requestNumber;
   String? passengerName;
@@ -25,8 +27,10 @@ class trassportrequest extends StatelessWidget {
   String? destinationLocation;
   String? cost;
   String? orderId;
+
   List<double> ?startpoints;
   List<double> ?endtpoints;
+
   @override
   Widget build(BuildContext context) {
     return Container(

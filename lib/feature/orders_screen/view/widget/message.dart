@@ -10,11 +10,13 @@ import 'package:provider/provider.dart';
 class messagerequest extends StatelessWidget {
    messagerequest({super.key,this.orderId,this.endtpoints,this.startpoints,this.cost,this.startlocationname,this.endlocationname});
 String?orderId;
+
    List<double> ?startpoints;
    List<double> ?endtpoints;
    String?cost;
    String?startlocationname;
    String?endlocationname;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

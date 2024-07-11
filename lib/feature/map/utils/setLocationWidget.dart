@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../chat/presentation/views/chat_screen_view.dart';
+
 class SetLocationWidget extends StatelessWidget {
   final GoogleMapController? googleMapControllerConfirm;
   final VoidCallback onPressed;
@@ -27,9 +29,9 @@ class SetLocationWidget extends StatelessWidget {
         ),
         SizedBox(height: 24),
         // Replace with your custom label widget
-        Text('Elzamalk - Egypt'),
+        Text("Zagazig University "),
         SizedBox(height: 24),
-        Text('Cairo Festival Mall - Nasr City'),
+        Text('Cairo'),
         SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -53,9 +55,12 @@ class SetLocationWidget extends StatelessWidget {
                 SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // Your search button action
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ChatScreenView()),
+                    );
                   },
-                  child: Text('Search'),
+                  child: Text('chat'),
                 ),
               ],
             ),
