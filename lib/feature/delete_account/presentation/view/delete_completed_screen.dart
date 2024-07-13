@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/core/utils/routing/AppRouter.dart';
 
 import 'widgets/delete_button.dart'; // Add url_launcher package
 
@@ -83,7 +84,9 @@ class DeleteCompletedScreen extends StatelessWidget {
                 width: double.infinity,
                 onTap: () {
                   // Handle finish button tap
-                  GoRouter.of(context).push('/loginview'); // Example action: go back
+                  approuter.clearAndNavigate(context, '/loginview');
+                  //approuter.clearAndNavigate(context, '/loginview');
+                 // GoRouter.of(context).push('/loginview'); // Example action: go back
                 },
               ),
             ],

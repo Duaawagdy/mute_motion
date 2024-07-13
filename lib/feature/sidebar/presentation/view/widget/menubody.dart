@@ -26,12 +26,7 @@ class menubody extends StatelessWidget{
           )
       ),
     child: ListView(children: [
-      menuitem(itemname: 'Map',icon: Icons.map_outlined,onpressed: (){GoRouter.of(context).push('/map');
-        },),
-      Padding(
-        padding:  EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),
-        child: Divider(color: Colors.grey,thickness: 1.5.w,),
-      ),
+
       menuitem(itemname: 'Car System',icon: Icons.car_rental_rounded,onpressed: (){GoRouter.of(context).push('/carsystem');}),
       Padding(
         padding:  EdgeInsets.only(left: 18.0.w,right: 18.w,top: 0.h),

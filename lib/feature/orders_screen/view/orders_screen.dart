@@ -27,8 +27,9 @@ class _OrdersScreenState extends State<Orders_Screen> {
 
   @override
   void initState() {
-    _locationService.checkLocationPermission();
     super.initState();
+    _locationService.checkLocationPermission();
+
 
     SocketIOManager.instance.connect(); // Connect to socket server
     //_fetchToken();
@@ -45,7 +46,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
 
   Future<String?> _fetchToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? useId = prefs.getString("userId");
+    String? useId = prefs.getString('userId');
     return useId;
 
   }
@@ -53,7 +54,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
   Future<void> sendLocationUpdate() async {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("userId");
+    String? token = prefs.getString('userId');
     print(token);
     if (token == null) {
       return;

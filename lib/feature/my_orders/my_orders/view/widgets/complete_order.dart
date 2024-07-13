@@ -26,7 +26,7 @@ class complete_order extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 330.w,
-      height: 324.h,
+      height: 350.h,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.r),
@@ -97,8 +97,8 @@ class complete_order extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               Divider(
-                thickness: 2,
-                height: 30,
+                thickness: 2.w,
+                height: 30.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

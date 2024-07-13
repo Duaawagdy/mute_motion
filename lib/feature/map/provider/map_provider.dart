@@ -77,14 +77,18 @@ class MapProvider extends ChangeNotifier {
     double ?latitude=prefs.getDouble('startpointslat');
     double ?longitude=prefs.getDouble('startpointslon');
     double ?endlatitude=prefs.getDouble('endtpointslat');
+    print("endpoint${endlatitude}");
     double ?endlongitude=prefs.getDouble('endtpointslon');
+
     if (currentLocation == null) return;
 
     String origin = '${currentLocation!.latitude},${currentLocation!.longitude}';
+
     LatLng destination1 = LatLng(latitude!, longitude!); // First new destination coordinates
     LatLng destination2 = LatLng(endlatitude!, endlongitude!); // Second new destination coordinates
 
     List<LatLng> destinations = [destination1, destination2];
+    print('locations${destinations}');
     int retryCount = 3;
 
     for (LatLng destination in destinations) {

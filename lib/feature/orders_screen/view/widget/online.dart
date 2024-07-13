@@ -47,7 +47,7 @@ class _OnlineState extends State<Online> {
 
                         startpoints: pendingOrder.startLocation.coordinates,
                         endtpoints: pendingOrder.destination.coordinates,
-
+                         passengerId: pendingOrder.passenger,
                       ),
                       SizedBox(
                         height: 20.h,

@@ -18,6 +18,7 @@ class trassportrequest extends StatelessWidget {
 
         this.startpoints
         ,this.endtpoints
+        ,this.passengerId
 
       });
   int? requestNumber;
@@ -27,6 +28,7 @@ class trassportrequest extends StatelessWidget {
   String? destinationLocation;
   String? cost;
   String? orderId;
+  String? passengerId;
 
   List<double> ?startpoints;
   List<double> ?endtpoints;
@@ -164,6 +166,7 @@ class trassportrequest extends StatelessWidget {
                           startlocationname: sourceLocation,
                           endlocationname: destinationLocation,
                           cost: cost,
+                          passengerid: passengerId,
                         );
 
 

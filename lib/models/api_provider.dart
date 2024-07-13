@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mute_motion/core/utils/routing/AppRouter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -139,7 +140,7 @@ class ApiProvider {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("token", token);
-        await prefs.setString("userId", userId);
+        await prefs.setString('userId', userId);
         await prefs.setString("fullname", fullname);
         await prefs.setString("rating", roundedRating);
         await prefs.setString("numberOfReviews", numberOfReviews);
@@ -151,8 +152,9 @@ class ApiProvider {
         print("NumberOfReviews is: $numberOfReviews");
         print("ProfileImg is: $profileImg");
         await updateFCMToken(userId: userId, fcmToken: fcmToken);
-        
-        GoRouter.of(context).push('/navbar');
+
+        approuter.clearAndNavigate(context, '/navbar');
+
       } else if (response.statusCode == 401) {
         final error = response.statusMessage;
         _showErrorDialogLogin(context, error!, emailCont, passCont);
@@ -243,7 +245,7 @@ class ApiProvider {
     } catch (e) {
       if (e is DioException) {
         print(e.response?.data);
-        _showErrorDialogReg(context, 'Attention!', '${e.response?.data["errors"]?[0]?["msg"] ?? 'Unknown error'}');
+        _showErrorDialogReg(context, 'Attention!', '${e.response?.data["error"]?[0]?? 'Unknown error'}');
       }
     }
   }

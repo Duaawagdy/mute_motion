@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class messagerequest extends StatelessWidget {
-   messagerequest({super.key,this.orderId,this.endtpoints,this.startpoints,this.cost,this.startlocationname,this.endlocationname});
+   messagerequest({super.key,this.orderId,this.endtpoints,this.startpoints,this.cost,this.startlocationname,this.endlocationname,this.passengerid});
 String?orderId;
 
    List<double> ?startpoints;
@@ -17,6 +17,7 @@ String?orderId;
    String?cost;
    String?startlocationname;
    String?endlocationname;
+   String?passengerid;
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +127,7 @@ String?orderId;
   }
    Future<void> setvalues()async {
      SharedPreferences prefs = await SharedPreferences.getInstance();
+     prefs.setString('passengerId', passengerid!);
      if (orderId != null) prefs.setString('orderId', orderId!);
      if (startpoints != null) {
        prefs.setDouble('startpointslat', startpoints![0]);

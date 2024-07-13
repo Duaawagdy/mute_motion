@@ -7,6 +7,7 @@ class OrderRepoImpl {
   void handleError(DioException error) {
     ServerFailure failure = ServerFailure.fromDioError(error);
     print(failure.errMessage);
+
   }
 
   Future<PendingOrdersResponse> fetchNewestOrder() async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/feature/sidebar/presentation/view/sidebar.dart';
-import 'package:mute_motion/feature/traslator/presentation/view/test.dart';
+import 'package:mute_motion/feature/traslator/presentation/view/cameratranslatormain.dart';
 
 import 'cameratranlator.dart';
 class Translator_Screen extends StatelessWidget {
@@ -73,7 +73,7 @@ class Translator_Screen extends StatelessWidget {
                   child: MaterialButton(
                       onPressed: (){
                         Navigator.of(context).push( MaterialPageRoute (
-                          builder: (BuildContext context) =>  cameratranslator(),
+                          builder: (BuildContext context) =>  cameratranslatormain(),
                         ),);
                       },
                       child: Text(

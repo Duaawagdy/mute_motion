@@ -11,6 +11,7 @@ import 'package:mute_motion/feature/chat/model/messages.dart';
 import 'package:mute_motion/feature/chat/presentation/views/widgets/message_item.dart';
 
 import 'package:get/get.dart';
+import 'package:mute_motion/feature/traslator/presentation/view/cameratranlator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -252,8 +253,11 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   }
 }
  */
+
+
+
 class ChatScreenViewBody extends StatefulWidget {
-  ChatScreenViewBody({super.key});
+  ChatScreenViewBody({Key? key}) : super(key: key);
 
   @override
   State<ChatScreenViewBody> createState() => _ChatScreenViewBodyState();
@@ -266,35 +270,34 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   bool isPassengerTyping = false;
   String driverId = '';
   String passengerId = '';
- void fetchIds() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    driverId= prefs.getString('userId')!;
-    print(driverId);
-    passengerId = prefs.getString('passengerId')!;
-    print(passengerId);
-     connectDriver();
-     fetchChatHistory();
- }
+
   @override
   void initState() {
-    fetchIds();
     super.initState();
+    fetchIds();
     socket = IO.io(
-        'https://mutemotion.onrender.com/',
-        IO.OptionBuilder()
-            .setTransports(['websocket'])
-            .disableAutoConnect()
-            .build());
+      'https://mutemotion.onrender.com/',
+      IO.OptionBuilder()
+          .setTransports(['websocket'])
+          .disableAutoConnect()
+          .build(),
+    );
     socket.connect();
     setUpSocketListener();
-
-
   }
 
   @override
   void dispose() {
     disconnectDriver();
     super.dispose();
+  }
+
+  void fetchIds() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    driverId = prefs.getString('userId')!;
+    passengerId = prefs.getString('passengerId')!;
+    connectDriver();
+    fetchChatHistory();
   }
 
   @override
@@ -304,13 +307,18 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
-       //leading: IconButton(
-       //    iconSize: 30,
-       //    onPressed: () {},
-       //    icon: const Icon(
-       //      Icons.arrow_back_ios,
-       //      color: borderColor,
-       //    )),
+        leading: IconButton(
+          iconSize: 30,
+          onPressed: () {
+            Navigator.of(context).push( MaterialPageRoute (
+              builder: (BuildContext context) =>  cameratranslator(),
+            ),);
+          },
+          icon: const Icon(
+            Icons.camera_alt,
+            color: borderColor,
+          ),
+        ),
         title: Text(
           'Passenger',
           textAlign: TextAlign.center,
@@ -327,16 +335,17 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
           Padding(
             padding: const EdgeInsets.only(bottom: 160),
             child: Obx(
-              () => ListView.builder(
-                  itemCount: chatController.chatMessages.length,
-                  itemBuilder: (context, index) {
-                    var currentItem = chatController.chatMessages[index];
-                    return MessageItem(
-                      sentByMe: currentItem.senderId == driverId,
-                      message: currentItem.message,
-                      //time: currentItem.time,
-                    );
-                  }),
+                  () => ListView.builder(
+                itemCount: chatController.chatMessages.length,
+                itemBuilder: (context, index) {
+                  var currentItem = chatController.chatMessages[index];
+                  return MessageItem(
+                    sentByMe: currentItem.senderId == driverId,
+                    message: currentItem.message,
+                    //time: currentItem.time,
+                  );
+                },
+              ),
             ),
           ),
           if (isPassengerTyping)
@@ -466,6 +475,7 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
       "senderType": 'driver'
     };
     socket.emit('message', messageJson);
+
     chatController.chatMessages.add(Message.fromJson(messageJson));
   }
 
@@ -487,7 +497,10 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
 
   void setUpSocketListener() {
     socket.on('message-receive', (data) {
-      chatController.chatMessages.add(Message.fromJson(data));
+      setState(() {
+        chatController.chatMessages.add(Message.fromJson(data));
+      });
+
     });
 
     socket.on('typing', (data) {
@@ -533,6 +546,3 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
     }
   }
 }
-
-
-
