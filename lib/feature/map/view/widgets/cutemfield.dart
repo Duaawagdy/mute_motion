@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class custemlabel extends StatelessWidget{
-  const custemlabel({super.key, required this.icon, required this.Place});
+  custemlabel({super.key, required this.icon, required this.Place});
 final IconData icon;
-final String Place;
+ String? Place;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
