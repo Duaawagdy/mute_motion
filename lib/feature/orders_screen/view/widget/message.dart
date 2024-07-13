@@ -73,13 +73,13 @@ String?orderId;
                     child: MaterialButton(
                         onPressed: () {
                           OrderRepoImpl().responedToOrder(orderId!, true);
-
-                        Provider.of<MapProvider>(context, listen: false);
-
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => RouteScreen()),
                           );
+                       Provider.of<MapProvider>(context, listen: false);
+
+                          setvalues();
                           //GoRouter.of(context).push('/chat');
                         },
                         child:  Text(
@@ -106,7 +106,7 @@ String?orderId;
                     child: MaterialButton(
                         onPressed: () {
                           OrderRepoImpl().responedToOrder(orderId!, false);
-                          setvalues();
+
                           Navigator.of(context).pop();
                         },
                         child: Text(
@@ -137,6 +137,7 @@ String?orderId;
 
      }
      if (cost != null) prefs.setString('cost', cost!);
+     print(cost);
      if (startlocationname != null) prefs.setString('startlocationname', startlocationname!);
      if (endlocationname != null) prefs.setString('endlocationname',endlocationname! );
 

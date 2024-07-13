@@ -89,19 +89,22 @@ class _My_OrdersState extends State<My_Orders> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   final order = snapshot.data![index];
-                  return Column(
-                    children: [
-                      complete_order(
-                        req: 'Transport Request',
-                        driverName: 'Ahmed Fawzy',
-                        rate: "3.2",
-                        psg_loc: order.locationName,
-                        destination: order.destinationName,
-                        paymentMethod: order.paymentMethod,
-                        Cost: order.cost,
-                      ),
-                      SizedBox(height: 10.h),
-                    ],
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        complete_order(
+                          req: 'Transport Request',
+                          driverName: 'Ahmed Fawzy',
+                          rate: "3.2",
+                          psg_loc: order.locationName,
+                          destination: order.destinationName,
+                          paymentMethod: order.paymentMethod,
+                          Cost: order.cost,
+                        ),
+                        SizedBox(height: 10.h),
+                      ],
+                    ),
                   );
                 },
               );

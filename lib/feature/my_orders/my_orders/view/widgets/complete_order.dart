@@ -26,7 +26,7 @@ class complete_order extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 330.w,
-      height: 300.h,
+      height: 324.h,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.r),

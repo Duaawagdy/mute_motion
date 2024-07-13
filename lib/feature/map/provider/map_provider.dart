@@ -26,7 +26,7 @@ class MapProvider extends ChangeNotifier {
 
 
   LocationData? currentLocation;
-  final String apiKey = 'YOUR_API_KEY';
+  final String apiKey = 'AIzaSyCzJMVMlvGMUOEmy5Dzpy2mrbicp_gylHk';
   GoogleMapController? controller;
   Set<Polyline> polylines = {};
 
@@ -57,27 +57,32 @@ class MapProvider extends ChangeNotifier {
 
     currentLocation = await locationService.getLocation();
 
-    if (currentLocation != null) {
-      markers.add(
-        Marker(
-          markerId: MarkerId('currentLocation'),
-          position: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
-          infoWindow: InfoWindow(
-            title: 'Current Location',
-            snippet: 'Lat: ${currentLocation!.latitude}, Lng: ${currentLocation!.longitude}',
-          ),
-        ),
-      );
-    }
+ //  if (currentLocation != null) {
+ //    markers.add(
+ //      Marker(
+ //        markerId: MarkerId('currentLocation'),
+ //        position: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
+ //        infoWindow: InfoWindow(
+ //          title: 'Current Location',
+ //          snippet: 'Lat: ${currentLocation!.latitude}, Lng: ${currentLocation!.longitude}',
+ //        ),
+ //      ),
+ //    );
+ //  }
     notifyListeners();
   }
 
   Future<void> getRoute() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double ?latitude=prefs.getDouble('startpointslat');
+    double ?longitude=prefs.getDouble('startpointslon');
+    double ?endlatitude=prefs.getDouble('endtpointslat');
+    double ?endlongitude=prefs.getDouble('endtpointslon');
     if (currentLocation == null) return;
 
     String origin = '${currentLocation!.latitude},${currentLocation!.longitude}';
-    LatLng destination1 = LatLng(30.588484799613905, 31.483259784097342); // First new destination coordinates
-    LatLng destination2 = LatLng(30.046981770486305, 31.230994135789608); // Second new destination coordinates
+    LatLng destination1 = LatLng(latitude!, longitude!); // First new destination coordinates
+    LatLng destination2 = LatLng(endlatitude!, endlongitude!); // Second new destination coordinates
 
     List<LatLng> destinations = [destination1, destination2];
     int retryCount = 3;
@@ -118,16 +123,16 @@ class MapProvider extends ChangeNotifier {
                 ),
               );
 
-              markers.add(
-                Marker(
-                  markerId: MarkerId('marker_${destination.latitude}_${destination.longitude}'), // Unique ID for each marker
-                  position: destination,
-                  infoWindow: InfoWindow(
-                    title: 'Destination',
-                    snippet: 'Lat: ${destination.latitude}, Lng: ${destination.longitude}',
-                  ),
-                ),
-              );
+            //  markers.add(
+            //    Marker(
+            //      markerId: MarkerId('marker_${destination.latitude}_${destination.longitude}'), // Unique ID for each marker
+            //      position: destination,
+            //      infoWindow: InfoWindow(
+            //        title: 'Destination',
+            //        snippet: 'Lat: ${destination.latitude}, Lng: ${destination.longitude}',
+            //      ),
+            //    ),
+            //  );
 
               controller?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
                 target: destination,

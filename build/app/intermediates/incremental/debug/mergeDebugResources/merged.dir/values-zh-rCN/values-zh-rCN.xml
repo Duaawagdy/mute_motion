@@ -24,7 +24,7 @@
     <string name="common_google_play_services_wear_update_text">必须使用新版 Google Play 服务。该服务很快就会自行更新。</string>
     <string name="common_open_on_phone">在手机上打开</string>
     <string name="common_signin_button_text">登录</string>
-    <string name="common_signin_button_text_long">使用 Google 账号登录</string>
+    <string name="common_signin_button_text_long">使用 Google 帐号登录</string>
     <string name="exo_download_completed">下载完毕</string>
     <string name="exo_download_description">下载</string>
     <string name="exo_download_downloading">正在下载</string>

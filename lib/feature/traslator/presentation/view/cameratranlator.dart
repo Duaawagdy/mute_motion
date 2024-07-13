@@ -52,9 +52,12 @@ class _cameratranslatorState extends State<cameratranslator> {
             _initialized = true;
           });
         });
-        //_startReceivingMessages();
+        _startReceivingMessages();
       }
     });
+  }
+  Future<void> _cameraSetUp() async {
+    cameras = await availableCameras();
   }
 
   @override
@@ -65,9 +68,7 @@ class _cameratranslatorState extends State<cameratranslator> {
     super.dispose();
   }
 
-  Future<void> _cameraSetUp() async {
-    cameras = await availableCameras();
-  }
+
 
   void _startStreaming() {
     controller.startImageStream((CameraImage cameraImage) async {
@@ -200,123 +201,146 @@ class _cameratranslatorState extends State<cameratranslator> {
       }
     });
   }
-
+  void switchCamera() async {
+    if (cameras.length > 1) {
+      controller = CameraController(
+          currentCamera == 0 ? cameras[1] : cameras[0], ResolutionPreset.max);
+      await controller.initialize();
+      setState(() => currentCamera = currentCamera == 0 ? 1 : 0);
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    if (!controller.value.isInitialized) {
-      return const Center(child: CircularProgressIndicator());
-    }
+
     return Scaffold(
       body: _initialized
-          ? Stack(
-        children: [
-          Expanded(
-            child: Center(
-              child: Stack(
-                children: [
-                  CameraPreview(controller),
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.black54,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Gesture Label: $gestureLabel',
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
-                          ),
-                          Text(
-                            'Sign Label: $signLabel',
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Received Message: $receivedMessage',
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+          ?
+            Stack(
+          children: [
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: double.infinity,
+                child: CameraPreview(controller)),
+            Align(
+              alignment: Alignment.bottomCenter,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                  child: TextField(
-                    controller: _serverUrlController,
-                    decoration: const InputDecoration(
-                      labelText: 'Server IP',
-                      border: OutlineInputBorder(),
-                    ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.black54,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gesture Label: $gestureLabel',
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 18),
+                      ),
+                      Text(
+                        'Sign Label: $signLabel',
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 18),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Received Message: $receivedMessage',
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 18),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: _connectToServer,
-                  child:
-                  Text(isStreaming ? 'Stop Streaming' : 'Start Streaming'),
-                ),
+             Container(
+               decoration:  BoxDecoration(
+                   color: Colors.white,
+                   borderRadius: BorderRadius.only(
+                     topLeft: Radius.circular(10),
+                     topRight: Radius.circular(10),
+                   )),
+               //color: Colors.white,
+               child: Column(children: [ Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: Row(
+                 children: [
+                   Expanded(
+                     child: TextField(
+                       controller: _serverUrlController,
+                       decoration: const InputDecoration(
+                         labelText: 'Server IP',
+                         border: OutlineInputBorder(),
+                       ),
+                     ),
+                   ),
+                   const SizedBox(width: 10),
+                   ElevatedButton(
+
+                     onPressed: _connectToServer,
+                     child:
+                     Text(isStreaming ? 'Stop translation' : 'Start translation'),
+                     style:  ElevatedButton.styleFrom(backgroundColor: Color(0xff003248)),
+
+                   ),
+                 ],
+               ),
+             ),
+               ElevatedButton(
+                 onPressed: _toggleMode,
+                 child: Text(mode == "gesture"
+                     ? "Switch to Sign Mode"
+                     : "Switch to Gesture Mode"),
+                 style:  ElevatedButton.styleFrom(backgroundColor: Color(0xff003248)),
+               ),
+               ElevatedButton(
+                 style:  ElevatedButton.styleFrom(backgroundColor: Color(0xff003248)),
+                 onPressed: () {
+                   showDialog(
+                     context: context,
+                     builder: (BuildContext context) {
+                       return AlertDialog(
+                         title: const Text('Send Message'),
+                         content: TextField(
+                           onChanged: (value) {
+                             setState(() {
+                               receivedMessage = value;
+                             });
+                           },
+                           decoration: const InputDecoration(
+                             labelText: 'Message',
+                             border: OutlineInputBorder(),
+                           ),
+                         ),
+                         actions: [
+                           ElevatedButton(
+                             style:  ElevatedButton.styleFrom(backgroundColor: Color(0xff003248)),
+                             onPressed: () {
+                               _sendMessageToServer(receivedMessage);
+                               Navigator.of(context).pop();
+                             },
+                             child: const Text('Send'),
+                           ),
+                           ElevatedButton(
+                             style:  ElevatedButton.styleFrom(backgroundColor: Color(0xff003248)),
+                             onPressed: () {
+                               Navigator.of(context).pop();
+                             },
+                             child: const Text('Cancel'),
+                           ),
+                         ],
+                       );
+                     },
+                   );
+                 },
+                 child: const Text('Send Message to Passenger'),
+               )],),)
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: _toggleMode,
-            child: Text(mode == "gesture"
-                ? "Switch to Sign Mode"
-                : "Switch to Gesture Mode"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Send Message'),
-                    content: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          receivedMessage = value;
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        labelText: 'Message',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          _sendMessageToServer(receivedMessage);
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Send'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Cancel'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: const Text('Send Message to Passenger'),
-          ),
-        ],
-      )
+          ],
+        )
+
+
+
           : Center(
         child: CircularProgressIndicator(),
       ),

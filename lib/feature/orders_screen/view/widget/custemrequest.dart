@@ -163,6 +163,7 @@ class trassportrequest extends StatelessWidget {
                           endtpoints: endtpoints,
                           startlocationname: sourceLocation,
                           endlocationname: destinationLocation,
+                          cost: cost,
                         );
 
 

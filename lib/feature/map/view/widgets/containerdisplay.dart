@@ -174,15 +174,15 @@ class setLocationWidget extends StatefulWidget {
 }
 
 class _setLocationWidgetState extends State<setLocationWidget> {
-  Future<void> setvalues()async {
+  Future<void> setvalues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-
-    cost= prefs.getString('cost');
-    startlocationname =prefs.getString('startlocationname');
-    endlocationname  =prefs.getString('endlocationname' );
-
-
+    setState(() {
+      cost = prefs.getString('cost');
+      print("cost us${cost}");
+      startlocationname = prefs.getString('startlocationname');
+      endlocationname = prefs.getString('endlocationname');
+      print('end $endlocationname');
+    });
   }
 
   String? cost;

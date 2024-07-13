@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="16"
-6-->C:\Users\pc2023\AppData\Local\Pub\Cache\hosted\pub.dev\google_api_headers-1.6.0\android\src\main\AndroidManifest.xml
+6-->C:\Users\DELL\AppData\Local\Pub\Cache\hosted\pub.flutter-io.cn\google_api_headers-1.6.0\android\src\main\AndroidManifest.xml
 7        android:targetSdkVersion="16" />
-7-->C:\Users\pc2023\AppData\Local\Pub\Cache\hosted\pub.dev\google_api_headers-1.6.0\android\src\main\AndroidManifest.xml
+7-->C:\Users\DELL\AppData\Local\Pub\Cache\hosted\pub.flutter-io.cn\google_api_headers-1.6.0\android\src\main\AndroidManifest.xml
 8
 9</manifest>

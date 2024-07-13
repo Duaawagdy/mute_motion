@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
+import 'package:mute_motion/core/utils/routing/AppRouter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/feedback_api.dart';
 import 'widgets/Feedback_textField.dart';
@@ -88,7 +90,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   skipBtn(
                     text: 'Skip',
                     onTap: () {
-                      GoRouter.of(context).push('/orders');
+                      approuter.clearAndNavigate(context, "/navbar");
+                      removevalues();
+                      //GoRouter.of(context).push('/navbar');
                     },
                   ),
                   SizedBox(
@@ -107,6 +111,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                             context: context,
                             commentText: feedbackCont,
                       );
+                          removevalues();
                         }
                       }
                     },
@@ -118,5 +123,24 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         ),
       ),
     );
+  }
+  Future<void> removevalues()async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('orderId');
+
+      prefs.remove('startpointslat');
+      prefs.remove('startpointslon');
+
+
+    prefs.remove('endtpointslat');
+    prefs.remove('endtpointslon');
+
+
+     prefs.remove('cost');
+
+    prefs.remove('startlocationname');
+        prefs.remove('endlocationname' );
+
+
   }
 }

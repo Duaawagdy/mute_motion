@@ -4,7 +4,7 @@
             "outputFile": "com.example.mute_motion.app-mergeDebugResources-30:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\pc2023\\.gradle\\caches\\transforms-3\\e47306f1fa323828eb92311bb106298c\\transformed\\media-1.1.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\DELL\\.gradle\\caches\\transforms-3\\e47306f1fa323828eb92311bb106298c\\transformed\\media-1.1.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

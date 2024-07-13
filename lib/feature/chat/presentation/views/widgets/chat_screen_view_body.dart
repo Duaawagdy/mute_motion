@@ -269,8 +269,10 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
  void fetchIds() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     driverId= prefs.getString('userId')!;
+    print(driverId);
     passengerId = prefs.getString('passengerId')!;
-     connectDriver();  
+    print(passengerId);
+     connectDriver();
      fetchChatHistory();
  }
   @override
@@ -285,13 +287,13 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
             .build());
     socket.connect();
     setUpSocketListener();
-   
-  
+
+
   }
 
   @override
   void dispose() {
-    disconnectDriver();  
+    disconnectDriver();
     super.dispose();
   }
 
@@ -302,13 +304,13 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
-            iconSize: 30,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: borderColor,
-            )),
+       //leading: IconButton(
+       //    iconSize: 30,
+       //    onPressed: () {},
+       //    icon: const Icon(
+       //      Icons.arrow_back_ios,
+       //      color: borderColor,
+       //    )),
         title: Text(
           'Passenger',
           textAlign: TextAlign.center,
@@ -459,7 +461,7 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   void sendMessage(String text) {
     var messageJson = {
       "senderId": driverId,
-      "receiverId": passengerId,  
+      "receiverId": passengerId,
       "message": text,
       "senderType": 'driver'
     };
@@ -470,7 +472,7 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   void sendTypingEvent() {
     socket.emit('typing', {
       'senderId': driverId,
-      'receiverId': passengerId, 
+      'receiverId': passengerId,
       'senderType': 'driver'
     });
   }
@@ -478,7 +480,7 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   void sendStopTypingEvent() {
     socket.emit('stop-typing', {
       'senderId': driverId,
-      'receiverId': passengerId, 
+      'receiverId': passengerId,
       'senderType': 'driver'
     });
   }
@@ -506,11 +508,11 @@ class _ChatScreenViewBodyState extends State<ChatScreenViewBody> {
   }
 
   void connectDriver() {
-    socket.emit('connectDriver', {'driverId': driverId}); 
+    socket.emit('connectDriver', {'driverId': driverId});
   }
 
   void disconnectDriver() {
-    socket.emit('disconnectDriver', {'driverId': driverId});  
+    socket.emit('disconnectDriver', {'driverId': driverId});
   }
 
   void fetchChatHistory() async {

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mute_motion/core/utils/routing/AppRouter.dart';
 import 'package:provider/provider.dart';
 import 'package:mute_motion/feature/resgisterscreen/provider/auth_provider.dart';
+import 'feature/map/provider/map_provider.dart';
 import 'models/api_provider.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -64,6 +65,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<AuthProvider>(
               create: (context) => AuthProvider()),
           Provider<ApiProvider>(create: (context) => ApiProvider()),
+          ChangeNotifierProvider<MapProvider>(
+              create: (context) => MapProvider()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
