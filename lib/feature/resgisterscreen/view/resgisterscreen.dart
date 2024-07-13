@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -86,8 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onChanged: (data) {
                                 name = data;
                               },
-                              hintText: 'First name & Last name',
-                              lableText: 'Full name',
+                              lableText: 'First name & Last name',
+                              hintText: "full name",
+
                               icon: Icons.person,
                             ),
                             SizedBox(
@@ -99,8 +101,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 age = data;
                               },
                               icon: Icons.calendar_month,
-                              hintText: 'Age',
                               lableText: 'Age',
+                              hintText: 'Age',
+
                             ),
                             SizedBox(
                               height: 18.h,
@@ -119,26 +122,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return null;
                               },
                               keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                label: Text(
-                                  "Email",
-                                  style: TextStyle(color: borderColor),
-                                ),
+                              decoration:  InputDecoration(
+
+                                hintStyle: const TextStyle(
+                                    color:Color(0xa6002634),fontFamily: 'comfortaa'),
                                 hintText: 'Email',
+                                labelText:'Email',
+                                labelStyle: TextStyle(color:Color(0xe4003248) ),
                                 suffixIcon: Icon(
                                   Icons.mail,
                                   color: borderColor,
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: borderColor,
-                                  ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:  BorderSide(
+                                      color: Color(0x9932394a)),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: borderColor,
-                                  ),
-                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(16)),
                                 prefixIconColor: borderColor,
                               ),
                             ),
@@ -158,21 +160,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: Show_Pass,
                               decoration: InputDecoration(
-                                label: Text(
-                                  "Password",
-                                  style: TextStyle(color: borderColor),
-                                ),
+                                hintStyle: const TextStyle(
+                                    color: Color(0xa6002634),fontFamily: 'comfortaa'),
                                 hintText: 'Password',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: borderColor,
-                                  ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0x9932394a)),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: borderColor,
-                                  ),
-                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(16)),
                                 prefixIconColor: borderColor,
                                 suffixIconColor: borderColor,
                                 suffixIcon: IconButton(
@@ -204,22 +202,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: Show_Pass,
                               decoration: InputDecoration(
-                                label: Text(
-                                  "Confirm Password",
-                                  style: TextStyle(color: borderColor),
-                                ),
+
                                 hintText: 'Confirm Password',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: borderColor,
-                                  ),
+                                hintStyle: const TextStyle(
+                                    color: Color(0xa6002634),fontFamily: 'comfortaa'),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0x9932394a)),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: borderColor,
-                                  ),
-                                ),
-                                prefixIconColor: borderColor,
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(16)),
                                 suffixIconColor: borderColor,
                                 suffixIcon: IconButton(
                                   onPressed: () {
@@ -235,15 +229,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             SizedBox(
                               height: 18.h,
                             ),
-                            CustomTextField(
-                              cont: phoneCont,
-                              onChanged: (data) {
-                                phone = data;
-                              },
-                              hintText: 'Phone',
-                              lableText: 'Phone',
-                              icon: Icons.call,
-                            ),
+                            custemTextField(textEditingController: phoneCont, hintText: 'Phone Number',widget: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+
+                                  margin: const EdgeInsets.only(
+                                      left: 16, right: 16),
+                                  padding: EdgeInsets.only(
+                                      top: 2, bottom: 2),
+                                  decoration: const ShapeDecoration(
+
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 0,
+
+                                            style:
+                                            BorderStyle.solid),
+                                        borderRadius:
+                                        BorderRadius.all(
+                                            Radius.circular(
+                                                5.0)),
+                                      ),
+                                      color: Color(0xff003248)),
+                                  child: Text('+20',style: TextStyle(color: Colors.white,),textAlign: TextAlign.center,),
+                                  width: 40,
+                                  //height: 30,
+                                ),
+                              ],
+                            ),),
+
                             SizedBox(
                               height: 18.h,
                             ),
@@ -256,6 +271,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   top: 2,
                                   left: 1,
                                 ).r,
+
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(
@@ -268,16 +284,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       bottomLeft: Radius.circular(5.r)),
                                 ),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     TextButton(
                                         onPressed: () {
                                           buildShowModalBottomSheet(context);
                                         },
                                         child: Text("Credit Details",textAlign: TextAlign.center,)),
-                                    SizedBox(
-                                      width:212.w,
-                                    ),
+                                  // SizedBox(
+                                  //   width:205.w,
+                                  // ),
                                     IconButton(
                                       onPressed: () {
                                         buildShowModalBottomSheet(context);
@@ -309,7 +326,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       bottomLeft: Radius.circular(5.r)),
                                 ),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     TextButton(
                                         onPressed: () {
@@ -317,15 +335,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           print('done');
                                         },
                                         child: Text("Car Details")),
-                                    SizedBox(
-                                      width: 232.w,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        GoRouter.of(context).push('/cardetails');
-                                        print('done');
-                                      },
-                                      icon: Icon(Icons.chevron_right),
+                                  //  SizedBox(
+                                  //    width: 232.w,
+                                  //  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                   child: IconButton(
+                                     onPressed: () {
+                                       GoRouter.of(context).push('/cardetails');
+                                       print('done');
+                                     },
+                                     icon: Icon(Icons.chevron_right),
+                                   ),
                                     )
                                   ],
                                 )),
@@ -350,7 +371,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           email: emailCont.text,
                                           password: passCont.text,
                                           passwordConfirm: confirm.text,
-                                          phone: phoneCont.text,
+                                          phone: "0${phoneCont.text}",
                                           carnum: provider.numCont.text,
                                           cvv: provider.cvvController.text,
                                           color: provider.colorCont.text,
@@ -426,5 +447,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Card_Details_Screen(),
           );
         });
+  }
+}
+
+class custemTextField extends StatelessWidget {
+  const custemTextField({
+    super.key, required this.textEditingController, required this.hintText, required this.widget,
+  });
+final TextEditingController textEditingController;
+final String hintText;
+final Widget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //margin: const EdgeInsets.only(bottom: 16),
+      child: TextField(
+        controller: textEditingController,
+
+
+        cursorColor: const Color(0x9932394a),
+        keyboardType: TextInputType.phone,
+        maxLength: 10,
+        maxLengthEnforcement:
+        MaxLengthEnforcement.enforced,
+        decoration: InputDecoration(
+            prefixIcon: widget,
+           // suffixIconColor: const Color(0x9932394a),
+
+
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color(0x9932394a)),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            border: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.circular(16)),
+            hintText: hintText,
+            hintStyle: const TextStyle(
+                color: Color(0xa6002634),fontFamily: 'comfortaa'),
+            contentPadding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 8,
+                bottom: 8)),
+      ),
+    );
   }
 }

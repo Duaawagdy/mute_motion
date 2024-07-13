@@ -27,6 +27,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
 
   @override
   void initState() {
+    _locationService.checkLocationPermission();
     super.initState();
 
     SocketIOManager.instance.connect(); // Connect to socket server
@@ -55,7 +56,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
     String? token = prefs.getString("userId");
     print(token);
     if (token == null) {
-      return; 
+      return;
     }
 
     Position position = await _locationService.getLocation();
@@ -69,7 +70,7 @@ class _OrdersScreenState extends State<Orders_Screen> {
       print(isOnline);
     } catch (error) {
       print('Error sending location update: $error');
-  
+
     }
 
 

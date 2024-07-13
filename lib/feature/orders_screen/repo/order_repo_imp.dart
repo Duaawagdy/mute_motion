@@ -1,9 +1,7 @@
-
 import 'package:dio/dio.dart';
 import 'package:mute_motion/core/errors/failures.dart';
 import 'package:mute_motion/feature/orders_screen/view_model/orderModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class OrderRepoImpl {
   void handleError(DioException error) {
@@ -13,45 +11,42 @@ class OrderRepoImpl {
 
   Future<PendingOrdersResponse> fetchNewestOrder() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("token");
-    //print(token);
+    final String? token = prefs.getString("token");
+    print(token);
     final String apiUrl = "https://mutemotion.onrender.com/api/v1/pendingOrders";
+
     try {
-      Response response = await Dio().get(
+      final response = await Dio().get(
         apiUrl,
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Request successful');
-        //print('Raw response data: ${response.data}');
-
-        final pendingOrdersResponse = PendingOrdersResponse.fromJson(response.data);
-        print('passenger  id${pendingOrdersResponse.pendingOrders[0].passengerid}');
-        String? passengerId=pendingOrdersResponse.pendingOrders[0].passengerid;
-        String? orderId=pendingOrdersResponse.pendingOrders[0].orderid;
-        prefs.setString("orderId",orderId!);
-        prefs.setString("passengerId",passengerId!);
-        return pendingOrdersResponse;
-
+        final jsonData = response.data as Map<String, dynamic>;
+        print(jsonData);
+        print(1);
+        final pendingOrdersData = jsonData['pendingOrders'] as List<dynamic>;
+        print(pendingOrdersData);
+        print(2);
+        return PendingOrdersResponse(
+          pendingOrders: pendingOrdersData.map((orderJson) => Order.fromJson(orderJson)).toList(),
+        );
       } else {
-        throw Exception('Failed to load user data');
+        throw Exception('API request failed: ${response.statusCode}');
       }
+    } on DioException catch (error) {
+      handleError(error);
+      rethrow;
     } catch (error) {
-      if (error is DioException) {
-        handleError(error);
-      } else {
-        print('Unexpected error: $error');
-
-      }
+      print('Unexpected error: $error');
       rethrow;
     }
-
   }
-Future<void> onlinetoggle(bool state) async {
+
+  Future<void> onlinetoggle(bool state) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
+    print(token);
     final String apiUrl = "https://mutemotion.onrender.com/api/users/toggle"; // Removed the leading space
 
     try {
@@ -75,20 +70,17 @@ Future<void> onlinetoggle(bool state) async {
     }
   }
 
-
-  Future<void> responedToOrder(String orderId,bool state) async {
-
+  Future<void> responedToOrder(String orderId, bool state) async {
     final String apiUrl = "https://mutemotion.onrender.com/api/v1/respondToRequest"; // Removed the leading space
 
     try {
       Map<String, dynamic> requestBody = {
-        "orderId":orderId,
-        "accept":state
+        "orderId": orderId,
+        "accept": state
       };
       Response response = await Dio().post(
         apiUrl,
         data: requestBody,
-
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('respond successful');
@@ -99,6 +91,4 @@ Future<void> onlinetoggle(bool state) async {
       print(error);
     }
   }
-
-
 }

@@ -14,10 +14,11 @@ class NavDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: darkGreen,
       child: ListView(padding: EdgeInsets.zero, children: [
-        Padding(
-          padding:  EdgeInsets.only(top: 28.h,left: 10.w,bottom: 12.h,),
-          child: driverDetails(),
-        ),
+
+        SizedBox(height: 20.h,),
+        driverDetails(),
+        SizedBox(height: 20.h,),
+
         menubody(),
       ]),
     );
