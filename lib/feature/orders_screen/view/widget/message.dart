@@ -6,6 +6,7 @@ import 'package:mute_motion/feature/map/provider/map_provider.dart';
 import 'package:mute_motion/feature/map/view/map_screen.dart';
 import 'package:mute_motion/feature/orders_screen/repo/order_repo_imp.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class messagerequest extends StatelessWidget {
    messagerequest({super.key,this.orderId,this.endtpoints,this.startpoints,this.cost,this.startlocationname,this.endlocationname});
@@ -73,12 +74,8 @@ String?orderId;
                         onPressed: () {
                           OrderRepoImpl().responedToOrder(orderId!, true);
 
-                        Provider.of<MapProvider>(context, listen: false)
-                            .getMyData(
-                            myLocation:LatLng(startpoints![0], startpoints![1]),
-                            myDestination: LatLng(endtpoints![0], endtpoints![1]),
-                            myCost: cost,
-                            );
+                        Provider.of<MapProvider>(context, listen: false);
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => RouteScreen()),
@@ -109,6 +106,7 @@ String?orderId;
                     child: MaterialButton(
                         onPressed: () {
                           OrderRepoImpl().responedToOrder(orderId!, false);
+                          setvalues();
                           Navigator.of(context).pop();
                         },
                         child: Text(
@@ -124,5 +122,24 @@ String?orderId;
             ],
           ),
         ));
+
   }
+   Future<void> setvalues()async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     if (orderId != null) prefs.setString('orderId', orderId!);
+     if (startpoints != null) {
+       prefs.setDouble('startpointslat', startpoints![0]);
+       prefs.setDouble('startpointslon', startpoints![1]);
+     }
+     if (endtpoints != null) {
+       prefs.setDouble('endtpointslat', startpoints![0]);
+       prefs.setDouble('endtpointslon', startpoints![1]);
+
+     }
+     if (cost != null) prefs.setString('cost', cost!);
+     if (startlocationname != null) prefs.setString('startlocationname', startlocationname!);
+     if (endlocationname != null) prefs.setString('endlocationname',endlocationname! );
+
+
+   }
 }

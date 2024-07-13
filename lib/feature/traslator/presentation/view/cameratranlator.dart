@@ -12,7 +12,8 @@ class cameratranslator extends StatefulWidget {
 }
 
 class _cameratranslatorState extends State<cameratranslator> {
-  late TextEditingController tex = TextEditingController();
+  //late TextEditingController tex = TextEditingController();
+  final TextEditingController _serverUrlController = TextEditingController();
   bool _initialized = false;
   int currentCamera = 0;
   late CameraController controller;
@@ -58,8 +59,8 @@ class _cameratranslatorState extends State<cameratranslator> {
 
   @override
   void dispose() {
-    controller.dispose();
     _stopStreaming();
+    controller.dispose();
     client.close();
     super.dispose();
   }
@@ -80,6 +81,11 @@ class _cameratranslatorState extends State<cameratranslator> {
     });
   }
 
+  void _stopStreaming() {
+    controller.stopImageStream();
+    _timer?.cancel();
+  }
+
   void _connectToServer() {
     if (isStreaming) {
       setState(() {
@@ -87,12 +93,15 @@ class _cameratranslatorState extends State<cameratranslator> {
       });
       _stopStreaming();
     } else {
-
+      final String ip = _serverUrlController.text.trim();
+      if (ip.isEmpty) {
+        return;
+      }
 
       setState(() {
         isStreaming = true;
       });
-      serverUrl = 'http://192.168.1.8:5000';
+      serverUrl = 'http://$ip:5000';
       _startStreaming();
     }
   }
@@ -122,15 +131,15 @@ class _cameratranslatorState extends State<cameratranslator> {
         setState(() {
           gestureLabel = labels['gesture'] ?? "None";
           signLabel = labels['sign'] ?? "None";
-     print(signLabel);
+
           // Check for mode switching gestures
-   //     if (gestureLabel == "thumbsup" && mode != "gesture") {
-   //       mode = "gesture";
-   //       frameRate = 3;
-   //     } else if (gestureLabel == "victory" && mode != "sign") {
-   //       mode = "sign";
-   //       frameRate = 30;
-   //     }
+          if (gestureLabel == "thumbsup" && mode != "gesture") {
+            mode = "gesture";
+            frameRate = 3;
+          } else if (gestureLabel == "victory" && mode != "sign") {
+            mode = "sign";
+            frameRate = 30;
+          }
         });
       } else {
         print('Failed to get labels: ${response.statusCode}');
@@ -141,9 +150,9 @@ class _cameratranslatorState extends State<cameratranslator> {
   }
 
   void _startReceivingMessages() {
-    const fetchInterval = Duration(milliseconds: 500);
+    const fetchInterval = Duration(milliseconds: 500); // Adjust as needed
     _timer = Timer.periodic(fetchInterval, (_) {
-     // _fetchMessagesFromServer();
+      _fetchMessagesFromServer();
     });
   }
 
@@ -192,121 +201,119 @@ class _cameratranslatorState extends State<cameratranslator> {
     });
   }
 
-  void _stopStreaming() {
-    controller.stopImageStream();
-    _timer?.cancel();
-  }
-
-  void switchCamera() async {
-    if (cameras.length > 1) {
-      controller = CameraController(
-          currentCamera == 0 ? cameras[1] : cameras[0], ResolutionPreset.max);
-      await controller.initialize();
-      setState(() => currentCamera = currentCamera == 0 ? 1 : 0);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    if (!controller.value.isInitialized) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
       body: _initialized
           ? Stack(
         children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: double.infinity,
-              child: CameraPreview(controller)),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+          Expanded(
+            child: Center(
+              child: Stack(
+                children: [
+                  CameraPreview(controller),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.black54,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Gesture Label: $gestureLabel',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          ),
+                          Text(
+                            'Sign Label: $signLabel',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Received Message: $receivedMessage',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.black54,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Gesture Label: $gestureLabel',
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 18),
-                      ),
-                      Text(
-                        'Sign Label: $signLabel ',
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.18,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(24)),
-                    color: Colors.grey.shade300,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0,right: 28),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            iconSize: 30,
-                            icon: Icon(
-                              Icons.cameraswitch_outlined,
-                              color: Color(0xff003248),
-                            ),
-                            onPressed: () {
-                              switchCamera();
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff003248),
-                            ),
-                            onPressed: (){
-                              setState(() {
-                                ip='192.168.1.8';
-                              });
-                              _connectToServer();
-
-                            },
-
-                              child: Text(isStreaming
-                                  ? 'Stop \n translation'
-                                  : 'Start translation',
-                              softWrap: true,),
-
-                          ),
-                        ),
-                        SizedBox(width: 15,),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff003248),
-                          ),
-                          onPressed: _toggleMode,
-                          child: Text(mode == "gesture"
-                              ? "Switch to Sign Mode"
-                              : "Switch to Gesture Mode"),
-                        ),
-
-                        //const Spacer(),
-                      ],
+                Expanded(
+                  child: TextField(
+                    controller: _serverUrlController,
+                    decoration: const InputDecoration(
+                      labelText: 'Server IP',
+                      border: OutlineInputBorder(),
                     ),
                   ),
                 ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: _connectToServer,
+                  child:
+                  Text(isStreaming ? 'Stop Streaming' : 'Start Streaming'),
+                ),
               ],
             ),
+          ),
+          ElevatedButton(
+            onPressed: _toggleMode,
+            child: Text(mode == "gesture"
+                ? "Switch to Sign Mode"
+                : "Switch to Gesture Mode"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Send Message'),
+                    content: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          receivedMessage = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Message',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          _sendMessageToServer(receivedMessage);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Send'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: const Text('Send Message to Passenger'),
           ),
         ],
       )

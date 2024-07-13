@@ -4,12 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MapProvider extends ChangeNotifier {
   LatLng? location;
   LatLng? destination;
-  String? cost;
-  Set<Marker> markers = {};
+
+
+
+  getMyData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double ?latitude=prefs.getDouble('startpointslat');
+    double ?longitude=prefs.getDouble('startpointslon');
+    double ?endlatitude=prefs.getDouble('endtpointslat');
+    double ?endlongitude=prefs.getDouble('endtpointslon');
+    location = LatLng(latitude!, longitude!);
+    destination = LatLng(endlatitude!, endlongitude!);
+
+    notifyListeners();
+  }
+
+
   LocationData? currentLocation;
   final String apiKey = 'YOUR_API_KEY';
   GoogleMapController? controller;
