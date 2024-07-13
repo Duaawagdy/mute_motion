@@ -6,15 +6,10 @@ import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
-
-class MapProvider extends ChangeNotifier{
-
-
-
+class MapProvider extends ChangeNotifier {
   LatLng? location;
   LatLng? destination;
+
 
 
   getMyData() async {
@@ -29,8 +24,9 @@ class MapProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+
   LocationData? currentLocation;
-  final String apiKey = 'AIzaSyCzJMVMlvGMUOEmy5Dzpy2mrbicp_gylHk';
+  final String apiKey = 'YOUR_API_KEY';
   GoogleMapController? controller;
   Set<Polyline> polylines = {};
 
@@ -39,84 +35,112 @@ class MapProvider extends ChangeNotifier{
   }
 
   Future<void> getCurrentLocation() async {
-    Location location = new Location();
+    Location locationService = Location();
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
 
-    _serviceEnabled = await location.serviceEnabled();
+    _serviceEnabled = await locationService.serviceEnabled();
     if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
+      _serviceEnabled = await locationService.requestService();
       if (!_serviceEnabled) {
         return;
       }
     }
 
-    _permissionGranted = await location.hasPermission();
+    _permissionGranted = await locationService.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
+      _permissionGranted = await locationService.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
 
-    currentLocation = await location.getLocation();
+    currentLocation = await locationService.getLocation();
+
+    if (currentLocation != null) {
+      markers.add(
+        Marker(
+          markerId: MarkerId('currentLocation'),
+          position: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
+          infoWindow: InfoWindow(
+            title: 'Current Location',
+            snippet: 'Lat: ${currentLocation!.latitude}, Lng: ${currentLocation!.longitude}',
+          ),
+        ),
+      );
+    }
     notifyListeners();
   }
 
   Future<void> getRoute() async {
     if (currentLocation == null) return;
-    String origin = '${currentLocation!.latitude},${currentLocation!.longitude}';
-    double destinationLat = destination?.latitude ?? 0.0;
-    double destinationLng = destination?.longitude ?? 0.0;
 
+    String origin = '${currentLocation!.latitude},${currentLocation!.longitude}';
+    LatLng destination1 = LatLng(30.588484799613905, 31.483259784097342); // First new destination coordinates
+    LatLng destination2 = LatLng(30.046981770486305, 31.230994135789608); // Second new destination coordinates
+
+    List<LatLng> destinations = [destination1, destination2];
     int retryCount = 3;
 
-    for (int attempt = 0; attempt < retryCount; attempt++) {
-      try {
-        print(apiKey.toString());
-        final response = await http.post(
-          Uri.parse(
-            'https://routes.googleapis.com/directions/v2:computeRoutes?key=$apiKey',
-          ),
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration,routes.polyline.encodedPolyline',
-          },
-          body: json.encode({
-            'origin': {'location': {'latLng': {'latitude': location!.latitude, 'longitude': location!.longitude}}},
-            'destination': {'location': {'latLng': {'latitude': destination!.latitude, 'longitude': destination!.longitude}}},
-            'travelMode': 'DRIVE',
-          }),
-        ).timeout(const Duration(seconds: 30)); // Increase the timeout duration
-          print(response.body.toString());
-          print(response.statusCode.toString());
-        if (response.statusCode == 200) {
-          final data = json.decode(response.body);
+    for (LatLng destination in destinations) {
+      for (int attempt = 0; attempt < retryCount; attempt++) {
+        try {
+          print(apiKey);
+          final response = await http.post(
+            Uri.parse(
+              'https://routes.googleapis.com/directions/v2:computeRoutes?key=$apiKey',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration,routes.polyline.encodedPolyline',
+            },
+            body: json.encode({
+              'origin': {'location': {'latLng': {'latitude': currentLocation!.latitude, 'longitude': currentLocation!.longitude}}},
+              'destination': {'location': {'latLng': {'latitude': destination.latitude, 'longitude': destination.longitude}}},
+              'travelMode': 'DRIVE',
+            }),
+          ).timeout(const Duration(seconds: 30)); // Increase the timeout duration
+          print(response.body);
+          print(response.statusCode);
+          if (response.statusCode == 200) {
+            final data = json.decode(response.body);
 
-          if (data['routes'] != null && data['routes'].isNotEmpty) {
-            final encodedPolyline = data['routes'][0]['polyline']['encodedPolyline'];
-            List<LatLng> polylineCoordinates = _decodePolyline(encodedPolyline);
-
+            if (data['routes'] != null && data['routes'].isNotEmpty) {
+              final encodedPolyline = data['routes'][0]['polyline']['encodedPolyline'];
+              List<LatLng> polylineCoordinates = _decodePolyline(encodedPolyline);
 
               polylines.add(
                 Polyline(
-                  polylineId: PolylineId('route'),
+                  polylineId: PolylineId('route_${destination.latitude}_${destination.longitude}'), // Unique ID for each route
                   points: polylineCoordinates,
                   color: Colors.blue,
                   width: 5,
                 ),
               );
-            controller?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-              target: destination!,
-              zoom: 12,
-            )));
-            notifyListeners();
-            break; // Exit loop if successful
+
+              markers.add(
+                Marker(
+                  markerId: MarkerId('marker_${destination.latitude}_${destination.longitude}'), // Unique ID for each marker
+                  position: destination,
+                  infoWindow: InfoWindow(
+                    title: 'Destination',
+                    snippet: 'Lat: ${destination.latitude}, Lng: ${destination.longitude}',
+                  ),
+                ),
+              );
+
+              controller?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+                target: destination,
+                zoom: 12,
+              )));
+              notifyListeners();
+              break; // Exit loop if successful
+            }
           }
-        }
-      } catch (e) {
-        if (attempt < retryCount - 1) {
-          await Future.delayed(const Duration(seconds: 2)); // Wait before retrying
+        } catch (e) {
+          if (attempt < retryCount - 1) {
+            await Future.delayed(const Duration(seconds: 2)); // Wait before retrying
+          }
         }
       }
     }
