@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mute_motion/core/utils/constant.dart';
 
 import '../../data/feedback_api.dart';
@@ -86,7 +87,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 children: [
                   skipBtn(
                     text: 'Skip',
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).push('/orders');
+                    },
                   ),
                   SizedBox(
                     width: 10.w,

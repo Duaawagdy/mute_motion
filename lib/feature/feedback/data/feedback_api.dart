@@ -93,6 +93,9 @@ class RatingApi {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           backgroundColor: Colors.white,
           title: Text(
             title,
